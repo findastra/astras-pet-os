@@ -108,6 +108,10 @@ select{font:inherit;font-size:15px;color:var(--ink);background:#101016;border:1p
 .segs{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
 .dotbox{display:grid;justify-items:center;gap:8px}
 .fams{display:grid;gap:8px}
+.fams.made .dot{opacity:.45;filter:saturate(.6)}
+.fams.made .dot input{pointer-events:none}
+.switch input{width:18px;height:18px;vertical-align:-3px;accent-color:var(--cyan);margin-right:6px}
+#nowPlaying i{display:inline-block;width:12px;height:12px;border-radius:50%;vertical-align:-1px;margin-right:6px;background:var(--songc,#888)}
 .fam{display:grid;grid-template-columns:11em 1fr;align-items:center;gap:10px;color:var(--soft);font-size:15px}
 .metro{display:flex;align-items:center;gap:8px;color:var(--soft);font-size:13px;font-variant-numeric:tabular-nums}
 .metro i{width:14px;height:14px;border-radius:50%;background:var(--mc,#ffb02b)}
@@ -147,6 +151,7 @@ select{font:inherit;font-size:15px;color:var(--ink);background:#101016;border:1p
         <button class="quiet" id="refresh" type="button" hidden>Show what it hears now</button>
       </div>
       <p class="hear" id="hear"></p>
+      <p class="hear" id="nowPlaying" hidden></p>
       <div class="bands" id="bands" role="img" aria-label="How loud each part of the song is, from the kick to the hi-hats"></div>
     </div>
     <div class="line" id="line" role="img" aria-label="The sound from the lowest to the highest notes, as the Light Strip's 15 sections show it in Wavelength line"></div>
@@ -178,7 +183,9 @@ select{font:inherit;font-size:15px;color:var(--ink);background:#101016;border:1p
 
   <section class="card" aria-labelledby="colourTitle">
     <h2 id="colourTitle">Colours</h2>
-    <p class="hint">Colour groups: each part’s own family of colours, used when colours come from Colour groups.</p>
+    <label class="choice switch"><span><input type="checkbox" id="songColors"> Song colour converter</span>
+      <span class="hint">Each song gets its own colour families, made from one base colour and a harmony, so the next song looks different. Turn it off to use your own colour groups below.</span></label>
+    <p class="hint" id="groupsSaid">Colour groups: each part’s own family of colours, used when colours come from Colour groups.</p>
     <div class="fams" id="groups"></div>
     <p class="hint">The palette: the colours every beat steps through.</p>
     <div class="swatches" id="palette"></div>
@@ -268,8 +275,11 @@ const WHITES = [['both', 'Drops and accents', 'Every light flashes white for Whi
   ['drops', 'Drops only', 'Every light flashes white on drops only.'],
   ['accents', 'Accents only', 'Every light flashes white on the hardest kicks only.'],
   ['off', 'Never', 'No white flashes: colours only.']];
-const KEYBOARD = [['ripple', 'Ripple', 'Each hit sends a ripple of colour across the keys.'],
+const KEYBOARD = [['auto', 'Changes with the song', 'A new pattern and colour family at every song section (ripple, spectrum, sparkle, sweep, gradient).'],
+  ['ripple', 'Ripple', 'Each hit sends a ripple of colour across the keys.'],
   ['spectrum', 'Spectrum', 'The keys show the sound from low to high, like the line.'],
+  ['sparkle', 'Sparkle', 'Keys sparkle in their part’s colours on the hits.'],
+  ['sweep', 'Sweep', 'A band of colour sweeps across the keys.'],
   ['gradient', 'Gradient', 'A colour gradient across the keys, in its part’s colours.'],
   ['solid', 'Solid', 'Every key the same colour, like the other lights.']];
 const STRIPS = [['blocks', 'Colour blocks', 'Five blocks of three sections, each a different palette colour, moving on by a block on each beat.'],
@@ -311,7 +321,7 @@ const FEEL = [['brightness', 'Brightness', 5, 100, 1, '%', ''],
 // light-hive-server 1.14.0's own starting settings: each device a job, each part a colour family.
 const GROUPS = { bass: ['#ff0040', '#ff2bd6'], 'low-mid': ['#ff2bd6', '#ff0040'], mid: ['#9e00ff', '#6a2bff'], 'high-mid': ['#00e5ff', '#2bffd5'],
   treble: ['#2b5bff', '#00b3ff'], beat: ['#9e00ff', '#ff2bd6'], tempo: ['#ffb02b', '#ff7a00'], section: ['#9e00ff', '#ff2bd6', '#00e5ff'] };
-const DEFAULTS = { mode: 'pulse', line: 'segments', scale: 'blocks', colors_by: 'groups', change_on: 'both', white: 'both', keyboard: 'ripple',
+const DEFAULTS = { mode: 'pulse', line: 'segments', scale: 'blocks', colors_by: 'groups', change_on: 'both', white: 'both', keyboard: 'auto', song_colors: true,
   strip: 'blocks', beat_on: 'any', order: 'cycle', segments: ['high-mid', 'bass', 'high-mid'], groups: GROUPS,
   palette: ['#9e00ff', '#ff2bd6', '#00e5ff', '#2b5bff'], band_colors: ['#ff0040', '#ff7a00', '#39ff14', '#00e5ff', '#9e00ff'],
   brightness: 60, flash: 100, base: 0, hold_ms: 200, change_every: 16, heat: 0, wave_speed: 30, wave_tail: 4, white_ms: 180,
@@ -323,7 +333,9 @@ const PRESETS = [
   // Astra: "i like the speed but its lacking structure. can you divide up by device for what makes sense ... can we do
   // color groupings" (light-hive-server 1.14.0): each device its job, each part its colour family, blocks. 1.14.1: "make
   // that the squiggle and put the all the hard hitting music on the light strip": the strip is snares, kick, snares.
-  { name: 'Song structure', set: { mode: 'pulse', colors_by: 'groups', groups: GROUPS, keyboard: 'ripple', line: 'segments',
+  // 1.15.0: "dont be afraid to switch up the patterns and colors on it between chrous", "we need some kind of color
+  // converter for songs": the keyboard changes with the song, and each song makes its own colour families.
+  { name: 'Song structure', set: { mode: 'pulse', colors_by: 'groups', groups: GROUPS, keyboard: 'auto', song_colors: true, line: 'segments',
     segments: ['high-mid', 'bass', 'high-mid'], scale: 'blocks', assign: DEFAULTS.assign } },
   // Astra: "it needs to be mostly black and any "hit" activates a line segment"; then "too bright" (flash 35); then
   // faster (hold 100 ms); then "Catch more hits" (sensitivity 11, gap 60 ms; light-hive-server 1.12.0).
@@ -372,6 +384,7 @@ function clean(s) {
   const out = { palette: pal.length >= 1 ? pal : DEFAULTS.palette.slice(), band_colors: bc.length === 5 ? bc : DEFAULTS.band_colors.slice(),
     segments: segs.length ? segs : DEFAULTS.segments.filter((p) => OPTS.part.includes(p)), assign: {}, side: {} };
   for (const k of CHOICE_KEYS) out[k] = one(s[k], OPTS[k], one(DEFAULTS[k], OPTS[k], OPTS[k][0]));
+  out.song_colors = typeof s.song_colors === 'boolean' ? s.song_colors : DEFAULTS.song_colors;
   // Each part's colour family: 1 to 6 colours.
   out.groups = {};
   for (const p of OPTS.part) {
@@ -414,7 +427,7 @@ async function post(turn, note) {
 }
 // Settings the server has and this page has no words for (it keeps learning new ones): a list when the server offers
 // its choices, a number box for a number. They go to the server as they are; it checks and limits every value.
-const KNOWN = new Set([...CHOICE_KEYS, 'segments', 'groups', 'palette', 'band_colors', 'assign', 'side', ...FEEL.map((f) => f[0])]);
+const KNOWN = new Set([...CHOICE_KEYS, 'segments', 'groups', 'song_colors', 'palette', 'band_colors', 'assign', 'side', ...FEEL.map((f) => f[0])]);
 let moreSig = '';
 function more(r) {
   const st = r.settings && typeof r.settings === 'object' ? r.settings : {}, op = r.options && typeof r.options === 'object' ? r.options : {};
@@ -508,6 +521,7 @@ function build() {
     $('feel').append(box);
   }
   lightRows();
+  $('songColors').addEventListener('change', () => change({ song_colors: $('songColors').checked }));
 }
 function lightRows() {   // the main table: one row per light the server drives, and the part of the song it follows
   $('lights').replaceChildren();
@@ -539,6 +553,46 @@ function swatch(colour, label, onColour, onRemove) {
   if (onRemove) { const x = el('button', 'x', '✕'); x.type = 'button'; x.setAttribute('aria-label', 'Remove ' + label); x.addEventListener('click', onRemove); sw.append(x); }
   return sw;
 }
+// The song colour converter, as light-hive-server 1.15.0 makes it: the song's base colour and harmony place each part
+// on the colour wheel, and each family is that colour plus one 18 degrees on. Shown here so the greyed swatches are the
+// song's real colours; the song's title is only shown, never kept.
+const SONG_PARTS = ['bass', 'low-mid', 'mid', 'high-mid', 'treble', 'beat', 'tempo', 'section'];
+const HARMONY = { analogous: [0, 25, 50, 75, 100, 0, 140, 50], complementary: [0, 20, 180, 200, 160, 0, 90, 180], triadic: [0, 30, 120, 150, 240, 0, 60, 120] };
+function hsvHex(h, s, v) {
+  h = ((h % 360) + 360) % 360; const c = v * s, x = c * (1 - Math.abs((h / 60) % 2 - 1)), m = v - c;
+  const [r, g, b] = h < 60 ? [c, x, 0] : h < 120 ? [x, c, 0] : h < 180 ? [0, c, x] : h < 240 ? [0, x, c] : h < 300 ? [x, 0, c] : [c, 0, x];
+  return '#' + [r, g, b].map((n) => Math.floor((n + m) * 255).toString(16).padStart(2, '0')).join('');
+}
+function songFamilies() {
+  const song = live && live.song && typeof live.song === 'object' ? live.song : null, hue = song ? Number(song.hue) : NaN, off = song && HARMONY[song.harmony];
+  if (!off || !Number.isFinite(hue)) return null;
+  return Object.fromEntries(SONG_PARTS.map((p, i) => [p, [hsvHex(hue + off[i], 1, 1), hsvHex(hue + off[i] + 18, 0.85, 1)]]));
+}
+let groupsSig = '';
+function renderGroups() {   // a row per part: its family of 1 to 6 colours, or the song's own when the converter is on
+  const made = S.song_colors ? songFamilies() : null, fams = $('groups');
+  const sig = JSON.stringify([S.song_colors, made, S.groups, OPTS.part]);
+  if (sig === groupsSig) return; groupsSig = sig;
+  fams.replaceChildren(); fams.classList.toggle('made', S.song_colors);
+  $('groupsSaid').textContent = !S.song_colors ? 'Colour groups: each part’s own family of colours, used when colours come from Colour groups.'
+    : made ? 'Colour groups: made from the song while the song colour converter is on.' : 'Colour groups: made from the song while the converter is on (waiting for a song).';
+  for (const p of OPTS.part) {
+    const name = nameOf('part', p)[1], row = el('div', 'fam'), sws = el('div', 'swatches');
+    if (S.song_colors) {
+      for (const [i, c] of ((made && made[p]) || S.groups[p]).entries()) { const sw = swatch(c, name + ' colour ' + (i + 1) + ', made from the song', () => {}, null); sw.querySelector('input').disabled = true; sws.append(sw); }
+    } else {
+      const fam = S.groups[p], set = (next) => change({ groups: { ...S.groups, [p]: next } });
+      fam.forEach((c, i) => sws.append(swatch(c, name + ' colour ' + (i + 1), (v) => set(fam.map((x, j) => (j === i ? v : x))),
+        fam.length > 1 ? () => set(fam.filter((x, j) => j !== i)) : null)));
+      if (fam.length < 6) {
+        const add = el('button', 'add', '+'); add.type = 'button'; add.setAttribute('aria-label', 'Add a colour to ' + name);
+        add.addEventListener('click', () => set(fam.concat(S.palette[fam.length % S.palette.length]))); sws.append(add);
+      }
+    }
+    row.append(el('span', null, name), sws); fams.append(row);
+  }
+  tell();
+}
 function fill() {
   for (const [key] of CHOICES) {
     $('pick-' + key).value = S[key];
@@ -558,19 +612,8 @@ function fill() {
   }
   const bc = $('bandColors'); bc.replaceChildren();
   S.band_colors.forEach((c, i) => { const sw = swatch(c, BANDS[i] + ' colour', (v) => change({ band_colors: S.band_colors.map((x, j) => (j === i ? v : x)) }), null); sw.append(el('span', null, BANDS[i])); bc.append(sw); });
-  // Colour groups: a row per part, its family of 1 to 6 colours.
-  const fams = $('groups'); fams.replaceChildren();
-  for (const p of OPTS.part) {
-    const fam = S.groups[p], name = nameOf('part', p)[1], row = el('div', 'fam'), sws = el('div', 'swatches');
-    const set = (next) => change({ groups: { ...S.groups, [p]: next } });
-    fam.forEach((c, i) => sws.append(swatch(c, name + ' colour ' + (i + 1), (v) => set(fam.map((x, j) => (j === i ? v : x))),
-      fam.length > 1 ? () => set(fam.filter((x, j) => j !== i)) : null)));
-    if (fam.length < 6) {
-      const add = el('button', 'add', '+'); add.type = 'button'; add.setAttribute('aria-label', 'Add a colour to ' + name);
-      add.addEventListener('click', () => set(fam.concat(S.palette[fam.length % S.palette.length]))); sws.append(add);
-    }
-    row.append(el('span', null, name), sws); fams.append(row);
-  }
+  $('songColors').checked = S.song_colors;
+  renderGroups();
   for (const b of $('presets').children) {
     const p = PRESETS.find((x) => x.name === b.dataset.preset);
     b.setAttribute('aria-pressed', String(!!p && presetOn(p)));
@@ -590,7 +633,10 @@ const BAND_IDS = ['bass', 'low-mid', 'mid', 'high-mid', 'treble'];
 const lastWall = {}, wallAt = [0, 0, 0, 0, 0], wallT = [0, 0, 0, 0, 0];
 function partColour(p) {
   const k = BAND_IDS.indexOf(p), n = S.palette.length;
-  if (S.colors_by === 'groups') { const fam = S.groups[p] || [S.palette[0]]; return fam[(Number(live && live.sections) || 0) % fam.length]; }
+  if (S.colors_by === 'groups') {
+    const made = S.song_colors ? songFamilies() : null, fam = (made && made[p]) || S.groups[p] || [S.palette[0]];
+    return fam[(Number(live && live.sections) || 0) % fam.length];
+  }
   if (S.colors_by === 'parts') return k >= 0 ? S.band_colors[k] : S.palette[beatIndex % n];
   if (S.colors_by === 'components') return S.palette[(beatIndex + Math.max(0, OPTS.part.indexOf(p))) % n];
   return S.palette[beatIndex % n];
@@ -664,6 +710,15 @@ function drawLive() {
   if (live && Number.isFinite(Number(live.drops))) facts.push(Number(live.drops) + (Number(live.drops) === 1 ? ' drop' : ' drops'));
   if (live && Number.isFinite(Number(live.accents))) facts.push(Number(live.accents) + (Number(live.accents) === 1 ? ' accent' : ' accents'));
   song.textContent = facts.join(' · '); song.hidden = !facts.length;
+  // Now playing (from Spotify's window, through the server): only shown, never kept.
+  const np = $('nowPlaying'), info = live && live.song && typeof live.song === 'object' ? live.song : null;
+  const title = info && typeof info.title === 'string' ? info.title.slice(0, 120) : '';
+  np.hidden = !title; np.replaceChildren();
+  if (title) {
+    const dot = el('i'); const fam = songFamilies(); if (fam) np.style.setProperty('--songc', fam.bass[0]);
+    np.append(dot, document.createTextNode('♪ ' + title + (info.harmony ? ' · ' + String(info.harmony) + (S.song_colors ? ' colours' : ' colours (converter off)') : '')));
+  }
+  renderGroups();
   // The mouse pad's metronome: an even tick on its own timer. The dot ticks on this page's own clock at the same gap
   // (re-timed only when the gap changes), because asking four times a second can't show an even beat.
   const m = live && live.metronome && typeof live.metronome === 'object' ? live.metronome : null, metro = $('metro');

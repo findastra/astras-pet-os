@@ -108,6 +108,23 @@ groupings".
   - the keyboard's picture (ripple, spectrum, gradient, solid);
   - a metronome dot that ticks evenly at the mouse pad's tempo, timed on the page from the server's gap, with its BPM.
 
+## Song colours and the keyboard (light-hive-server 1.15.0, later 2026-11-27)
+
+Astra: "keyboard looks fire, dont be afraid to switch up the patterns and colors on it between chrous", "we need some
+kind of color converter for songs, like something so that the colors dont seem the same per song".
+
+- **The keyboard's picture** adds Changes with the song (auto, the new default: a new pattern and colour family at every
+  song section), Sparkle and Sweep.
+- **The song colour converter** is a switch. Each song gets its own colour families from a base colour and a harmony.
+  While it's on, the colour-group rows are greyed and show the song's colours. The page works them out the same way the
+  server does: each part's place on the colour wheel for that harmony, plus a second colour 18 degrees on. Turning it
+  off makes the rows yours to edit again.
+- **Now playing:** the song's title, from Spotify's window through the server, and its harmony. It is only shown on the
+  page and never kept.
+- **Song structure** adds the keyboard on auto and the converter on.
+- **Newer settings:** the server's newer `strobe_count`, `strobe_div` and `accent` appear under More from the server
+  until the page has words for them.
+
 ## The flash limit is off (light-hive-server 1.11.0, later 2026-11-27)
 
 Astra: "i think we need it to be faster, like ignore epilepsy". The six-a-second limit above is gone for her own room;
