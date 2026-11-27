@@ -4,7 +4,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
-import { LIST, draftList } from '../scripts/prepare-desktop-drafts-20261011.mjs';
+import { LIST, draftList, missingFromDesktop } from '../scripts/prepare-desktop-drafts-20261011.mjs';
 import { checkDrafts } from '../scripts/one-art-source-20261017.mjs';
 
 const hub = (rel) => fileURLToPath(new URL('../' + rel, import.meta.url));
@@ -30,4 +30,15 @@ test('Claude Bot is the one private entry, and it names his repo, never a path o
 
 test('the committed list is what scripts/prepare-desktop-drafts-20261011.mjs writes', () => {
   assert.deepEqual(list, draftList());
+});
+
+// Astra, 2026-11-27: "make sure all 85 or so are showing when I open it, use their host locations in friendly farmer".
+// Claude Opus 5.5, 2026-11-27.
+test("every pet on the Friendly Farmer's list comes out on the desktop, once", () => {
+  assert.deepEqual(missingFromDesktop(list), []);
+  const registry = JSON.parse(readFileSync(hub('pets.json'), 'utf8'));
+  const ids = [...registry.pets.map((p) => p.art), ...list.pets.map((p) => p.id)];
+  assert.deepEqual(ids.filter((id, i) => ids.indexOf(id) !== i), [], 'two desktop pets share an id');
+  const programs = JSON.parse(readFileSync(hub('pet-programs.json'), 'utf8')).programs;
+  assert.equal(ids.length, programs.length, 'one desktop pet per pet program');
 });

@@ -570,6 +570,14 @@
       }
     }
   },
+  "hosts": {
+    "about": "The devices that have joined this farm (Astra, 2026-11-27: one farm across all your devices, every pet once). Each key is a System Map node in category Device, named by its kind only, never a model, computer name or address (PROTECTION-RINGS.md, known gap 12). A pet's `server` runs on exactly one host, the one named in its `host`. Astra (L4) approves every device that joins. A record, not a lock: Startup Star and the Linux package do not read `host` yet (card 451), so a farm still runs on one computer. Not the Friendly Farmer's `role: \"host\"`.",
+    "windows-pc": {
+      "os": "windows",
+      "agent": "startup-star",
+      "job": "The desktop PC, the farm's first computer: Startup Star runs the desktop pets and every pet server here."
+    }
+  },
   "pets": [
     {
       "repo": "astras-pet-os",
@@ -1716,6 +1724,8 @@
       "added": "2026-10-08",
       "version": "0.1.0",
       "version_assigned": true,
+      "server": "audio-rescue-server-20261127.exe",
+      "host": "windows-pc",
       "note": "DRAFT. A compact neckless grey bug with red and black details, shown at the standard pet height. Made with OpenAI Codex (GPT-6) on 2026-10-08. Audio repair runs in the separate local Windows app; browser moods do not measure audio health. Source in the private repo findastra/voicemeeter-bug since 2026-10-11.",
       "interface_local_url": "apps/pet-programs/voicemeeter-bug-20261018.html",
       "interface_url": "apps/pet-programs/voicemeeter-bug-20261018.html",
@@ -1844,6 +1854,8 @@
       "status": "hatching",
       "published": true,
       "job": "Observability: correlates logs, traces, health and failures.",
+      "server": "bin/log-den-server-20261126.exe",
+      "host": "windows-pc",
       "added": "2026-10-18",
       "version": "0.1.2-20261019",
       "note": "DRAFT art, generated 2026-10-19 with Astra's OK: an electric-teal lynx with navy spots, tangerine ear tufts and a lime logbook. A Windows tray program (built on the PC, started at sign-in from a Startup-folder shortcut); its page shows live records only on Astra's PC.",
@@ -1917,6 +1929,8 @@
       "status": "hatching",
       "published": true,
       "job": "Network: packet loss, DNS, latency, routing.",
+      "server": "bin/packet-river-server-20261126.exe",
+      "host": "windows-pc",
       "added": "2026-10-18",
       "version": "0.1.2-20261019",
       "note": "DRAFT art, generated 2026-10-19 with Astra's OK: an aqua-cyan piranha with a crimson belly, lemon fins and a toothy underbite. A Windows tray program (built on the PC, started at sign-in from a Startup-folder shortcut); its page shows live records only on Astra's PC.",
@@ -1997,6 +2011,8 @@
       "status": "hatching",
       "published": true,
       "job": "Incident timelines and log analysis.",
+      "server": "bin/evidence-locker-server-20261126.exe",
+      "host": "windows-pc",
       "added": "2026-10-18",
       "version": "0.1.2-20261019",
       "note": "DRAFT art, generated 2026-10-19 with Astra's OK: a golden-yellow ferret with a violet bandit mask and a hot pink magnifying glass. A Windows tray program (built on the PC, started at sign-in from a Startup-folder shortcut); its page shows live records only on Astra's PC.",
@@ -2677,6 +2693,7 @@
       "version": "0.1.0",
       "version_assigned": true,
       "server": "wonderland-launchpad-server-20261121.exe",
+      "host": "windows-pc",
       "interface_local_url": "apps/pet-programs/rift-rabbit-20261018.html",
       "interface_url": "apps/pet-programs/rift-rabbit-20261018.html",
       "audit": {
@@ -2934,6 +2951,11 @@
         ],
         "programs": [
           {
+            "node": "web-browser",
+            "how": "required",
+            "why": "The Stream Deck + deck runs in the browser and hears the real deck through WebHID (Edge)."
+          },
+          {
             "node": "stream-deck",
             "how": "optional",
             "why": "Installed (7.6.1); Deck Duck's Stream Deck plugin and its art-link-tool run inside it. Deck Duck works without it."
@@ -3094,6 +3116,7 @@
       "added": "2026-10-18",
       "version": "0.3.0",
       "server": "workflow-whirlpool-server-20261120.mjs",
+      "host": "windows-pc",
       "interface_local_url": "apps/pet-programs/workflow-whirlpool-20261018.html",
       "interface_url": "apps/pet-programs/workflow-whirlpool-20261018.html",
       "app_url": "https://findastra.github.io/astras-pet-os/apps/workflow-whirlpool-20261018.html",
@@ -3165,7 +3188,13 @@
           "macos"
         ],
         "pets": [],
-        "core": [],
+        "core": [
+          {
+            "part": "startup-star",
+            "how": "optional",
+            "why": "Startup Star shows Linux Penguin on the desktop; Linux Iceberg's page works without it."
+          }
+        ],
         "programs": [
           {
             "node": "macattack",
@@ -3202,6 +3231,7 @@
       "added": "2026-10-21",
       "version": "0.1.0-20261021",
       "server": "bin/kernel-grove-server-20261120.exe",
+      "host": "windows-pc",
       "audit": {
         "cadence": "weekly",
         "subject": "what runs on the PC: leftovers, memory and what starts at sign-in",
@@ -3222,7 +3252,13 @@
             "why": "Log Den owns the farm event format and the background-pet contract Kernel Grove is built with."
           }
         ],
-        "core": [],
+        "core": [
+          {
+            "part": "startup-star",
+            "how": "optional",
+            "why": "Startup Star shows Kernel Koala on the desktop; Kernel Grove's page works without it."
+          }
+        ],
         "programs": []
       },
       "tools": [
@@ -3265,6 +3301,7 @@
       "added": "2026-10-23",
       "version": "0.1.0-20261023",
       "server": "bin/benchmark-rock-server-20261120.exe",
+      "host": "windows-pc",
       "audit": {
         "cadence": "weekly",
         "subject": "the graphics cards: their memory, how busy they are and what is using them",
@@ -3290,7 +3327,13 @@
             "why": "Kernel Grove's Stop it is where a program that holds the graphics card is stopped; Benchmark Rock only looks and opens it."
           }
         ],
-        "core": [],
+        "core": [
+          {
+            "part": "startup-star",
+            "how": "optional",
+            "why": "Startup Star shows Inference Iguana on the desktop; Benchmark Rock's page works without it."
+          }
+        ],
         "programs": [
           {
             "node": "unity-editor",
@@ -3698,7 +3741,13 @@
       "needs": {
         "os": [],
         "pets": [],
-        "core": [],
+        "core": [
+          {
+            "part": "startup-star",
+            "how": "optional",
+            "why": "Startup Star shows Skill Scout on the desktop; Luna's Log's page works without it."
+          }
+        ],
         "programs": [
           {
             "node": "nodejs",
@@ -3737,7 +3786,13 @@
       "needs": {
         "os": [],
         "pets": [],
-        "core": [],
+        "core": [
+          {
+            "part": "startup-star",
+            "how": "optional",
+            "why": "Startup Star shows Journal Jellyfish on the desktop; Journal Lagoon's page works without it."
+          }
+        ],
         "programs": []
       },
       "tools": [
@@ -3804,7 +3859,13 @@
       "needs": {
         "os": [],
         "pets": [],
-        "core": [],
+        "core": [
+          {
+            "part": "startup-star",
+            "how": "optional",
+            "why": "Startup Star shows AI Dashund on the desktop; AI Doghouse's page works without it."
+          }
+        ],
         "programs": [
           {
             "node": "context7",
@@ -3918,6 +3979,44 @@
       "added": "2026-11-02",
       "version": "v0.1.0",
       "server": "scripts/white-hat-lab-server-20261120.mjs",
+      "host": "windows-pc",
+      "checks": {
+        "tool:port-check-tool": {
+          "result": "works",
+          "note": "Its tool box shows the newest private assessment on your PC. A new port check still waits on your OK each time.",
+          "on": "2026-11-27"
+        },
+        "tool:port-watch-tool": {
+          "result": "works",
+          "note": "White Hat Lab's server is running and writes a fresh look every 10 minutes.",
+          "on": "2026-11-27"
+        },
+        "tool:tp-link-tool": {
+          "result": "issues",
+          "note": "The router answers at tplinkwifi.net, and the button now opens it in a new tab of your own browser or phone. In the Claude chat's browser pane it stays blank on \"Opening...\": the pane blocks the router's own scripts.",
+          "on": "2026-11-27"
+        },
+        "tool:ghost-in-the-walls-tool": {
+          "result": "works",
+          "note": "It reads the guest list every 30 minutes, read only, and keeps the record on your PC. It records devices that got on; the router keeps no record of tries that failed.",
+          "on": "2026-11-27"
+        },
+        "third-party:wireshark": {
+          "result": "works",
+          "note": "Wireshark 4.6.9 is installed and its TShark answered.",
+          "on": "2026-11-27"
+        },
+        "third-party:mcp-inspector": {
+          "result": "missing",
+          "note": "Planned (hub card 319): not set up on this PC yet.",
+          "on": "2026-11-27"
+        },
+        "third-party:macattack": {
+          "result": "missing",
+          "note": "An idea: Kali on the old MacBook is not set up for White Hat Lab yet.",
+          "on": "2026-11-27"
+        }
+      },
       "audit": {
         "cadence": "weekly",
         "subject": "authorized security tests, port checks of your devices and the scan log",
@@ -3934,7 +4033,13 @@
       "needs": {
         "os": [],
         "pets": [],
-        "core": [],
+        "core": [
+          {
+            "part": "startup-star",
+            "how": "optional",
+            "why": "Startup Star shows White Hat Weasel on the desktop; White Hat Lab's page works without it."
+          }
+        ],
         "programs": [
           {
             "node": "mcp-inspector",
@@ -3945,6 +4050,16 @@
             "node": "wireshark",
             "how": "optional",
             "why": "Traffic recordings when a check needs one (Astra, 2026-11-17)."
+          },
+          {
+            "node": "tplinkrouterc6u",
+            "how": "required",
+            "why": "The Ghost In The Walls reader signs in to the router with it, read only (Astra, 2026-11-26: \"Start the tracker\")."
+          },
+          {
+            "node": "rea",
+            "how": "optional",
+            "why": "Taking a program apart when a check needs it, through White Hat Lab's reverse-engineer-anything skill (white-hat-lab#12, 2026-11-20)."
           }
         ]
       }
@@ -3968,7 +4083,13 @@
       "needs": {
         "os": [],
         "pets": [],
-        "core": [],
+        "core": [
+          {
+            "part": "startup-star",
+            "how": "optional",
+            "why": "Startup Star shows Gatekeeper Goddess on the desktop; Iron Gates' page works without it."
+          }
+        ],
         "programs": []
       }
     },
@@ -3991,7 +4112,13 @@
       "needs": {
         "os": [],
         "pets": [],
-        "core": [],
+        "core": [
+          {
+            "part": "startup-star",
+            "how": "optional",
+            "why": "Startup Star shows Cipher Owl on the desktop; Cipher Hollow's page works without it."
+          }
+        ],
         "programs": []
       }
     },
@@ -4014,7 +4141,13 @@
       "needs": {
         "os": [],
         "pets": [],
-        "core": [],
+        "core": [
+          {
+            "part": "startup-star",
+            "how": "optional",
+            "why": "Startup Star shows Roaming Raven on the desktop; Roam Map's page works without it."
+          }
+        ],
         "programs": []
       }
     },
@@ -4037,7 +4170,13 @@
       "needs": {
         "os": [],
         "pets": [],
-        "core": [],
+        "core": [
+          {
+            "part": "startup-star",
+            "how": "optional",
+            "why": "Startup Star shows Pet Police Officer on the desktop; The Police Station's page works without it."
+          }
+        ],
         "programs": []
       }
     },
@@ -4050,6 +4189,7 @@
       "added": "2026-11-03",
       "version": "0.1.0-20261103",
       "server": "pc-master-race-server-20261120.mjs",
+      "host": "windows-pc",
       "audit": {
         "cadence": "weekly",
         "subject": "your PC’s core tools: which are on the PC, signed and up to date",
@@ -4081,7 +4221,13 @@
           "windows"
         ],
         "pets": [],
-        "core": [],
+        "core": [
+          {
+            "part": "startup-star",
+            "how": "optional",
+            "why": "Startup Star shows PC Master on the desktop; PC Master Race's page works without it."
+          }
+        ],
         "programs": [
           {
             "node": "everything-search",
@@ -4407,7 +4553,13 @@
           "windows"
         ],
         "pets": [],
-        "core": [],
+        "core": [
+          {
+            "part": "startup-star",
+            "how": "optional",
+            "why": "Startup Star shows Flowsheet Flamingo on the desktop; The Pilot Plant's page works without it."
+          }
+        ],
         "programs": [
           {
             "node": "dwsim",
@@ -4508,7 +4660,13 @@
       "needs": {
         "os": [],
         "pets": [],
-        "core": [],
+        "core": [
+          {
+            "part": "startup-star",
+            "how": "optional",
+            "why": "Startup Star shows Server Salamander on the desktop; Server Hearth's page works without it."
+          }
+        ],
         "programs": []
       }
     }

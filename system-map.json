@@ -299,6 +299,23 @@
       "start_closed": true
     },
     {
+      "id": "use-my-stream-deck-tool",
+      "name": "use-my-stream-deck-tool",
+      "type": "tool",
+      "of": "deck-duck",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "deck-pond-v1.0-use-my-stream-deck-tool-v1.0",
+      "url": "https://findastra.github.io/astras-pet-os/apps/deck-duck-stream-deck-plus-deck-20261102.html",
+      "job": "The Elgato Stream Deck +’s face at Elgato’s own panel geometry, right on Deck Pond’s page, the way Bass & Biscuits shows the APC64 (Astra, 2026-11-02: \"I want to see the elgato on here the same way I see the MIDI controller on Drum Dog\"). Tap a key, dial or strip section to label what it does, per Stream Deck profile, with a colour. \"Use my Stream Deck\" hears the real deck in the browser (WebHID, read only): keys light up, dials turn, touches show on the strip. Labels stay in this browser.",
+      "does": "Your Stream Deck + on the page: press, turn and touch it to see it move, and label every control.",
+      "embed": "https://findastra.github.io/astras-pet-os/apps/deck-duck-stream-deck-plus-deck-20261102.html",
+      "frame": "square",
+      "in_pill": true
+    },
+    {
       "id": "dm-archive-review",
       "name": "DM archive review",
       "type": "own-program",
@@ -981,7 +998,7 @@
       "version": "v1.0",
       "label": "white-hat-lab-v1.0-tp-link-tool-v1.0",
       "url": "http://tplinkwifi.net",
-      "job": "A tool of White Hat Lab (Astra, 2026-11-20: \"I want a tool on the White Hat Weasel to just be a button that links me to this TP-Link network login page. Like, just call it TP-Link\"). One button that opens the home router's own sign-in page through tplinkwifi.net, the name every TP-Link router answers to on its own network, so no home address is published. It works on any device joined to the home network (her phone too, so no computer is needed). Astra signs in and changes the router herself; the tool keeps no password and changes nothing.",
+      "job": "A tool of White Hat Lab (Astra, 2026-11-20: \"I want a tool on the White Hat Weasel to just be a button that links me to this TP-Link network login page. Like, just call it TP-Link\"). One button that opens the home router's own sign-in page through tplinkwifi.net, the name every TP-Link router answers to on its own network, so no home address is published. It works on any device joined to the home network (her phone too, so no computer is needed). Astra signs in and changes the router herself; the tool keeps no password and changes nothing. It opens in a new tab of your own browser (2026-11-27): in the Claude chat's browser pane the router's page stays blank on \"Opening...\", because the pane blocks the router's own scripts.",
       "does": "Opens your TP-Link router's sign-in page."
     },
     {
@@ -995,8 +1012,32 @@
       "version": "v1.0",
       "label": "white-hat-lab-v1.0-ghost-in-the-walls-tool-v1.0",
       "url": "https://findastra.github.io/ghost-in-the-walls/",
-      "job": "A tool of White Hat Lab (Astra, 2026-11-20: \"I want the ghost in the walls tool to be a white hat tool. And I want you to track attempted password logins to it\"). Ghost In The Walls is the home router's guest network: a portal sign-in page with a password puzzle, then the rabbit page. Guests never see the home network. The router does not list wrong passwords, so since 2026-11-26 the tool records every device that gets onto the guest network: its name, address and band, first and last seen, and how many visits (scripts/ghost-walls-watch-20261126.mjs, with the Python reader scripts/ghost-walls-guest-reader-20261126.py and the third-party tplinkrouterc6u library). White Hat Lab's server looks every 30 minutes, read only, once Astra has added the router login herself (WHITE_HAT_LAB_ROUTER_PASSWORD, API Fairy's key request). The record stays on her PC (white-hat-lab folder of Astra's PetOS Data), never in a repo.",
-      "does": "Your guest network's puzzle portal, and a record of every device that got onto it."
+      "job": "A tool of White Hat Lab (Astra, 2026-11-20: \"I want the ghost in the walls tool to be a white hat tool. And I want you to track attempted password logins to it\"). Ghost In The Walls is the home router's guest network: a portal sign-in page with a password puzzle, then the rabbit page. Guests never see the home network. The router does not list wrong passwords, so since 2026-11-26 the tool records every device that gets onto the guest network: its name, address and band, first and last seen, and how many visits (scripts/ghost-walls-watch-20261126.mjs, with the Python reader scripts/ghost-walls-guest-reader-20261126.py and the third-party tplinkrouterc6u library). White Hat Lab's server looks every 30 minutes, read only, once Astra has added the router login herself (WHITE_HAT_LAB_ROUTER_PASSWORD, API Fairy's key request). The record stays on her PC (white-hat-lab folder of Astra's PetOS Data), never in a repo. Its tool box shows the guest list (apps/white-hat-lab-ghost-walls-20261126.html, Astra 2026-11-26: \"Yes, add it\"): who is on now, every device seen, first and last seen and visits; on her PC only.",
+      "does": "Your guest network's puzzle portal, and a record of every device that got onto it.",
+      "cadence": "every 30 minutes",
+      "embed": "https://findastra.github.io/astras-pet-os/apps/white-hat-lab-ghost-walls-20261126.html",
+      "frame": "wide",
+      "in_pill": true
+    },
+    {
+      "id": "rea",
+      "name": "REA",
+      "type": "program",
+      "state": "now",
+      "layer": 6,
+      "category": "MCP server",
+      "job": "Third-party program (morluto/rea, MIT): REA (Reverse Engineer Anything), an MCP server for reverse engineering programs, packages and web pages, registered with Claude Code on Astra's PC (2026-11-20). White Hat Lab keeps the master of its reverse-engineer-anything skill (white-hat-lab#12). Used only on things Astra owns or is allowed to test.",
+      "does": "Takes apart programs, packages and web pages to see what they really do."
+    },
+    {
+      "id": "tplinkrouterc6u",
+      "name": "tplinkrouterc6u",
+      "type": "program",
+      "state": "now",
+      "layer": 6,
+      "category": "Dependency",
+      "job": "Third-party Python library (tplinkrouterc6u on PyPI, MIT), 5.42.0 on Astra's PC: it speaks the home TP-Link router's encrypted web sign-in. The Ghost In The Walls reader (scripts/ghost-walls-guest-reader-20261126.py) signs in with it read only, lists the guest devices and signs out.",
+      "does": "Lets the guest watch read the router's list of guest devices."
     },
     {
       "id": "learn-computer-organization-tool",
@@ -2793,7 +2834,7 @@
       "state": "now",
       "layer": 6,
       "category": "Desktop app",
-      "job": "Elgato’s Stream Deck software. Deck Duck is named for it. Installed and running on the Desktop PC (StreamDeck.exe 7.6.1.23033, checked 2026-11-21); Deck Duck’s Stream Deck plugin runs inside it (0.11.0.0 on Astra’s PC; its code is on deck-duck#9 to #11, not merged).",
+      "job": "Elgato’s Stream Deck software. Deck Duck is named for it. Installed and running on the Desktop PC (StreamDeck.exe 7.6.1.23033, checked 2026-11-21); Deck Duck’s Stream Deck plugin runs inside it (0.12.0.0 on Astra’s PC since 2026-11-26; its code is merged in findastra/deck-duck: #9 to #11 on 2026-11-21, the moods in #12 on 2026-11-26).",
       "does": "The software for Elgato's Stream Deck, a panel of buttons that each run an action."
     },
     {
@@ -2807,7 +2848,7 @@
       "version": "v1.0",
       "label": "deck-pond-v1.0-art-link-tool-v1.0",
       "cadence": "hourly (while Stream Deck runs)",
-      "job": "A tool of Deck Pond, in Deck Duck’s Stream Deck plugin (Astra, 2026-11-20: \"the update should just fix every single place they are since its a link\", then \"Yes, build it\"). A minute after Stream Deck connects, then once an hour while Stream Deck runs, it asks GitHub for the list of the hub’s art/latest pictures (api.github.com/repos/findastra/astras-pet-os/git/trees/main:art/latest?recursive=1) with an ETag, so GitHub answers \"not changed\" for free when nothing moved. When a pet’s picture link shows a new drawing, it downloads only that picture, checks it is the drawing GitHub listed, and draws that pet’s key, the sign on the bar, its tool strips and its page strip again, in a low-priority background PowerShell: no rebuild or reinstall. New pets, new tools, Fuzzboi’s reroll layers and the icons in Stream Deck’s action list still need a deck rebuild. The redrawn pictures stay on the PC (Documents\\Astra’s PetOS Data\\deck-duck\\redrawn-keys-20261120). Code: stream-deck/art-link-20261120.js and stream-deck/draw-pet-keys-20261120.ps1 in findastra/deck-duck, on deck-duck#11 (stacked on #10, then #9), not merged. Version 0.11.0.0 runs on Astra’s PC: its log showed the real check on 2026-11-20 at 21:06 and 21:43 Denver (\"pictures: checked the hub's links, no new art\").",
+      "job": "A tool of Deck Pond, in Deck Duck’s Stream Deck plugin (Astra, 2026-11-20: \"the update should just fix every single place they are since its a link\", then \"Yes, build it\"). A minute after Stream Deck connects, then once an hour while Stream Deck runs, it asks GitHub for the list of the hub’s art/latest pictures (api.github.com/repos/findastra/astras-pet-os/git/trees/main:art/latest?recursive=1) with an ETag, so GitHub answers \"not changed\" for free when nothing moved. When a pet’s picture link shows a new drawing, it downloads only that picture, checks it is the drawing GitHub listed, and draws that pet’s key, the sign on the bar, its tool strips and its page strip again, in a low-priority background PowerShell: no rebuild or reinstall. New pets, new tools, Fuzzboi’s reroll layers and the icons in Stream Deck’s action list still need a deck rebuild. The redrawn pictures stay on the PC (Documents\\Astra’s PetOS Data\\deck-duck\\redrawn-keys-20261120). Code: stream-deck/art-link-20261120.js and stream-deck/draw-pet-keys-20261120.ps1 in findastra/deck-duck, merged with deck-duck#11 on 2026-11-21. Since 0.12.0 (deck-duck#12, merged 2026-11-26) it also hands GitHub’s list to the moods, so new mood pictures follow their links too. Version 0.12.0.0 runs on Astra’s PC; the log of 0.11.0.0 showed the real check on 2026-11-20 at 21:06 and 21:43 Denver (\"pictures: checked the hub's links, no new art\").",
       "does": "Every hour while Stream Deck runs: new pet art in the hub shows up on the Stream Deck keys by itself."
     },
     {
@@ -3870,6 +3911,15 @@
       "layer": 6,
       "category": "MIDI controller",
       "job": "Astra’s drum pad controller (2026-11-02): 64 pads and 8 touch faders, USB-C only (no Bluetooth and no sound of its own). Windows sees it as APC64. Its Live Lite registration is with Akai support."
+    },
+    {
+      "id": "elgato-stream-deck-plus",
+      "name": "Elgato Stream Deck +",
+      "type": "host-machine",
+      "state": "now",
+      "layer": 6,
+      "category": "USB controller",
+      "job": "Astra’s Stream Deck + (plugged into the Desktop PC on 2026-11-02): 8 LCD keys, 4 push dials and a 108 mm touch strip, USB-C. Windows sees it as USB 0FD9:0084."
     },
     {
       "id": "speaker-bar",
@@ -7930,6 +7980,20 @@
       "why": "The browser makes the drum sounds and, with Web MIDI, hears the APC64’s pads."
     },
     {
+      "from": "deck-duck",
+      "to": "elgato-stream-deck-plus",
+      "carries": "manages",
+      "state": "now",
+      "why": "The Stream Deck + deck shows it live and keeps a label for every control."
+    },
+    {
+      "from": "use-my-stream-deck-tool",
+      "to": "web-browser",
+      "carries": "runs-on",
+      "state": "now",
+      "why": "The browser draws the deck and, with WebHID, hears the Stream Deck +’s keys, dials and strip (read only)."
+    },
+    {
       "from": "drum-dog",
       "to": "ableton-live",
       "carries": "manages",
@@ -7961,8 +8025,8 @@
       "from": "deck-duck",
       "to": "stream-deck",
       "carries": "manages",
-      "state": "planned",
-      "why": "Deck Duck is the Elgato Stream Deck pet."
+      "state": "now",
+      "why": "Deck Pond labels what the Stream Deck app’s keys, dials and strip do, profile by profile."
     },
     {
       "from": "the-astral-plane",
@@ -8530,6 +8594,20 @@
       "carries": "opens",
       "state": "idea",
       "why": "The port check from another device that is still to run (2026-11-12 and 2026-11-17): from the Kali MacBook, with Astra's OK. Linux Penguin looks after the MacBook itself."
+    },
+    {
+      "from": "white-hat-lab",
+      "to": "rea",
+      "carries": "opens",
+      "state": "now",
+      "why": "White Hat Weasel uses REA through its reverse-engineer-anything skill when a check needs a program taken apart (white-hat-lab#12, 2026-11-20); only on what Astra owns or may test. Listed in Flash Audit round 67 (A54)."
+    },
+    {
+      "from": "white-hat-lab",
+      "to": "tplinkrouterc6u",
+      "carries": "runs-on",
+      "state": "now",
+      "why": "The Ghost In The Walls reader signs in to the router with it, read only, every 30 minutes inside White Hat Lab's server (Astra, 2026-11-26: \"Start the tracker\"). Listed in Flash Audit round 67 (A54)."
     },
     {
       "from": "white-hat-lab",
@@ -10530,6 +10608,50 @@
         "status": "written",
         "how": "Program-watch's own code: its listener answers on 127.0.0.1 only, at a port and with a random code it picks at each start and writes only to its page file in Documents. The random code is what keeps web pages out: the listener also refuses any Origin that is not this PC or none, but a file page sends Origin null, and so can a sandboxed frame or a data: page on any website, so the Origin check alone keeps nothing out. It checks the Host header and opens or closes only an id in its own table whose kind is window; the pages send only that id, and only to the address in that file (test/program-buttons-test-20261107.mjs checks the page side only). Nothing enforces this: Benchmark Rock runs as you, so nothing outside its own code stops it doing more. Asked for by Astra on 2026-11-07; she approves it by merging. Not run on Windows yet: the listener is on a benchmark-rock branch, not merged.",
         "next": "Iron Gates issues the grant; The Police Station watches every open and close."
+      },
+      {
+        "id": "white-hat-weasel-look",
+        "who": "White Hat Weasel (White Hat Lab: port-watch-tool, ghost-in-the-walls-tool)",
+        "level": [
+          "L1",
+          "L2"
+        ],
+        "subjects": [
+          "id:white-hat-lab"
+        ],
+        "on": "every port open on this PC, the program behind it and who is connected (no administrator), and the home router's list of guest devices, read only with the router login Astra added herself",
+        "resources": [
+          "ring:5",
+          "ring:6"
+        ],
+        "r": "yes",
+        "w": "no",
+        "x": "no",
+        "status": "written",
+        "how": "White Hat Lab's server reads ports with Get-NetTCPConnection every 10 minutes and the guest list every 30 minutes through tplinkrouterc6u, and writes only its own data folders (Astra's PetOS Data and its LocalAppData folder). The router login comes from a Windows user variable through API Fairy's key request and is never printed. Nothing enforces this: it runs as you. Asked for on 2026-11-19 (\"All recommended\") and 2026-11-26 (\"Start the tracker\"); Astra approves this record by merging.",
+        "next": "Iron Gates issues the grant; The Police Station watches that White Hat Lab writes only its own folders."
+      },
+      {
+        "id": "white-hat-weasel-stop",
+        "who": "White Hat Weasel (White Hat Lab: port-watch-tool)",
+        "level": [
+          "L1",
+          "L4"
+        ],
+        "subjects": [
+          "id:white-hat-lab"
+        ],
+        "on": "our own servers only (Astra's PetOS helpers and chat preview servers), one at a time, when Astra clicks Close in White Hat Weasel's Startup Star menu; never another program",
+        "resources": [
+          "ring:5",
+          "ring:6"
+        ],
+        "r": "yes",
+        "w": "no",
+        "x": "yes",
+        "status": "written",
+        "how": "Only after Astra's click in the star's menu (--close <port>); the server closes a port only when its program's command line is one of our own servers. That check is code in scripts/white-hat-lab-server-20261120.mjs, but nothing outside White Hat Lab enforces it: it runs as you. Asked for on 2026-11-19 (\"All recommended\"); Astra approves this record by merging.",
+        "next": "Iron Gates issues the grant; The Police Station watches every close."
       },
       {
         "id": "kernel-koala-stop",

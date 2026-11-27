@@ -16,7 +16,7 @@
   if (inTool) document.documentElement.classList.add('in-tool');
   function tell() {
     if (!inTool) return;
-    try { window.parent.postMessage({ type: 'tool-panel-height', height: Math.ceil(document.documentElement.scrollHeight) }, '*'); } catch (e) { /* no page around it */ }
+    try { window.parent.postMessage({ type: 'tool-panel-height', height: Math.ceil(document.body.getBoundingClientRect().height) }, '*'); } catch (e) { /* no page around it */ }
   }
   if (window.ResizeObserver) new ResizeObserver(tell).observe(document.body);
 

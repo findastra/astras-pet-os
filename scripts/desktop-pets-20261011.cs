@@ -42,7 +42,10 @@ namespace AstraDesktopPets {
       string hub=SafePath(DraftsList);return File.Exists(hub)?hub:Path.Combine(Path.GetDirectoryName(StateFile),"desktop-drafts-20261011.json"); } }
     internal static string Exe { get { return Path.Combine(Root,"bin","desktop-pets-20261008.exe"); } }
     internal static string StartupCommand { get { return "\"" + Exe + "\" \"" + Root + "\" --startup"; } }
-    internal static string BugExe { get { return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),"ChatGPT","Voicemeeter Bug","voicemeeter-bug-20261008.exe"); } }
+    // Voicemeeter Bug's folder, and in it Audio Rescue's server, named in pets.json (Flash Audit A72, 2026-11-27); a farm whose
+    // pets.json has no line for it starts the program under its old name.
+    internal static string BugDir { get { return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),"ChatGPT","Voicemeeter Bug"); } }
+    internal static string BugExe { get { return BackgroundPets.ServerIn("voicemeeter-bug",BugDir,Path.Combine(BugDir,"voicemeeter-bug-20261008.exe")); } }
     internal static Dictionary<string,object> Read(string relative) { return Json.Deserialize<Dictionary<string,object>>(File.ReadAllText(SafePath(relative))); }
     internal static string SafePath(string relative) {
       if(String.IsNullOrWhiteSpace(relative)||Path.IsPathRooted(relative))throw new InvalidDataException("Expected a relative pet asset path.");
@@ -370,14 +373,114 @@ namespace AstraDesktopPets {
       if(!DesktopArt&&!Layered)for(int y=-1;y<=1;y++)for(int x=-1;x<=1;x++)if(x!=0||y!=0) {
         var edge=to;edge.Offset(x*inkPixel,y*inkPixel);g.DrawImage(mask,edge,crop,GraphicsUnit.Pixel);
       }
-      g.DrawImage(Frame(blink),to,crop,GraphicsUnit.Pixel);
-      var bands=Bands(blink);
-      if(Rainbow&&bands!=null) {
-        using(var colors=new ImageAttributes()) {
-          colors.SetColorMatrix(RgbCycle(Environment.TickCount & Int32.MaxValue));
-          g.DrawImage(bands,new PointF[]{new PointF(to.Left,to.Top),new PointF(to.Right,to.Top),new PointF(to.Left,to.Bottom)},crop,GraphicsUnit.Pixel,colors);
+      // A drawing with no added ink is shrunk evenly (below); a legacy sprite's ink above is drawn the old way, so its
+      // picture is too, to stay lined up with it.
+      var frame=Frame(blink);var bands=Rainbow?Bands(blink):null;Rectangle dest;
+      if((DesktopArt||Layered)&&ShrinkTarget(g,crop,to,out dest)) {
+        var even=ShrunkPictures(frame,bands,crop,dest.Size,!Layered);
+        DrawPixels(g,even.Picture,dest,null);
+        if(even.Bands!=null)using(var colors=RainbowColors())DrawPixels(g,even.Bands,dest,colors);
+        return;
+      }
+      g.DrawImage(frame,to,crop,GraphicsUnit.Pixel);
+      if(bands!=null)using(var colors=RainbowColors())g.DrawImage(bands,new PointF[]{new PointF(to.Left,to.Top),new PointF(to.Right,to.Top),new PointF(to.Left,to.Bottom)},crop,GraphicsUnit.Pixel,colors);
+    }
+    static ImageAttributes RainbowColors() { var colors=new ImageAttributes();colors.SetColorMatrix(RgbCycle(Environment.TickCount & Int32.MaxValue));return colors; }
+    // Even shrinking (Astra, 2026-11-27: "the drum dog's eyes look kind of weird"; Claude Opus 5.5). Drawn straight from
+    // the 256-pixel drawing with nearest-neighbour scaling, a pet about 2.2 times smaller on the screen kept some source
+    // pixels and dropped others, so two equal eyes came out different shapes. Now each picture is shrunk once to its exact
+    // size on the screen, every screen pixel the average of the source pixels it covers (area averaging, a box filter;
+    // colour weighted by alpha, so the clear background never tints an edge), kept until the size or picture changes, and
+    // drawn pixel for pixel. A colour-keyed window shows no partial alpha (CrispTransparency), so there a pixel is solid
+    // from half covered up; a layered window keeps the averaged alpha. Drawn at or above its own size, nothing changes.
+    // A rainbow pet's body and bands are shrunk together, so they share each screen pixel instead of each leaving it
+    // half clear (Shrink, the layers).
+    sealed class ShrunkEntry { internal Bitmap Source,BandsSource,Picture,Bands;internal Rectangle Crop;internal Size Size;internal bool Crisp; }
+    readonly List<ShrunkEntry> shrunk=new List<ShrunkEntry>();
+    ShrunkEntry ShrunkPictures(Bitmap source,Bitmap bands,Rectangle crop,Size size,bool crisp) {
+      foreach(var s in shrunk)if(ReferenceEquals(s.Source,source)&&ReferenceEquals(s.BandsSource,bands)&&s.Crop==crop&&s.Size==size&&s.Crisp==crisp)return s;
+      if(shrunk.Count>=16)ClearShrunk(); // a new display scale, or many moods: start again
+      var layers=Shrink(bands==null?new[]{source}:new[]{source,bands},crop,size.Width,size.Height,crisp);
+      var entry=new ShrunkEntry{Source=source,BandsSource=bands,Picture=layers[0],Bands=bands==null?null:layers[1],Crop=crop,Size=size,Crisp=crisp};
+      shrunk.Add(entry);return entry;
+    }
+    void ClearShrunk() { foreach(var s in shrunk){s.Picture.Dispose();if(s.Bands!=null)s.Bands.Dispose();}shrunk.Clear(); }
+    // Where `to` (in the graphics' own units) lands in whole screen pixels. False when the picture is not being shrunk
+    // there (drawn at or above its own size, or under a rotation), and it is drawn as before.
+    static bool ShrinkTarget(Graphics g,Rectangle crop,RectangleF to,out Rectangle dest) {
+      float[] m;using(var transform=g.Transform)m=transform.Elements;dest=Rectangle.Empty;
+      if(m[1]!=0||m[2]!=0)return false;
+      int x0=(int)Math.Round(to.Left*m[0]+m[4]),x1=(int)Math.Round(to.Right*m[0]+m[4]),y0=(int)Math.Round(to.Top*m[3]+m[5]),y1=(int)Math.Round(to.Bottom*m[3]+m[5]);
+      if(x1-x0<1||y1-y0<1||x1-x0>=crop.Width||y1-y0>=crop.Height)return false;
+      dest=new Rectangle(x0,y0,x1-x0,y1-y0);return true;
+    }
+    static void DrawPixels(Graphics g,Bitmap small,Rectangle dest,ImageAttributes colors) {
+      var state=g.Save();
+      try {
+        g.ResetTransform();g.InterpolationMode=InterpolationMode.NearestNeighbor;g.PixelOffsetMode=PixelOffsetMode.Half;
+        if(colors==null)g.DrawImage(small,dest,0,0,dest.Width,dest.Height,GraphicsUnit.Pixel);else g.DrawImage(small,dest,0,0,dest.Width,dest.Height,GraphicsUnit.Pixel,colors);
+      }finally{g.Restore(state);}
+    }
+    // A rainbow pet's body and bands are two pictures that fill opposite pixels (ApplyEffects). Shrunk evenly, together
+    // they must still cover a solid area completely: no see-through seam where they meet (read-only review, 2026-11-27).
+    internal static void RainbowSeamTest() {
+      var body=new Bitmap(190,40,PixelFormat.Format32bppArgb);var bands=new Bitmap(190,40,PixelFormat.Format32bppArgb);
+      for(int y=0;y<40;y++)for(int x=0;x<190;x++){if((x/7)%2==0)body.SetPixel(x,y,Color.White);else bands.SetPixel(x,y,Color.Red);}
+      var pet=new PetSprite{Id="rgbee",Name="Rainbow seam test",DesktopArt=true};pet.Idle=body;pet.Blink=new Bitmap(body);pet.idleBands=bands;pet.blinkBands=new Bitmap(bands);pet.Crop=new Rectangle(0,0,190,40);
+      try {
+        using(var shot=new Bitmap(88,19,PixelFormat.Format32bppArgb)) {
+          using(var g=Graphics.FromImage(shot)){g.Clear(Color.Transparent);g.ScaleTransform(1.5f,1.5f);g.InterpolationMode=InterpolationMode.NearestNeighbor;g.PixelOffsetMode=PixelOffsetMode.Half;pet.Draw(g,false,new RectangleF(0,0,88/1.5f,19/1.5f));}
+          for(int y=0;y<shot.Height;y++)for(int x=0;x<shot.Width;x++){int a=shot.GetPixel(x,y).A;if(a<254)throw new Exception("A rainbow pet's body and bands must leave no see-through seam: alpha "+a+" at "+x+","+y+".");}
+        }
+      }finally{pet.Dispose();}
+    }
+    // `crop` of `layers` (drawn bottom to top, all the same size) shrunk to width by height by area averaging (above), one
+    // picture per layer. Each screen pixel is covered as much as all the layers together cover it, and that cover is
+    // shared by how much of it each layer fills: the top layer takes its share, each layer under it fills its share of
+    // what shows through, so drawn one over the other they add up with no seam. Crisp: every pixel clear or solid, and a
+    // solid pixel goes whole to the layer that fills most of it.
+    internal static Bitmap[] Shrink(Bitmap[] layers,Rectangle crop,int width,int height,bool crisp) {
+      int n=layers.Length,sw=layers[0].Width,sh=layers[0].Height;var src=new int[n][];var dst=new int[n][];
+      for(int i=0;i<n;i++) {
+        if(layers[i].Width!=sw||layers[i].Height!=sh)throw new ArgumentException("Pet picture layers must be the same size.");
+        src[i]=new int[sw*sh];dst[i]=new int[width*height];
+        var from=layers[i].LockBits(new Rectangle(0,0,sw,sh),ImageLockMode.ReadOnly,PixelFormat.Format32bppArgb);
+        try{for(int y=0;y<sh;y++)Marshal.Copy(IntPtr.Add(from.Scan0,y*from.Stride),src[i],y*sw,sw);}finally{layers[i].UnlockBits(from);}
+      }
+      double fx=crop.Width/(double)width,fy=crop.Height/(double)height;var a=new double[n];var r=new double[n];var gr=new double[n];var b=new double[n];
+      for(int ty=0;ty<height;ty++) {
+        double y0=crop.Y+ty*fy,y1=y0+fy;
+        for(int tx=0;tx<width;tx++) {
+          double x0=crop.X+tx*fx,x1=x0+fx,cover=0,total=0;
+          for(int i=0;i<n;i++)a[i]=r[i]=gr[i]=b[i]=0;
+          for(int sy=Math.Max(0,(int)y0);sy<y1&&sy<sh;sy++) {
+            double wy=Math.Min(y1,sy+1)-Math.Max(y0,sy);if(wy<=0)continue;
+            for(int sx=Math.Max(0,(int)x0);sx<x1&&sx<sw;sx++) {
+              double wx=Math.Min(x1,sx+1)-Math.Max(x0,sx);if(wx<=0)continue;
+              double part=wx*wy;cover+=part;
+              for(int i=0;i<n;i++){int p=src[i][sy*sw+sx];double pa=((p>>24)&255)*part;a[i]+=pa;r[i]+=((p>>16)&255)*pa;gr[i]+=((p>>8)&255)*pa;b[i]+=(p&255)*pa;}
+            }
+          }
+          for(int i=0;i<n;i++)total+=a[i];
+          if(cover<=0||total<=0)continue;
+          double whole=Math.Min(1,total/cover/255),through=1;int most=0;for(int i=1;i<n;i++)if(a[i]>a[most])most=i;
+          if(crisp&&whole<.5)continue;
+          for(int i=n-1;i>=0;i--) {
+            if(a[i]<=0)continue;
+            double share=crisp?(i==most?1:0):whole*a[i]/total,alpha=through>0?Math.Min(1,share/through):0;through*=1-alpha;
+            int A=(int)Math.Round(alpha*255);if(A==0)continue;
+            int R=Math.Min(255,(int)Math.Round(r[i]/a[i])),G=Math.Min(255,(int)Math.Round(gr[i]/a[i])),B=Math.Min(255,(int)Math.Round(b[i]/a[i]));
+            dst[i][ty*width+tx]=(A<<24)|(R<<16)|(G<<8)|B;
+          }
         }
       }
+      var result=new Bitmap[n];
+      for(int i=0;i<n;i++) {
+        result[i]=new Bitmap(width,height,PixelFormat.Format32bppArgb);
+        var to=result[i].LockBits(new Rectangle(0,0,width,height),ImageLockMode.WriteOnly,PixelFormat.Format32bppArgb);
+        try{for(int y=0;y<height;y++)Marshal.Copy(dst[i],y*width,IntPtr.Add(to.Scan0,y*to.Stride),width);}finally{result[i].UnlockBits(to);}
+      }
+      return result;
     }
     internal static ColorMatrix RgbCycle(long milliseconds) {
       double phase=(milliseconds%6000)/2000.0;int step=(int)phase;float blend=(float)(phase-step);
@@ -403,7 +506,7 @@ namespace AstraDesktopPets {
       if(x1<x0)throw new InvalidDataException("A pet frame is empty.");return Rectangle.FromLTRB(x0,y0,x1+1,y1+1);
     }
     public void Dispose() { if(Idle!=null)Idle.Dispose();if(Blink!=null)Blink.Dispose();if(idleInk!=null)idleInk.Dispose();if(blinkInk!=null)blinkInk.Dispose();if(idleBands!=null)idleBands.Dispose();if(blinkBands!=null)blinkBands.Dispose();
-      foreach(var set in new[]{moodFrames,moodInks,moodBands}){foreach(var b in set.Values)if(b!=null)b.Dispose();set.Clear();}moodCrops.Clear(); }
+      foreach(var set in new[]{moodFrames,moodInks,moodBands}){foreach(var b in set.Values)if(b!=null)b.Dispose();set.Clear();}moodCrops.Clear();ClearShrunk(); }
   }
 
   // Uses mouse-down times and Windows' configured interval/rectangle. Nothing is
@@ -648,8 +751,10 @@ namespace AstraDesktopPets {
     internal static string ServerIn(string repo,string folder,string otherwise) { string server;return Servers().TryGetValue(repo,out server)?Path.Combine(folder,server.Replace('/',Path.DirectorySeparatorChar)):otherwise; }
     internal static List<Entry> All() {
       var list=new List<Entry>();string parent=Path.GetDirectoryName(PetFiles.Root);
+      // Log Den's server runs all three crash watches (2026-11-08); each pet's own server is named in pets.json (2026-11-26).
+      // Without that line, its program keeps its old name.
       foreach(var p in new[]{new[]{"log-den","Log Lynx"},new[]{"packet-river","Packet Piranha"},new[]{"evidence-locker","Forensic Ferret"}})
-        list.Add(new Entry{Repo=p[0],Pet=p[1],Exe=Path.Combine(parent,p[0],"bin",p[0]+"-20261018.exe"),Folder=Path.Combine(DataRoot,p[0]),StartArgs=new[]{"--startup"},Host=p[0]=="log-den"?null:"log-den"});
+        list.Add(new Entry{Repo=p[0],Pet=p[1],Exe=ServerIn(p[0],Path.Combine(parent,p[0]),Path.Combine(parent,p[0],"bin",p[0]+"-20261018.exe")),Folder=Path.Combine(DataRoot,p[0]),StartArgs=new[]{"--startup"},Host=p[0]=="log-den"?null:"log-den"});
       // Kernel Koala's leftover-watch (Astra, 2026-10-21: "monitoring unnecessary applications"); no desktop pet yet. Its
       // server is named in pets.json (2026-11-20); without that line, its window program keeps watch the same way.
       list.Add(new Entry{Repo="kernel-grove",Pet="Kernel Koala",Exe=ServerIn("kernel-grove",Path.Combine(parent,"kernel-grove"),Path.Combine(parent,"kernel-grove","bin","kernel-grove-20261021.exe")),Folder=Path.Combine(DataRoot,"kernel-grove"),StartArgs=new[]{"--startup"}});
@@ -1374,6 +1479,29 @@ namespace AstraDesktopPets {
       int sparkleCount=0;foreach(var pet in roaming)sparkleCount+=pet.SparkleCount;
       PetFiles.WriteStatus(new { running,test_mode=test,process_id=Process.GetCurrentProcess().Id,window_title=Text,visible=running&&Visible,desktop_star_visible=running&&launcherVisible,tray_visible=running&&tray!=null&&tray.Visible,star_icon_pixels=starBitmap.Width,desktop_star_pixels=starBitmap.Width,pets_out=petsOut,lined_up=LinedUp,compact=Compact,roaming_pet_count=roaming.Count,roaming_pet_visible_count=roaming.FindAll(p=>p.Visible).Count,pending_clicks=clicks.Pending,last_action=testActions.Count>0?testActions[testActions.Count-1]:null,actions=test?testActions.ToArray():null,pet_count=pets.Count+1,hidden_pets=HiddenIds(),farmer_roaming=roaming.Exists(p=>p.Pet==farmer),dock_sample_interval_ms=16,bug_present=pets.Exists(p=>p.Id=="voicemeeter-bug"),bug_height=PetHit("voicemeeter-bug",false),normal_height=NormalHeight,paper_girl_height=PetHit("paper-girl",false),paper_girl_width=PetHit("paper-girl",true),file_master_height=PetHit("file-master",false),file_master_width=PetHit("file-master",true),pet_pair=PairStatus(),desktop_art_pets=roaming.FindAll(p=>p.Pet.DesktopArt).ConvertAll(p=>p.Pet.Id).ToArray(),sparkle_pet_ids=roaming.FindAll(p=>p.HasSparkles).ConvertAll(p=>p.Pet.Id).ToArray(),draft_errors=draftErrors.ToArray(),sparkle_count=sparkleCount,sparkle_lifetime_ms=0,sparkle_padding=0,sparkles_allowed=false,translucent_pet_ids=pets.FindAll(p=>p.Layered).ConvertAll(p=>p.Id).ToArray(),fuzzboi_variant=pets.Find(p=>p.Id=="fuzzboi-friend")==null?null:pets.Find(p=>p.Id=="fuzzboi-friend").Name,animation_interval_ms=timer.Interval,animation_running=running&&timer.Enabled,startup_enabled=PetFiles.StartupEnabled(),dpi_scale=scale,width=Width,height=Height,docked=dockBounds.HasValue,dock_has_room=!spaceConstrained,dock_required_width_px=needed,dock_available_width_px=area.Right-expandedLocation.X,dock_star_left_must_be_at_or_before_px=area.Right-needed,on_screen=Screen.FromRectangle(Bounds).WorkingArea.IntersectsWith(Bounds),updated_utc=DateTime.UtcNow.ToString("o")},test);
     }
+    // Even shrinking (Astra, 2026-11-27: "the drum dog's eyes look kind of weird"; Claude Opus 5.5). A white body on a
+    // clear background with two equal black marks, 5 by 6 pixels, at different places on the grid: drawn the way a pet
+    // window draws it at 150%, 190 pixels shrink to 88, and both marks must keep the same ink (within 2%), where keeping
+    // some pixels and dropping others gave one mark three columns and the other two. A colour-keyed window still gets
+    // only clear or solid pixels.
+    static void EvenShrinkTest() {
+      var art=new Bitmap(190,40,PixelFormat.Format32bppArgb);
+      for(int y=4;y<36;y++)for(int x=10;x<180;x++)art.SetPixel(x,y,Color.White);
+      for(int y=10;y<16;y++)for(int x=0;x<5;x++){art.SetPixel(44+x,y,Color.Black);art.SetPixel(101+x,y,Color.Black);}
+      var marks=new PetSprite{Id="even-shrink-test",Name="Even shrink test",DesktopArt=true};marks.Idle=art;marks.Blink=new Bitmap(art);marks.Crop=new Rectangle(0,0,190,40);
+      try {
+        using(var shot=new Bitmap(88,19,PixelFormat.Format32bppArgb)) {
+          using(var g=Graphics.FromImage(shot)){g.Clear(Color.Transparent);g.ScaleTransform(1.5f,1.5f);g.InterpolationMode=InterpolationMode.NearestNeighbor;g.PixelOffsetMode=PixelOffsetMode.Half;marks.Draw(g,false,new RectangleF(0,0,88/1.5f,19/1.5f));}
+          double left=0,right=0;
+          for(int y=0;y<shot.Height;y++)for(int x=0;x<shot.Width;x++) {
+            var c=shot.GetPixel(x,y);if(c.A!=0&&c.A!=255)throw new Exception("A colour-keyed pet window gets only clear or solid pixels.");
+            double ink=(255-c.R)*c.A/255.0;if(x<36)left+=ink;else right+=ink;
+          }
+          if(left<1||Math.Abs(left-right)>Math.Max(left,right)*.02)throw new Exception("Two equal marks must shrink equally (the eyes): "+Math.Round(left)+" vs "+Math.Round(right));
+        }
+      }finally{marks.Dispose();}
+      PetSprite.RainbowSeamTest();
+    }
     internal void SelfTest() {
       if(pets.Count<1||farmer==null)throw new Exception("Roster test failed.");
       foreach(var pet in pets)pet.ValidateEffects();
@@ -1389,6 +1517,7 @@ namespace AstraDesktopPets {
       if(Math.Abs(paper.Hit.Height-NormalHeight*.72f)>.01f||Math.Abs(files.Hit.Height-NormalHeight*.72f)>.01f)throw new Exception("Paper Girl or File Master resize failed.");
       foreach(string id in SameSize) { var girl=pets.Find(p=>p.Id==id);if(girl==null)continue;var art=Rectangle.Union(PetSprite.AlphaBounds(girl.Idle),PetSprite.AlphaBounds(girl.Blink));
         if(girl.Crop.Top<0||girl.Crop.Height!=SameSizeCrop(id)||girl.Crop.Bottom!=art.Bottom||art.Top<girl.Crop.Top||Math.Abs(girl.Hit.Height-NormalHeight)>.01f)throw new Exception("Group 3 same-size scale failed: "+girl.Name); }
+      EvenShrinkTest();
 
       Rectangle left=new Rectangle(-1920,0,1920,1080);Size size=new Size(690,172);
       if(Clamp(new Point(9999,9999),size,left)!=new Point(-690,908))throw new Exception("Screen clamp failed.");
@@ -1525,14 +1654,14 @@ namespace AstraDesktopPets {
       // Only Startup Star in Task Manager (2026-11-19): a helper an older star started is found and started again by this
       // star; its own sub-copies go with it, but nothing else it opened (Voicemeeter stays up); a Temp test copy is left alone.
       {
-        var dc=BackgroundPets.Find("desktop-commander");var bugEntry=BackgroundPets.Find("voicemeeter-bug");var chat=BackgroundPets.Find("chat-rat");
+        var dc=BackgroundPets.Find("desktop-commander");var bugEntry=BackgroundPets.Find("voicemeeter-bug");var chat=BackgroundPets.Find("chat-rat");string bugName=Path.GetFileName(bugEntry.Exe);
         if(chat==null||chat.Pet!="Chat Rat"||chat.StartArgs[chat.StartArgs.Length-1]!="serve"||!chat.Needs.EndsWith(Path.Combine("chat-rat","chat-rat-20261016.mjs")))throw new Exception("Chat Rat's server must start with the star from its own folder.");
         var procs=new List<BackgroundPets.Proc>{
           new BackgroundPets.Proc{Id=10,Parent=1,Name="desktop-pets-20261008.exe",Line="star"},
           new BackgroundPets.Proc{Id=20,Parent=999,Name="node.exe",Line="node C:\\x\\npm-cache\\desktop-commander\\index.js remote"},
           new BackgroundPets.Proc{Id=21,Parent=20,Name="node.exe",Line="node C:\\x\\npm-cache\\desktop-commander\\dist\\index.js"},
-          new BackgroundPets.Proc{Id=30,Parent=10,Name="voicemeeter-bug-20261008.exe",Line="\"voicemeeter-bug-20261008.exe\" --hosted"},
-          new BackgroundPets.Proc{Id=31,Parent=999,Name="voicemeeter-bug-20261008.exe",Line="\"voicemeeter-bug-20261008.exe\" --hosted"},
+          new BackgroundPets.Proc{Id=30,Parent=10,Name=bugName,Line="\""+bugName+"\" --hosted"},
+          new BackgroundPets.Proc{Id=31,Parent=999,Name=bugName,Line="\""+bugName+"\" --hosted"},
           new BackgroundPets.Proc{Id=32,Parent=31,Name="voicemeeter8.exe",Line="voicemeeter8.exe"},
           new BackgroundPets.Proc{Id=40,Parent=999,Name="node.exe",Line="node chat-rat-20261016.mjs serve"},
           new BackgroundPets.Proc{Id=41,Parent=999,Name="node.exe",Line="node E:\\Temp\\claude\\s\\chat-rat-20261016.mjs serve"},
@@ -1557,18 +1686,29 @@ namespace AstraDesktopPets {
       if(rabbit==null||!BackgroundPets.Servers().TryGetValue("rift-rabbit",out rabbitServer)||!System.Text.RegularExpressions.Regex.IsMatch(rabbitServer,"^wonderland-launchpad-server-[0-9]{8}\\.exe$")
         ||rabbit.Exe!=Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),"Astra's PetOS Data","rift-rabbit","program",rabbitServer)||BackgroundPets.Watches("rift-rabbit"))
         throw new Exception("Rift Rabbit's launcher must be Wonderland Launchpad's server, named in pets.json, started from its program folder, with no alarmed face.");
+      // Audio Rescue's server (2026-11-27): the Bug's program, named in pets.json, in his own folder; his menu, his start at
+      // sign-in (--hosted) and his three-click repair all use it.
+      var bugPet=BackgroundPets.Find("voicemeeter-bug");string bugServer;
+      if(bugPet==null||!BackgroundPets.Servers().TryGetValue("voicemeeter-bug",out bugServer)||!System.Text.RegularExpressions.Regex.IsMatch(bugServer,"^audio-rescue-server-[0-9]{8}\\.exe$")
+        ||bugPet.Exe!=Path.Combine(PetFiles.BugDir,bugServer)||PetFiles.BugExe!=bugPet.Exe)
+        throw new Exception("The Bug's program must be Audio Rescue's server, named in pets.json, in his own folder.");
       var petChat=BackgroundPets.Find("pet-chat");
       if(petChat==null||petChat.Pet!="Pet chat"||petChat.Exe!=Path.Combine(PetFiles.Root,"bin","pet-chat-helper-20261103.exe")||BackgroundPets.Watches("pet-chat"))throw new Exception("The pet chat helper must start from the farm's bin, under Pet chat in the menu, with no alarmed face.");
       testActions.RemoveRange(signIn,testActions.Count-signIn);
       // One crash watch (2026-11-08): Packet Piranha's and Forensic Ferret's watches run in Log Den's program.
       foreach(var repo in new[]{"packet-river","evidence-locker"}) {
         var hosted=BackgroundPets.Find(repo);
-        if(hosted==null||hosted.Host!="log-den"||!BackgroundPets.Watches(repo)||!hosted.Exe.EndsWith(repo+"-20261018.exe"))throw new Exception(repo+"'s watch must run in Log Den's program, with its own menu and alarmed face.");
+        if(hosted==null||hosted.Host!="log-den"||!BackgroundPets.Watches(repo))throw new Exception(repo+"'s watch must run in Log Den's program, with its own menu and alarmed face.");
         var item=new ToolStripMenuItem(hosted.Pet);BackgroundPets.Fill(item,hosted,RunBackground,false);
         ((ToolStripMenuItem)item.DropDownItems[1]).PerformClick();
         if(testActions[testActions.Count-1]!="background:log-den:--startup")throw new Exception("Start "+hosted.Pet+" must run Log Den's program with --startup.");
       }
       if(BackgroundPets.Find("log-den").Host!=null)throw new Exception("Log Lynx's watch is the host.");
+      // Their own servers (A72, 2026-11-26): each named once in pets.json, in its own repo's bin folder.
+      foreach(var repo in new[]{"log-den","packet-river","evidence-locker"}) {
+        var e=BackgroundPets.Find(repo);string name=Path.GetFileName(e.Exe);
+        if(!System.Text.RegularExpressions.Regex.IsMatch(name,"^"+repo+"-server-[0-9]{8}\\.exe$")||e.Exe!=Path.Combine(Path.GetDirectoryName(PetFiles.Root),repo,"bin",name))throw new Exception(repo+"'s server must be the one named in pets.json, in its repo's bin folder: "+e.Exe);
+      }
       if(BackgroundPets.MutexName("packet-river","C:\\Example\\astras-pet-os")!="Local\\astras-pet-os-packet-river-932e39dc287c")throw new Exception("A hosted watch is found by its program's own single-copy name.");
       string held=BackgroundPets.MutexName("evidence-locker",Path.Combine(Path.GetTempPath(),"star-hosted-test-"+Guid.NewGuid().ToString("N")));
       if(BackgroundPets.Held(held))throw new Exception("A watch that is not running must not look running.");

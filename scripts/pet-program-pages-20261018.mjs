@@ -239,6 +239,12 @@ function lastRound(status, reg) {
 /** Everything one page needs, worked out from the sources. */
 export function pageData({ reg, prog, registry, map, frameIndex, drafts, status, exists, list, measure = () => null }) {
   const nodes = new Map(map.nodes.map((n) => [n.id, n]));
+  for (const n of map.nodes) if (n.type === 'host-machine' && /^VR /.test(n.category || '')) VR_DEVICES.add(n.id);
+  // Startup Star can show the pet only with registered frames or a desktop draft (PetSprite.Load); without one, its
+  // clicks have nothing to click yet (Flash Audit round 67, A41: White Hat Weasel's "two clicks" said works today).
+  const framed = reg.art && frameIndex?.pets?.[reg.art];
+  // A private draft counts: the star shows Claude Bot's private BSOD copy (checked against its status file, 2026-11-27).
+  const onDesktop = !!((framed && !framed.placeholder) || (drafts?.pets || []).some((x) => x.repo === reg.repo || x.id === reg.repo || x.name === reg.pet));
   const petNode = nodes.get(reg.repo);
   const homeNode = petNode?.home?.node ? nodes.get(petNode.home.node) : null;
   const mine = new Set([reg.repo, homeNode?.id].filter(Boolean));
@@ -263,7 +269,7 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
   // built yet" (Astra, 2026-11-07, "all recommended"), and Benchmark Rock's table leaves it out too.
   const watched = new Map(map.links.filter((l) => l.from === PROGRAM_WATCH && l.carries === 'manages' && built(nodes.get(l.to)?.state))
     .map((l) => [l.to, WATCH_KINDS.includes(nodes.get(l.to)?.watch) ? nodes.get(l.to).watch : 'window']));
-  const item = (n, l) => ({ id: n.id, name: n.name, watch: watched.get(n.id) || null, site: isSite(n.site) ? n.site : null, state: l?.state || n.state || 'now', why: l?.why || n.job || '', desc: n.does || brief(n.job), url: isUrl(n.url) ? n.url : null, picture: isUrl(n.picture) ? n.picture : null, embed: isUrl(n.embed) ? hubRelative(n.embed) : null, frame: n.frame === 'wide' ? 'wide' : null, inL1: n.in_l1 === true, inPill: n.in_pill === true || isUrl(n.embed), pillOpen: (n.in_pill === true || isUrl(n.embed)) && n.start_closed !== true, startClosed: n.start_closed === true, panel: n.panel || null, sharedWith: n.shared_with || null, cadence: n.cadence || null, serial: n.serial || null, group: n.in || null, groupName: (n.in && nodes.get(n.in)?.name) || null });
+  const item = (n, l) => ({ id: n.id, name: n.name, watch: watched.get(n.id) || null, site: isSite(n.site) ? n.site : null, state: l?.state || n.state || 'now', why: l?.why || n.job || '', desc: n.does || brief(n.job), url: isUrl(n.url) ? n.url : null, picture: isUrl(n.picture) ? n.picture : null, embed: isUrl(n.embed) ? hubRelative(n.embed) : null, frame: ['wide', 'square'].includes(n.frame) ? n.frame : null, inL1: n.in_l1 === true, inPill: n.in_pill === true || isUrl(n.embed), pillOpen: (n.in_pill === true || isUrl(n.embed)) && n.start_closed !== true, startClosed: n.start_closed === true, panel: n.panel || null, sharedWith: n.shared_with || null, cadence: n.cadence || null, serial: n.serial || null, group: n.in || null, groupName: (n.in && nodes.get(n.in)?.name) || null });
   const uniq = (arr) => [...new Map(arr.map((x) => [x.id, x])).values()];
   const ofType = (types, links = from) => uniq(links.filter((l) => types.includes(nodes.get(l.to)?.type)).map((l) => item(nodes.get(l.to), l)));
   // A tool node may say which side it is on, avatar or world (Astra, 2026-10-19, for Unity Stable: "separate the page by
@@ -407,7 +413,7 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
     connections: [...talks.values()], related, plays_with: chosen,
     access: { on: grantRows([...(petNode?.access?.on || []), ...(homeNode?.access?.on || [])]), by: grantRows(petNode?.access?.by || []),
       statuses: map.access.statuses, values: map.access.values },
-    languages: code?.languages || [], languageNote: code?.note || null, clicks: reg.clicks || {}, editorial: reg.editorial || null, checks: reg.checks || {},
+    languages: code?.languages || [], languageNote: code?.note || null, clicks: reg.clicks || {}, onDesktop, editorial: reg.editorial || null, checks: reg.checks || {},
   };
 }
 
@@ -452,7 +458,10 @@ const isSite = (u) => typeof u === 'string' && /^https:\/\/[^\s"'<>\\]+$/.test(u
 // A device's light (Astra, 2026-11-12): a VR device is green while SteamVR has it on. A USB device is green while
 // Windows has it plugged in; which devices are USB is each pet's own to say (Drum Dog's parts file, Astra 2026-11-13),
 // so the page learns it from the watch's file ("how": "usb") and says "plugged in" then.
-const deviceTip = () => 'ON/OFF: green while SteamVR has it on, or while it is plugged in';
+// SteamVR is named only on VR devices, the System Map's "VR ..." categories (Flash Audit round 67, A48: the Flipper
+// Zero's light talked about SteamVR); pageData fills the list from the map.
+const VR_DEVICES = new Set();
+const deviceTip = (key) => (VR_DEVICES.has(String(key).replace(/^device:/, '')) ? 'ON/OFF: green while SteamVR has it on' : 'ON/OFF: green while it is plugged in');
 const lights = (key, name, { planned = false, unseen = false, presence = false, watch = null, site = null } = {}) => {
   const p = (planned ? ' data-planned="1"' : '') + (unseen ? ' data-unseen="1"' : '');
   const button = (watch ? ` data-watch="${esc(watch)}"` : '') + (site ? ` data-site="${esc(site)}"` : '');
@@ -522,7 +531,7 @@ const showPicture = (i) => !!i.picture && !i.embed;
 
 // A tool that works right on the page: its own tool panel inside L1, labelled with its name on the map. A `frame: "wide"`
 // tool fills the panel's width (Bass & Biscuits' APC64 deck, Astra 2026-11-02: "build that right on the base and
-// biscuit"); `allow="midi"` lets it hear a controller plugged into this PC after the browser asks.
+// biscuit"); `allow="midi"` and `allow="hid"` let it hear a controller plugged into this PC after the browser asks (`hid`: the Stream Deck +, 2026-11-02).
 // `in_l1: true` puts it inside the L1 control panel with the other tools instead of above the levels (Astra, 2026-11-02,
 // of the APC64 deck: "remember this is a tool... its not above it"; tools "under L1").
 // `in_pill: true` goes further: no panel at all, the tool works inside its own rounded tool box in L1, which starts open
@@ -552,8 +561,13 @@ function itemList(items, prefix, empty) {
     // page or panel is a button inside.
     const inPanel = i.embed && !i.inPill;
     const href = inPanel ? `#${i.id}-tool-panel` : i.url;
-    const open = href ? `\n<p><a class="button" href="${esc(href)}"${i.inPill ? ' target="_blank" rel="noopener"' : ''}>${esc(inPanel ? 'Use it below' : i.inPill ? 'Open it full screen' : 'Open it')}</a></p>` : '';
-    const tool = i.inPill && i.embed ? `\n<div class="pill-tool" id="${esc(i.id)}"><iframe class="tool-frame${i.frame ? ` ${i.frame}` : ''}" src="${esc(i.embed)}" title="${esc(i.name)}" allow="midi; autoplay; fullscreen"${i.pillOpen ? "" : " loading=\"lazy\""}></iframe></div>` : '';
+    // A device's own page on the home network (plain http, like the router's tplinkwifi.net) opens in a new tab, never
+    // in place of the pet program (Astra, 2026-11-27: "the TP link wasnt working"): the router's page refuses to show
+    // inside a frame (X-Frame-Options: deny), and in the Claude chat's browser pane its scripts are blocked, so opened
+    // in place it went blank and took the pet program with it. Links to websites keep opening as before.
+    const elsewhere = !inPanel && /^http:\/\//i.test(href || '');
+    const open = href ? `\n<p><a class="button" href="${esc(href)}"${i.inPill || elsewhere ? ' target="_blank" rel="noopener"' : ''}>${esc(inPanel ? 'Use it below' : i.inPill ? 'Open it full screen' : 'Open it')}</a></p>` : '';
+    const tool = i.inPill && i.embed ? `\n<div class="pill-tool" id="${esc(i.id)}"><iframe class="tool-frame${i.frame ? ` ${i.frame}` : ''}" src="${esc(i.embed)}" title="${esc(i.name)}" allow="midi; autoplay; fullscreen; hid"${i.pillOpen ? "" : " loading=\"lazy\""}></iframe></div>` : '';
     const more = i.more != null ? `<p class="small">${esc(i.more)}</p>` : `${i.why && i.why !== i.desc ? `<p>${esc(i.why)}</p>` : ''}
 <p class="small">${esc(STATE[i.state] || i.state || STATE.now)}${href ? '' : ' · its own page is not linked on the System Map yet'}</p>${showPicture(i) ? `
 <p class="pill-picture"><img src="${esc(i.picture)}" alt="${esc(`${i.name}, as it is live now`)}" width="160" loading="lazy"></p>` : ''}${tool}${open}`;
@@ -562,7 +576,7 @@ function itemList(items, prefix, empty) {
     // and no switch: it is a question, not a tool you turn on or off.
     const pillLights = i.waiting
       ? `<span class="lights"><span class="light care is-update" role="img" aria-label="${esc(i.name)}: waiting for your OK" title="Waiting for your OK"></span></span>`
-      : lights(`${prefix}:${i.id}`, i.name, { planned: !built(i.state), unseen: prefix === 'third-party' || prefix === 'device', watch: prefix === 'third-party' ? i.watch : null, site: prefix === 'third-party' ? i.site : null, presence: prefix === 'program' && ['openai-discord-presence', 'anthropic-discord-presence'].includes(i.id) });
+      : lights(`${prefix}:${i.id}`, i.name, { planned: !built(i.state), unseen: prefix === 'third-party' || prefix === 'device', watch: prefix === 'third-party' ? i.watch : null, site: prefix === 'third-party' ? i.site : null, presence: prefix === 'program' && ['openai-discord-presence', 'anthropic-discord-presence', 'ableton-live-discord-presence', 'anthropic-ipo-countdown', 'openai-ipo-countdown'].includes(i.id) });
     // Its state ("planned" and so on) shows only once it is opened, in the line above (Astra, 2026-10-23: "the
     // "planned" should only show up upon expansion").
     return `<li class="pill">${pillLights}${name}${i.cadence ? ` <span class="tag cadence" title="How often it runs">${esc(i.cadence)}</span>` : ''}${desc}${i.label ? `<code class="label">${esc(i.label)}</code>` : ''}<details class="pill-more"${showPicture(i) || i.pillOpen ? ' open' : ''}><summary aria-label="More about ${esc(i.name)}"></summary><div class="pill-body">${more}</div></details></li>`;
@@ -1171,7 +1185,7 @@ ${about({
     return `<figure class="mood" data-mood="${esc(mood)}"><fieldset class="mood-bubble"><legend>${esc(name)}</legend><ul>${bullets.map((b) => `<li>${esc(b)}</li>`).join('')}</ul><q>${esc(d.lines[mood] || '')}</q></fieldset>${d.backdrop ? `<span class="pet-backdrop">${picture}</span>` : picture}</figure>`;
   }).join('')}</div>
 ${about({
-    how: `The nine moods, three to a row. The mood ${esc(d.pet)} is in now lights up, and the pet at the top shows it. When ${esc(d.pet)} has something to tell you (alarmed, sick, curious, worried, happy, sad), it shows that mood here, on the desktop and on every page it is a friend on (the Stream Deck next); otherwise this page is idle, awake while you use it, or sad after two weeks away. Each picture carries its mood’s sticker, the same on every pet, and awake always shows its own drawing.`,
+    how: `The nine moods, three to a row. The mood ${esc(d.pet)} is in now lights up, and the pet at the top shows it. When ${esc(d.pet)} has something to tell you (alarmed, sick, curious, worried, happy, sad), it shows that mood here, on the desktop, on its Stream Deck keys and on every page it is a friend on; otherwise this page is idle, awake while you use it, or sad after two weeks away. Each picture carries its mood’s sticker, the same on every pet, and awake always shows its own drawing.`,
     from: `The hub’s pictures of ${esc(d.pet)} (art/moods, or its desktop drawings), with the shared stickers stamped on by the build; the lines from the mood key in pets.json. The mood itself: The Farm’s pet-moods, on this PC (its program’s own mood, a key request waiting on you, the Farmer’s round from the past week).`,
     rules: yourRules(7, '2026-10-18: these meanings only, most urgent first; 2026-10-24: nine stickers, the same on every pet, and nothing moves; 2026-11-03: awake shows its own drawing with the twinkles; 2026-11-14: the same mood everywhere'),
     notYet: `Moods from the Police Station; the live site shows no shared mood (it is on this PC only). An awake drawing with open eyes for every real pet waits for your OK on new art. Drawings are drafts unless you approved them.`,
@@ -1185,9 +1199,9 @@ ${about({
   // tools").
   const clickItems = [
     { id: 'one-click', name: 'one click', state: 'planned', desc: 'Show the current reminder in a dialog box, like BSOD’s blurb.' },
-    { id: 'two-clicks', name: 'two clicks', state: 'now', desc: `Open or close ${d.home}, this page.` },
+    { id: 'two-clicks', name: 'two clicks', state: d.onDesktop === false ? 'planned' : 'now', desc: d.onDesktop === false ? `Open or close ${d.home}, this page, once ${d.pet} is on the desktop (not yet: no desktop pet).` : `Open or close ${d.home}, this page.` },
     ...(bound.length
-      ? bound.map(([n, c]) => ({ id: `${counts[n - 3] || n}-clicks`, name: `${counts[n - 3] || n} clicks`, state: 'now', desc: c.what || c.tool, label: c.label || null }))
+      ? bound.map(([n, c]) => ({ id: `${counts[n - 3] || n}-clicks`, name: `${counts[n - 3] || n} clicks`, state: d.onDesktop === false ? 'planned' : 'now', desc: c.what || c.tool, label: c.label || null }))
       : [{ id: 'three-clicks', name: 'three clicks', state: 'unassigned', desc: 'A tool you assign: none assigned yet.' }]),
   ];
   const clicker = panel(`${d.petSlug}-clicker-training-panel`, `${itemList(clickItems, `click:${d.petSlug}`, '')}
@@ -1445,6 +1459,7 @@ export function modelProgramData(src) {
     related: [{ id: 'model-pet-two', pet: 'Pet Two', home: 'Pet Program Two', state: 'now', why: 'Why they play together: a link that works today.', links: 2, page: 'pet-program-spawner-20261018.html', idle: `${MODEL_PROGRAM.art}/pet-two-idle-${MODEL_PROGRAM.date}.svg`, frames: { idle: `${MODEL_PROGRAM.art}/pet-two-idle-${MODEL_PROGRAM.date}.svg` }, fit: modelFit(['idle']) },
       { id: 'model-pet-three', pet: 'Pet Three', home: null, state: 'planned', why: 'A pet whose program is not named yet: planned.', links: 1, page: null, idle: `${MODEL_PROGRAM.art}/pet-three-idle-${MODEL_PROGRAM.date}.svg`, frames: { idle: `${MODEL_PROGRAM.art}/pet-three-idle-${MODEL_PROGRAM.date}.svg` }, fit: modelFit(['idle']) }],
     plays_with: [],
+    onDesktop: true,
     access: { statuses: map.access.statuses, values: map.access.values,
       on: [grant('owner', 'Astra (you, L4)', ['L4'], ['yes', 'yes', 'yes'], 'enforced', false, 'Example: the verified human may do everything; in code.', { evidence: proof }),
         grant('l3-own', 'The seated agent (L3)', ['L3'], ['yes', 'pr', 'no'], 'written', true, 'Example: reads its own folder and changes it only on a branch Astra merges; a written rule.'),

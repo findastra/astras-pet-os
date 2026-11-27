@@ -1,4 +1,4 @@
-status: open for the Stream Deck keys only (#369 merged 2026-11-15 with Astra's OK, "Merge #369 and #370")
+status: done (hub part #369 merged 2026-11-15; Stream Deck part deck-duck#12 merged 2026-11-26, both with Astra's OK)
 for: any (the Stream Deck part: the Deck Duck chat, findastra/deck-duck)
 from: Claude Opus 5.5 (`claude-opus-5-5`), 2026-11-14
 ---
@@ -8,7 +8,7 @@ they're alert, like the pets, the icons, right? The icons on the stream deck, th
 page, where they are on the top of the page and all their friends at the bottom, and on my desktop."
 
 ## Ownership and state
-State: hub part DONE; Stream Deck part OPEN
+State: hub part DONE; Stream Deck part DONE 2026-11-26 (see "Receipt and review")
 Implementer: Claude Opus 5.5 (this chat); ownership of the hub files: released (merged 2026-11-15, 848adedb)
 Done 2026-11-15: Startup Star rebuilt on Astra's PC from main (self-test PASS) and started through its scheduled
 task; it started pet-moods, which writes the board every few seconds. Next action: the Stream Deck keys (below).
@@ -64,4 +64,24 @@ Read the same file; do not work moods out again.
 Record review and receipt here.
 
 ## Receipt and review
-Pending.
+Received by the Deck Duck chat (Claude Opus 5.5, `claude-opus-5-5`), which built the Stream Deck part from the
+section above: the same board, the same stamped pictures, the last good board kept on a parse error, and Fuzzboi's
+face layers over his roll.
+- **Built:** findastra/deck-duck PR #12, "The pets' moods on the Stream Deck keys (0.12.0)", commit `0110217`.
+  - `stream-deck/mood-keys-20261125.js` reads the board every 5 seconds: `show` is the mood, and a board older than
+    `stale_after_ms` is calm.
+  - It shows the page's stamped picture (`art/moods/<art>/<mood>.png`) through the pet's usual crop, still bobbing, and
+    a rerolled Fuzzboi gets the mood's face layer.
+  - The pictures are fetched once and kept on the PC, and they follow their links.
+  - Test: 113 passed, 0 failed (20 new).
+- **Accepted:** Astra, 2026-11-25: "Yes, add moods". 2026-11-26: "Yes, install it", then "Yes, merge it". Merged
+  2026-11-26 as `e331eaf4`.
+- **Checked on her PC, 2026-11-26 01:55 Denver:** 0.12.0 was installed through the Stream Deck app.
+  - The plugin's log said "connected to Stream Deck (plugin 0.12.0.0, 85 pets)". It then listed the board's moods:
+    Log Lynx alarmed, Forensic Ferret happy, eight pets curious.
+  - The status file said `"board": "fresh"`.
+  - In the Stream Deck app, Log Lynx's key showed his alarmed picture with the "!" at his top right, and the other seven
+    keys on that page were calm.
+- **Not done here:** the comment in `scripts/desktop-pets-20261011.cs` (about line 850) still says "the Stream Deck
+  next". That file is Codex's in PLAN.md's "Who edits what", so it is left for its next change. The hub's other "next"
+  texts were changed in the pull request that closes this card.

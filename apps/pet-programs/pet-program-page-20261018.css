@@ -248,6 +248,18 @@
   --tool-bg: rgba(240, 144, 0, .06); --tool-bg-hover: rgba(240, 144, 0, .11);
 }
 :root[data-pet="file-master"] .footer-group::before, :root[data-pet="file-master"] .footer-sparkle { color: #f0d848; }
+/* Deck Pond's own colours, Deck Duck's (Astra, 2026-11-17: "give a yellow background to the program too", then, of
+   the bright yellow: "yellow is terrible on the eyes use dark yellow gray ish"): a dark khaki gray page with cream
+   lettering, panel lines in his body yellow (#fcd31c, sampled from his newest drawing), his beak orange (#ffa25c, a
+   lighter cut of #fa6a1a) for links and marks, his yellow for the working-copy box and his cheek pink for connections. */
+:root[data-pet="deck-duck"] {
+  --slate: #4a4430; --slate-2: #3a3524; --chalk: #fbf4dc; --chalk-dim: #cfc6a4; --line: #fcd31c; --line-dim: #8a7a3a;
+  --box: transparent; --surface: var(--slate); --page-ink: var(--chalk); --page-ink-dim: var(--chalk-dim); --accent: #ffa25c;
+  --editorial: #fcd31c; --editorial-ink: #fff3c4; --editorial-glow: rgba(252, 211, 28, .2); --grid: none; --editorial-by: #ffe58a; --serial: #fcd31c;
+  --link: #ffa25c; --connection: #ffb3c9;
+  --tool-bg: rgba(252, 211, 28, .06); --tool-bg-hover: rgba(252, 211, 28, .11);
+}
+:root[data-pet="deck-duck"] .footer-group::before, :root[data-pet="deck-duck"] .footer-sparkle { color: #fcd31c; }
 * { box-sizing: border-box; }
 /* Anything hidden stays hidden, whatever display its own style gives it (Astra, 2026-10-26: "The X button to close the
    tracker choice menu still doesnt work"). */
@@ -514,6 +526,13 @@ img.fit, .den img.pet, .den img.pet.fit, .mood img, .mood img.fit {
 .items li.pill:has(> .pill-more[open]) { padding-bottom: 9px; }
 .pill > .item-name, .pill > .pill-more:not([open]) { grid-row: 1; }
 .items li.pill:hover .item-name, .items li.pill:has(> .pill-more[open]) .item-name { text-decoration: underline; text-underline-offset: 3px; }
+/* The tool the Stream Deck's second knob is on (Deck Duck, 2026-11-26: "I want to be able to see which ones are
+   highlighted on the pet program"): the look the mouse gives a pill, set by the page script, since a script cannot
+   hover. A pill inside a folded panel or tool box lights that panel's name or that box instead. */
+.items li.pill.deck-pick { border-color: var(--line); background: var(--tool-bg-hover); }
+.items li.pill.deck-pick .item-name { text-decoration: underline; text-underline-offset: 3px; }
+.toolbox.deck-pick, .launch-headset.deck-pick, .launch-mode.deck-pick { border-color: var(--line); background: var(--tool-bg-hover); }
+.panel.deck-pick > summary .legend { text-decoration: underline; text-underline-offset: 3px; color: var(--line); }
 .pill > .item-desc, .pill > .label, .pill > .pill-more { justify-self: stretch; min-width: 0; }
 /* A device's serial, first when it is opened (Astra, 2026-10-24: "I need the first thing I see to be the tracker
    serial #"). */
@@ -542,6 +561,7 @@ img.fit, .den img.pet, .den img.pet.fit, .mood img, .mood img.fit {
 .tool-frame { display: block; width: 100%; max-width: 480px; height: 600px; margin: 0 auto; border: 0; background: transparent; }
 /* A wide tool fills the panel (Bass & Biscuits' APC64 deck): about the deck's own shape plus its two short rows. */
 .tool-frame.wide { max-width: none; height: auto; aspect-ratio: 1370 / 1150; min-height: 420px; }
+.tool-frame.square { max-width: 760px; height: auto; aspect-ratio: 1060 / 1100; min-height: 420px; }
 /* A tool that works inside its own rounded tool box (`in_pill`) takes the whole row, and its tool fills the box. */
 .items li.pill:has(> .pill-more[open] .pill-tool) { grid-column: 1 / -1; }   /* a tool that works in its pill sits in the columns like the rest, and takes the whole row only once it is opened (Astra, 2026-11-03: "I like the width that they are under third party. And then if you expand them, they can take up the whole page, but not until you do that") */
 .pill-tool { margin: 8px 0 4px; }

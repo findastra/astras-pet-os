@@ -99,9 +99,12 @@
   function power(k, planned) { if (planned) return 'off'; var s = lights[k] || {}; return s.power || (s.off ? 'off' : 'on'); }
   // The second light (Astra, 2026-10-24: "the gray should be 'not created' ... they need to all be checked if they work
   // or not by you"; "yellow is 'report issues'"; an update found by the update audit is orange until L4 approves it):
+  // The colours as the page's key shows them (Astra, 2026-11-27: "you should have shown blue because you thought it
+  // worked but once i checked and it had issues, i was supposed to be able to click it from blue to orange. yellow is
+  // rare it means you found it needs an update"; the stylesheet paints is-fix with --update and is-update with --fix):
   //   none   grey    not created: not built yet, or the check found it is not on this PC
-  //   fix    yellow  report issues: you reported one (click), the check found one, or it has not been checked yet
-  //   update orange  an update is waiting for your approval (Steam, or the update audit on GitHub)
+  //   fix    orange  report issues: you reported one (click), the check found one, or it has not been checked yet
+  //   update yellow  an update is waiting for your approval (Steam, or the update audit on GitHub)
   //   ok     blue    checked, and it works
   // A check is the hub's record (pets.json `checks`): data-check on the light, with its note and date.
   function care(b) {
@@ -397,7 +400,8 @@
   var quiet, blinker;
   // ---- The same mood everywhere (Astra, 2026-11-14: "I want all of the pets everywhere to have the same status. Like
   // if they're questioning or if they're alert"). The Farm's pet-moods (scripts/pet-moods-20261114.mjs) works out every
-  // pet's mood on this PC and writes it to one file; the desktop pets read the same file (the Stream Deck next). When it
+  // pet's mood on this PC and writes it to one file; the desktop pets and Deck Duck's Stream Deck keys read the same file
+  // (the keys since 2026-11-26, deck-duck#12). When it
   // says a pet has something to tell Astra (`show`: alarmed, sick, curious, worried, happy or sad), that mood wins here
   // too: on the pet at the top, in the emotions panel, and on every picture of that pet on this page (its friends at the
   // bottom, the System Map box, the pets it talks to). Otherwise the page keeps its own idle, awake and sad. The file is
@@ -1117,6 +1121,74 @@
   } else {
     examples('Made-up examples. The real list stays on Astra\'s PC and shows here only when this page is opened there.');
   }
+  })();
+
+  // ---- The Stream Deck's second knob (Astra, 2026-11-14: "when I scroll through it, it highlights those tools as if I
+  // was selecting it with my mouse"; 2026-11-26: "I want to be able to see which ones are highlighted on the pet
+  // program"). Deck Duck's plugin writes the pet and the tool its second knob is on to one fixed file on this PC. A page
+  // opened here reads it twice a second while it is in front, gives that tool's pill the look the mouse gives it, and
+  // scrolls it into view; a pill inside a folded panel lights the folded panel instead. When the knob was pressed on a
+  // tool whose page was already open (`go`: the deck brought this tab to the front instead of opening the page again,
+  // 2026-11-26: "I also dont want it to ever open duplicates"), the page unfolds around the tool and goes to it once. A
+  // pick older than a minute lights nothing. Only the pet's repo and the tool's data-item are read from the file, and
+  // they are only compared with this page's own, never put into the page. ----
+  (function () {
+  var lights = document.querySelectorAll('button.light[data-item]');
+  if (!watchHere || !lights.length || !config.repo) return;
+  var LOCAL_PICK = "../../../../Astra's PetOS Data/deck-duck/deck-pick-page-data.js";
+  var calm = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  var lit = null, lastItem = null, lastGo = null;
+  var pillOf = function (item) {
+    for (var i = 0; i < lights.length; i++) if (lights[i].dataset.item === item) return lights[i].closest('li.pill');
+    return null;
+  };
+  var folded = function (n) { return (n.tagName === 'DETAILS' && !n.open) || n.classList.contains('is-folded'); };
+  // The outermost folded panel or tool box around the pill: the one whose name shows.
+  var foldAround = function (pill) {
+    var box = null;
+    for (var n = pill.parentElement; n && n !== document.body; n = n.parentElement) if (folded(n)) box = n;
+    return box;
+  };
+  var unfold = function (pill) {
+    for (var n = pill.parentElement; n && n !== document.body; n = n.parentElement) {
+      if (n.tagName === 'DETAILS' && !n.open) n.open = true;
+      if (n.classList.contains('is-folded')) {
+        n.classList.remove('is-folded');
+        var b = n.querySelector(':scope > .toolbox-head .toolbox-fold, :scope > .launch-head .launch-fold, :scope > legend .launch-fold');
+        if (b) b.setAttribute('aria-expanded', 'true');
+      }
+    }
+  };
+  var light = function (item, go) {
+    var pill = item ? pillOf(item) : null;
+    if (pill && go) unfold(pill);
+    var target = pill ? foldAround(pill) || pill : null;
+    if (target !== lit) {
+      if (lit) lit.classList.remove('deck-pick');
+      if (target) target.classList.add('deck-pick');
+      lit = target;
+    }
+    if (target && (go || item !== lastItem)) target.scrollIntoView({ block: go ? 'center' : 'nearest', behavior: calm ? 'auto' : 'smooth' });
+  };
+  var readPick = function (p) {
+    var fresh = !!(p && p.schema === 'deck-duck-pick-v1' && p.pet === config.repo && typeof p.item === 'string' &&
+      Date.now() - Date.parse(p.time) < 60000);
+    var go = fresh && typeof p.go === 'string' && p.go !== lastGo && Date.now() - Date.parse(p.go) < 15000;
+    if (go) lastGo = p.go;
+    var item = fresh ? p.item : null;
+    light(item, go);
+    lastItem = item;
+  };
+  var loadPick = function () {
+    var script = document.createElement('script');
+    script.setAttribute('src', LOCAL_PICK + '?t=' + Date.now());
+    script.onload = function () { script.remove(); readPick(window.deckDuckPick); };
+    script.onerror = function () { script.remove(); readPick(null); };
+    document.head.appendChild(script);
+  };
+  loadPick();
+  setInterval(function () { if (!document.hidden) loadPick(); }, 500);
+  document.addEventListener('visibilitychange', function () { if (!document.hidden) loadPick(); });
   })();
 
   // ---- A folded tool opens when it is clicked anywhere, like a pill (Astra, 2026-11-02: "all you have to do is click on

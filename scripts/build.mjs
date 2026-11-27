@@ -37,10 +37,15 @@ import { writePetProgramPages } from './pet-program-pages-20261018.mjs';
 import { writeMarkdownPets } from './markdown-pets-20261019.mjs';
 import { writeDeveloperWords } from './developer-words-20261019.mjs';
 import { applyStages } from './pet-stages-20261102.mjs';
+import { writeDraftList } from './prepare-desktop-drafts-20261011.mjs';
 
 process.chdir(fileURLToPath(new URL('..', import.meta.url)));
 
 const metadataOnly = process.argv.includes('--metadata-only');
+// The desktop pets' draft list: every pet on the Friendly Farmer's list (Astra, 2026-11-27: "make sure all 85 or so
+// are showing"), first, so everything below reads the same pets. Written again after the pages, so a new pet's two
+// clicks open the page this build makes for it.
+writeDraftList();
 const { index, missing } = metadataOnly
   ? { index: JSON.parse(readFileSync('art/frames/index.json', 'utf8')), missing: [] }
   : buildFrames({ log: () => {} });
@@ -84,6 +89,7 @@ writeFileSync('PET-PROGRAMS.md', buildPetProgramsPage(JSON.parse(readFileSync('p
   if (words.missing.length) console.log(`Developer mode: no developer name yet for ${words.missing.join(', ')} (developer-words-20261019.json); they keep their farm names.`); }
 // Every pet's pet program page, from the same sources as the map (the Friendly Farmer's pet program spawner, 2026-10-18).
 writePetProgramPages('.');
+writeDraftList();
 // The same pets as Markdown, for locked-down computers that take only .md files (Astra, 2026-10-19).
 writeMarkdownPets('.');
 for (const { path, kind } of redacted) console.log(`Public safety: left out a ${kind} at ${path}; keep it on this PC (docs/local-services-20261014.md).`);

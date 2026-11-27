@@ -14,12 +14,14 @@ import { existsSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { repoUrl } from './farm-owner-20261020.mjs';
+import { slug } from './developer-words-20261019.mjs';
 
 const hub = fileURLToPath(new URL('..', import.meta.url));
 export const LIST = 'desktop-art/desktop-drafts-20261018.json';
 // %USERPROFILE%\Documents\Astra's PetOS, where the other repos sit next to this one (ASTRAS_PETOS for a check elsewhere).
 const petos = process.env.ASTRAS_PETOS || dirname(hub.replace(/[\\/]$/, ''));
-const names = Object.fromEntries(JSON.parse(readFileSync(join(hub, 'pet-programs.json'), 'utf8')).programs.map((p) => [p.repo, p.icon]));
+const programs = JSON.parse(readFileSync(join(hub, 'pet-programs.json'), 'utf8')).programs;
+const names = Object.fromEntries(programs.map((p) => [p.repo, p.icon]));
 const registry = JSON.parse(readFileSync(join(hub, 'pets.json'), 'utf8'));
 
 // [desktop-art id, repo, picture date]. Names come from pet-programs.json (the one list of names). The date is the one in
@@ -86,7 +88,46 @@ export function draftList() {
     }
     pets.push(entry);
   }
+  // Every other pet on the Friendly Farmer's list comes out too (Astra, 2026-11-27: "make sure all 85 or so are showing
+  // when I open it, use their host locations in friendly farmer"). Until then the desktop showed only pets.json's pets
+  // and the hand-kept DRAFTS above (42 of 85), though every pet has had its own drawing in desktop-art/ since
+  // 2026-11-14. Each pet on pet-programs.json not already out is added in its list order, with its picture found where
+  // the Friendly Farmer's pages find it (pet-program-pages' petFrames): its newest drawing in desktop-art/ under its
+  // pet's name or its repo, else its newest icon (Skill Scout, who has no drawing yet), used for both idle and awake.
+  const out = new Set([...(registry.pets || []).map((p) => p.repo), ...DRAFTS.map(([, repo]) => repo), 'claude-bot']);
+  const ids = new Set([...(registry.pets || []).map((p) => p.art), ...pets.map((p) => p.id)]);
+  const newestIcon = (folders) => {
+    const icons = existsSync(join(hub, 'art/icons')) ? readdirSync(join(hub, 'art/icons')) : [];
+    const f = icons.filter((n) => folders.some((id) => new RegExp(`^${id}-\\d{8}\\.png$`).test(n))).sort().pop();
+    return f ? { idle: `art/icons/${f}`, blink: `art/icons/${f}` } : null;
+  };
+  for (const program of programs) {
+    if (out.has(program.repo)) continue;
+    const folders = [...new Set([slug(program.icon), program.repo])];
+    const id = folders.find((f) => newestPair(f)) || folders[0];
+    const pair = newestPair(id) || newestIcon(folders);
+    if (!pair || ids.has(id)) continue; // no picture anywhere yet: the check below names it
+    pets.push({ id, name: program.icon, interface: programPage(program.repo), ...pair });
+    out.add(program.repo); ids.add(id);
+  }
   return { pets };
+}
+
+/** The pets on the Friendly Farmer's list (pet-programs.json) that the desktop leaves out: neither in pets.json nor in
+ *  the draft list, by pet name. Empty when every pet comes out. */
+export function missingFromDesktop(list = draftList()) {
+  const shown = new Set([...(registry.pets || []).map((p) => p.pet), ...list.pets.map((p) => p.name)]);
+  return programs.filter((p) => !shown.has(p.icon)).map((p) => `${p.icon} (${p.repo})`);
+}
+
+/** Writes the list when it changed, and returns it. `npm run build` runs this too (2026-11-27), so a pet added to
+ *  pet-programs.json, or a newer drawing, comes out on the desktop after the next build without anyone remembering
+ *  this script. */
+export function writeDraftList() {
+  const list = draftList();
+  const file = join(hub, LIST), text = JSON.stringify(list, null, 1) + '\n';
+  if (!existsSync(file) || readFileSync(file, 'utf8') !== text) writeFileSync(file, text);
+  return list;
 }
 
 /** Where the desktop will find Claude Bot's pictures on this PC, and whether they are the ones on his repo's main. */
@@ -99,11 +140,11 @@ export function claudeBotCheck() {
 }
 
 if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
-  const list = draftList();
-  if (process.argv.includes('--print')) console.log(JSON.stringify(list, null, 2));
-  else {
-    writeFileSync(join(hub, LIST), JSON.stringify(list, null, 1) + '\n');
-    console.log(`${list.pets.length} draft pets in ${LIST}; every picture but Claude Bot's is in this hub.`);
-  }
+  const print = process.argv.includes('--print');
+  const list = print ? draftList() : writeDraftList();
+  if (print) console.log(JSON.stringify(list, null, 2));
+  else console.log(`${list.pets.length} draft pets in ${LIST}; every picture but Claude Bot's is in this hub.`);
+  const missing = missingFromDesktop(list);
+  if (missing.length) console.warn(`Not on the desktop (no picture in this hub): ${missing.join(', ')}`);
   console.warn(claudeBotCheck());
 }

@@ -32,7 +32,9 @@ test('one server per pet, each written once: the star reads it from pets.json an
   for (const pet of withServer) {
     const file = pet.server.split('/').pop();
     assert.ok(!star.includes(file), `the star does not name ${file}`);
-    assert.ok(star.includes(`ServerIn("${pet.repo}"`), `the star starts ${pet.repo}'s server from pets.json`);
+    // Log Den's three crash watches share one loop in the star (Log Den's server runs all three).
+    const crashWatch = ['log-den', 'packet-river', 'evidence-locker'].includes(pet.repo) && star.includes('Exe=ServerIn(p[0],Path.Combine(parent,p[0]),');
+    assert.ok(crashWatch || star.includes(`ServerIn("${pet.repo}"`), `the star starts ${pet.repo}'s server from pets.json`);
   }
   assert.ok(star.includes('PetFiles.Text(pet,"server")'), 'the star reads `server` from pets.json');
 });
@@ -51,6 +53,28 @@ test('the renames so far, easiest first: Benchmark Rock (#408), Kernel Grove (#4
   assert.ok(star.includes('ServerIn("rift-rabbit",rabbitDir,'), 'the star starts it from that program folder');
   const page = read('apps/pet-programs/vrchat-launcher-20261024.js');
   assert.ok(!page.includes('rift-rabbit-20261024.exe') && page.includes('Start it from Startup Star'), 'the Launch buttons name no program file');
+});
+
+test("Log Den's three renames together (2026-11-26): Log Den's server runs all three crash watches; each pet names its own", () => {
+  const pet = (repo) => [...pets.pets, ...pets.pipeline].find((p) => p.repo === repo);
+  assert.equal(pet('log-den').server, 'bin/log-den-server-20261126.exe');
+  assert.equal(pet('packet-river').server, 'bin/packet-river-server-20261126.exe');
+  assert.equal(pet('evidence-locker').server, 'bin/evidence-locker-server-20261126.exe');
+  // The star starts each from its own repo's folder, and Packet Piranha's and Forensic Ferret's watches stay hosted by
+  // Log Den's server (Astra, 2026-11-08).
+  assert.ok(star.includes('Exe=ServerIn(p[0],Path.Combine(parent,p[0]),Path.Combine(parent,p[0],"bin",p[0]+"-20261018.exe"))'));
+  assert.ok(star.includes('Host=p[0]=="log-den"?null:"log-den"'), 'the two watches stay inside Log Den\'s server');
+});
+
+test("Audio Rescue's server (2026-11-27): the Bug's one program, in his own folder, for his start, menu and repair", () => {
+  const pet = (repo) => [...pets.pets, ...pets.pipeline].find((p) => p.repo === repo);
+  // A plain file name: the Bug runs from his folder, Documents\ChatGPT\Voicemeeter Bug.
+  assert.equal(pet('voicemeeter-bug').server, 'audio-rescue-server-20261127.exe');
+  assert.ok(star.includes('BugExe { get { return BackgroundPets.ServerIn("voicemeeter-bug",BugDir,'), 'the star takes the Bug\'s program from pets.json');
+  assert.ok(star.includes('PetFiles.StartBug("--hosted")') && star.includes('PetFiles.StartBug("--repair")') && star.includes('Exe=PetFiles.BugExe'),
+    'his start, his three-click repair and his menu all go through that one path');
+  const page = read('apps/voicemeeter-bug-20261008.html');
+  assert.ok(page.includes('Voicemeeter Bug\\\\audio-rescue-server-20261127.exe') && !page.includes('voicemeeter-bug-20261008.exe'), 'his page names the server');
 });
 
 test("PC Master Race's server is a node script the star starts at sign-in; The Pilot Plant's look runs once and is no server", () => {
