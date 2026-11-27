@@ -373,14 +373,78 @@ namespace AstraDesktopPets {
       if(!DesktopArt&&!Layered)for(int y=-1;y<=1;y++)for(int x=-1;x<=1;x++)if(x!=0||y!=0) {
         var edge=to;edge.Offset(x*inkPixel,y*inkPixel);g.DrawImage(mask,edge,crop,GraphicsUnit.Pixel);
       }
-      g.DrawImage(Frame(blink),to,crop,GraphicsUnit.Pixel);
+      // A drawing with no added ink is shrunk evenly (ShrunkPicture); a legacy sprite's ink above is drawn the old way,
+      // so its picture is too, to stay lined up with it.
+      bool even=DesktopArt||Layered;
+      if(!(even&&DrawShrunk(g,Frame(blink),crop,to,!Layered,null)))g.DrawImage(Frame(blink),to,crop,GraphicsUnit.Pixel);
       var bands=Bands(blink);
       if(Rainbow&&bands!=null) {
         using(var colors=new ImageAttributes()) {
           colors.SetColorMatrix(RgbCycle(Environment.TickCount & Int32.MaxValue));
-          g.DrawImage(bands,new PointF[]{new PointF(to.Left,to.Top),new PointF(to.Right,to.Top),new PointF(to.Left,to.Bottom)},crop,GraphicsUnit.Pixel,colors);
+          if(!(even&&DrawShrunk(g,bands,crop,to,!Layered,colors)))g.DrawImage(bands,new PointF[]{new PointF(to.Left,to.Top),new PointF(to.Right,to.Top),new PointF(to.Left,to.Bottom)},crop,GraphicsUnit.Pixel,colors);
         }
       }
+    }
+    // Even shrinking (Astra, 2026-11-27: "the drum dog's eyes look kind of weird"; Claude Opus 5.5). Drawn straight from
+    // the 256-pixel drawing with nearest-neighbour scaling, a pet about 2.2 times smaller on the screen kept some source
+    // pixels and dropped others, so two equal eyes came out different shapes. Now each picture is shrunk once to its exact
+    // size on the screen, every screen pixel the average of the source pixels it covers (area averaging, a box filter;
+    // colour weighted by alpha, so the clear background never tints an edge), kept until the size or picture changes, and
+    // drawn pixel for pixel. A colour-keyed window shows no partial alpha (CrispTransparency), so there a pixel is solid
+    // from half covered up; a layered window keeps the averaged alpha. Drawn at or above its own size, nothing changes.
+    sealed class ShrunkEntry { internal Bitmap Source,Picture;internal Rectangle Crop;internal Size Size;internal bool Crisp; }
+    readonly List<ShrunkEntry> shrunk=new List<ShrunkEntry>();
+    Bitmap ShrunkPicture(Bitmap source,Rectangle crop,Size size,bool crisp) {
+      foreach(var s in shrunk)if(ReferenceEquals(s.Source,source)&&s.Crop==crop&&s.Size==size&&s.Crisp==crisp)return s.Picture;
+      if(shrunk.Count>=16)ClearShrunk(); // a new display scale, or many moods: start again
+      var picture=Shrink(source,crop,size.Width,size.Height,crisp);
+      shrunk.Add(new ShrunkEntry{Source=source,Picture=picture,Crop=crop,Size=size,Crisp=crisp});return picture;
+    }
+    void ClearShrunk() { foreach(var s in shrunk)s.Picture.Dispose();shrunk.Clear(); }
+    // Draws `crop` of `picture` into `to` (in the graphics' own units), shrunk evenly. False when the picture is not
+    // being shrunk there (drawn at or above its own size, or under a rotation), and the caller draws it as before.
+    bool DrawShrunk(Graphics g,Bitmap picture,Rectangle crop,RectangleF to,bool crisp,ImageAttributes colors) {
+      float[] m;using(var transform=g.Transform)m=transform.Elements;
+      if(m[1]!=0||m[2]!=0)return false;
+      int x0=(int)Math.Round(to.Left*m[0]+m[4]),x1=(int)Math.Round(to.Right*m[0]+m[4]),y0=(int)Math.Round(to.Top*m[3]+m[5]),y1=(int)Math.Round(to.Bottom*m[3]+m[5]);
+      int w=x1-x0,h=y1-y0;if(w<1||h<1||w>=crop.Width||h>=crop.Height)return false;
+      var small=ShrunkPicture(picture,crop,new Size(w,h),crisp);
+      var state=g.Save();
+      try {
+        g.ResetTransform();g.InterpolationMode=InterpolationMode.NearestNeighbor;g.PixelOffsetMode=PixelOffsetMode.Half;
+        var dest=new Rectangle(x0,y0,w,h);
+        if(colors==null)g.DrawImage(small,dest,0,0,w,h,GraphicsUnit.Pixel);else g.DrawImage(small,dest,0,0,w,h,GraphicsUnit.Pixel,colors);
+      }finally{g.Restore(state);}
+      return true;
+    }
+    // `crop` of `source` shrunk to width by height by area averaging (above). Crisp: every pixel clear or solid.
+    internal static Bitmap Shrink(Bitmap source,Rectangle crop,int width,int height,bool crisp) {
+      int sw=source.Width,sh=source.Height;var src=new int[sw*sh];
+      var from=source.LockBits(new Rectangle(0,0,sw,sh),ImageLockMode.ReadOnly,PixelFormat.Format32bppArgb);
+      try{for(int y=0;y<sh;y++)Marshal.Copy(IntPtr.Add(from.Scan0,y*from.Stride),src,y*sw,sw);}finally{source.UnlockBits(from);}
+      var dst=new int[width*height];double fx=crop.Width/(double)width,fy=crop.Height/(double)height;
+      for(int ty=0;ty<height;ty++) {
+        double y0=crop.Y+ty*fy,y1=y0+fy;
+        for(int tx=0;tx<width;tx++) {
+          double x0=crop.X+tx*fx,x1=x0+fx,cover=0,a=0,r=0,gr=0,b=0;
+          for(int sy=Math.Max(0,(int)y0);sy<y1&&sy<sh;sy++) {
+            double wy=Math.Min(y1,sy+1)-Math.Max(y0,sy);if(wy<=0)continue;
+            for(int sx=Math.Max(0,(int)x0);sx<x1&&sx<sw;sx++) {
+              double wx=Math.Min(x1,sx+1)-Math.Max(x0,sx);if(wx<=0)continue;
+              int p=src[sy*sw+sx];double part=wx*wy,pa=((p>>24)&255)*part;
+              cover+=part;a+=pa;r+=((p>>16)&255)*pa;gr+=((p>>8)&255)*pa;b+=(p&255)*pa;
+            }
+          }
+          if(cover<=0||a<=0)continue;
+          double alpha=a/cover;int A=crisp?(alpha>=127.5?255:0):Math.Min(255,(int)Math.Round(alpha));if(A==0)continue;
+          int R=Math.Min(255,(int)Math.Round(r/a)),G=Math.Min(255,(int)Math.Round(gr/a)),B=Math.Min(255,(int)Math.Round(b/a));
+          dst[ty*width+tx]=(A<<24)|(R<<16)|(G<<8)|B;
+        }
+      }
+      var result=new Bitmap(width,height,PixelFormat.Format32bppArgb);
+      var to=result.LockBits(new Rectangle(0,0,width,height),ImageLockMode.WriteOnly,PixelFormat.Format32bppArgb);
+      try{for(int y=0;y<height;y++)Marshal.Copy(dst,y*width,IntPtr.Add(to.Scan0,y*to.Stride),width);}finally{result.UnlockBits(to);}
+      return result;
     }
     internal static ColorMatrix RgbCycle(long milliseconds) {
       double phase=(milliseconds%6000)/2000.0;int step=(int)phase;float blend=(float)(phase-step);
@@ -406,7 +470,7 @@ namespace AstraDesktopPets {
       if(x1<x0)throw new InvalidDataException("A pet frame is empty.");return Rectangle.FromLTRB(x0,y0,x1+1,y1+1);
     }
     public void Dispose() { if(Idle!=null)Idle.Dispose();if(Blink!=null)Blink.Dispose();if(idleInk!=null)idleInk.Dispose();if(blinkInk!=null)blinkInk.Dispose();if(idleBands!=null)idleBands.Dispose();if(blinkBands!=null)blinkBands.Dispose();
-      foreach(var set in new[]{moodFrames,moodInks,moodBands}){foreach(var b in set.Values)if(b!=null)b.Dispose();set.Clear();}moodCrops.Clear(); }
+      foreach(var set in new[]{moodFrames,moodInks,moodBands}){foreach(var b in set.Values)if(b!=null)b.Dispose();set.Clear();}moodCrops.Clear();ClearShrunk(); }
   }
 
   // Uses mouse-down times and Windows' configured interval/rectangle. Nothing is
@@ -1379,6 +1443,28 @@ namespace AstraDesktopPets {
       int sparkleCount=0;foreach(var pet in roaming)sparkleCount+=pet.SparkleCount;
       PetFiles.WriteStatus(new { running,test_mode=test,process_id=Process.GetCurrentProcess().Id,window_title=Text,visible=running&&Visible,desktop_star_visible=running&&launcherVisible,tray_visible=running&&tray!=null&&tray.Visible,star_icon_pixels=starBitmap.Width,desktop_star_pixels=starBitmap.Width,pets_out=petsOut,lined_up=LinedUp,compact=Compact,roaming_pet_count=roaming.Count,roaming_pet_visible_count=roaming.FindAll(p=>p.Visible).Count,pending_clicks=clicks.Pending,last_action=testActions.Count>0?testActions[testActions.Count-1]:null,actions=test?testActions.ToArray():null,pet_count=pets.Count+1,hidden_pets=HiddenIds(),farmer_roaming=roaming.Exists(p=>p.Pet==farmer),dock_sample_interval_ms=16,bug_present=pets.Exists(p=>p.Id=="voicemeeter-bug"),bug_height=PetHit("voicemeeter-bug",false),normal_height=NormalHeight,paper_girl_height=PetHit("paper-girl",false),paper_girl_width=PetHit("paper-girl",true),file_master_height=PetHit("file-master",false),file_master_width=PetHit("file-master",true),pet_pair=PairStatus(),desktop_art_pets=roaming.FindAll(p=>p.Pet.DesktopArt).ConvertAll(p=>p.Pet.Id).ToArray(),sparkle_pet_ids=roaming.FindAll(p=>p.HasSparkles).ConvertAll(p=>p.Pet.Id).ToArray(),draft_errors=draftErrors.ToArray(),sparkle_count=sparkleCount,sparkle_lifetime_ms=0,sparkle_padding=0,sparkles_allowed=false,translucent_pet_ids=pets.FindAll(p=>p.Layered).ConvertAll(p=>p.Id).ToArray(),fuzzboi_variant=pets.Find(p=>p.Id=="fuzzboi-friend")==null?null:pets.Find(p=>p.Id=="fuzzboi-friend").Name,animation_interval_ms=timer.Interval,animation_running=running&&timer.Enabled,startup_enabled=PetFiles.StartupEnabled(),dpi_scale=scale,width=Width,height=Height,docked=dockBounds.HasValue,dock_has_room=!spaceConstrained,dock_required_width_px=needed,dock_available_width_px=area.Right-expandedLocation.X,dock_star_left_must_be_at_or_before_px=area.Right-needed,on_screen=Screen.FromRectangle(Bounds).WorkingArea.IntersectsWith(Bounds),updated_utc=DateTime.UtcNow.ToString("o")},test);
     }
+    // Even shrinking (Astra, 2026-11-27: "the drum dog's eyes look kind of weird"; Claude Opus 5.5). A white body on a
+    // clear background with two equal black marks, 5 by 6 pixels, at different places on the grid: drawn the way a pet
+    // window draws it at 150%, 190 pixels shrink to 88, and both marks must keep the same ink (within 2%), where keeping
+    // some pixels and dropping others gave one mark three columns and the other two. A colour-keyed window still gets
+    // only clear or solid pixels.
+    static void EvenShrinkTest() {
+      var art=new Bitmap(190,40,PixelFormat.Format32bppArgb);
+      for(int y=4;y<36;y++)for(int x=10;x<180;x++)art.SetPixel(x,y,Color.White);
+      for(int y=10;y<16;y++)for(int x=0;x<5;x++){art.SetPixel(44+x,y,Color.Black);art.SetPixel(101+x,y,Color.Black);}
+      var marks=new PetSprite{Id="even-shrink-test",Name="Even shrink test",DesktopArt=true};marks.Idle=art;marks.Blink=new Bitmap(art);marks.Crop=new Rectangle(0,0,190,40);
+      try {
+        using(var shot=new Bitmap(88,19,PixelFormat.Format32bppArgb)) {
+          using(var g=Graphics.FromImage(shot)){g.Clear(Color.Transparent);g.ScaleTransform(1.5f,1.5f);g.InterpolationMode=InterpolationMode.NearestNeighbor;g.PixelOffsetMode=PixelOffsetMode.Half;marks.Draw(g,false,new RectangleF(0,0,88/1.5f,19/1.5f));}
+          double left=0,right=0;
+          for(int y=0;y<shot.Height;y++)for(int x=0;x<shot.Width;x++) {
+            var c=shot.GetPixel(x,y);if(c.A!=0&&c.A!=255)throw new Exception("A colour-keyed pet window gets only clear or solid pixels.");
+            double ink=(255-c.R)*c.A/255.0;if(x<36)left+=ink;else right+=ink;
+          }
+          if(left<1||Math.Abs(left-right)>Math.Max(left,right)*.02)throw new Exception("Two equal marks must shrink equally (the eyes): "+Math.Round(left)+" vs "+Math.Round(right));
+        }
+      }finally{marks.Dispose();}
+    }
     internal void SelfTest() {
       if(pets.Count<1||farmer==null)throw new Exception("Roster test failed.");
       foreach(var pet in pets)pet.ValidateEffects();
@@ -1394,6 +1480,7 @@ namespace AstraDesktopPets {
       if(Math.Abs(paper.Hit.Height-NormalHeight*.72f)>.01f||Math.Abs(files.Hit.Height-NormalHeight*.72f)>.01f)throw new Exception("Paper Girl or File Master resize failed.");
       foreach(string id in SameSize) { var girl=pets.Find(p=>p.Id==id);if(girl==null)continue;var art=Rectangle.Union(PetSprite.AlphaBounds(girl.Idle),PetSprite.AlphaBounds(girl.Blink));
         if(girl.Crop.Top<0||girl.Crop.Height!=SameSizeCrop(id)||girl.Crop.Bottom!=art.Bottom||art.Top<girl.Crop.Top||Math.Abs(girl.Hit.Height-NormalHeight)>.01f)throw new Exception("Group 3 same-size scale failed: "+girl.Name); }
+      EvenShrinkTest();
 
       Rectangle left=new Rectangle(-1920,0,1920,1080);Size size=new Size(690,172);
       if(Clamp(new Point(9999,9999),size,left)!=new Point(-690,908))throw new Exception("Screen clamp failed.");
