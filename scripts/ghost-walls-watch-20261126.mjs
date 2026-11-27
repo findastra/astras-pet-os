@@ -2,7 +2,7 @@
 // that joins the guest network, Ghost In The Walls.
 //
 // Astra, 2026-11-20: "I want the ghost in the walls tool to be a white hat tool. And I want you to track attempted
-// password logins to it somehow." The router (TP-Link Archer AXE75) keeps no record of wrong guest passwords, so the
+// password logins to it somehow." The home TP-Link router keeps no record of wrong guest passwords, so the
 // closest is who got in: each look reads the guest device list with ghost-walls-guest-reader-20261126.py and keeps,
 // per device, when it was first and last seen, how many separate visits, its name, address and band.
 //

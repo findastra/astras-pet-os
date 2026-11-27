@@ -269,7 +269,7 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
   // built yet" (Astra, 2026-11-07, "all recommended"), and Benchmark Rock's table leaves it out too.
   const watched = new Map(map.links.filter((l) => l.from === PROGRAM_WATCH && l.carries === 'manages' && built(nodes.get(l.to)?.state))
     .map((l) => [l.to, WATCH_KINDS.includes(nodes.get(l.to)?.watch) ? nodes.get(l.to).watch : 'window']));
-  const item = (n, l) => ({ id: n.id, name: n.name, watch: watched.get(n.id) || null, site: isSite(n.site) ? n.site : null, state: l?.state || n.state || 'now', why: l?.why || n.job || '', desc: n.does || brief(n.job), url: isUrl(n.url) ? n.url : null, picture: isUrl(n.picture) ? n.picture : null, embed: isUrl(n.embed) ? hubRelative(n.embed) : null, frame: ['wide', 'square'].includes(n.frame) ? n.frame : null, inL1: n.in_l1 === true, inPill: n.in_pill === true || isUrl(n.embed), pillOpen: (n.in_pill === true || isUrl(n.embed)) && n.start_closed !== true, startClosed: n.start_closed === true, panel: n.panel || null, sharedWith: n.shared_with || null, cadence: n.cadence || null, serial: n.serial || null, group: n.in || null, groupName: (n.in && nodes.get(n.in)?.name) || null });
+  const item = (n, l) => ({ id: n.id, name: n.name, watch: watched.get(n.id) || null, site: isSite(n.site) ? n.site : null, state: l?.state || n.state || 'now', unmade: !!n.state && n.state !== 'now', why: l?.why || n.job || '', desc: n.does || brief(n.job), url: isUrl(n.url) ? n.url : null, picture: isUrl(n.picture) ? n.picture : null, embed: isUrl(n.embed) ? hubRelative(n.embed) : null, frame: ['wide', 'square'].includes(n.frame) ? n.frame : null, inL1: n.in_l1 === true, inPill: n.in_pill === true || isUrl(n.embed), pillOpen: (n.in_pill === true || isUrl(n.embed)) && n.start_closed !== true, startClosed: n.start_closed === true, panel: n.panel || null, sharedWith: n.shared_with || null, cadence: n.cadence || null, serial: n.serial || null, group: n.in || null, groupName: (n.in && nodes.get(n.in)?.name) || null });
   const uniq = (arr) => [...new Map(arr.map((x) => [x.id, x])).values()];
   const ofType = (types, links = from) => uniq(links.filter((l) => types.includes(nodes.get(l.to)?.type)).map((l) => item(nodes.get(l.to), l)));
   // A tool node may say which side it is on, avatar or world (Astra, 2026-10-19, for Unity Stable: "separate the page by
@@ -380,7 +380,10 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
   // Today's app (app_url, 2026-10-19): interface_url now opens this page itself, so the button never uses it. An app on
   // the hub's site opens from the hub's own copy, beside this page. An app inside a private repo, or on its Pages site,
   // opens for nobody else, so the button says so instead of leading to "not found" (click-check, 2026-10-20).
-  const app = reg.interface_live_url || reg.app_url || null;
+  // A pet whose program lives in the hub has this very page as its app and live address (White Hat Lab: Astra,
+  // 2026-11-27, Flash Audit round 67 deck, answers 1 and 2): the Pet ID says so, never "the app it had before" to itself.
+  const appIsPage = (reg.interface_live_url || reg.app_url || null) === `${PAGES}/${DIR}/${reg.repo}-${DATE}.html`;
+  const app = appIsPage ? null : reg.interface_live_url || reg.app_url || null;
   const appPrivate = app && isUrl(app) && !app.startsWith(`${PAGES}/apps/`) ? privateTarget(registry, app) : null;
   const appHref = !app || appPrivate ? null : app.startsWith(`${PAGES}/apps/`) ? `../${app.slice(`${PAGES}/apps/`.length)}` : isUrl(app) ? app : `../${app.replace(/^apps\//, '')}`;
   const art = petFrames(reg, { frameIndex, drafts, exists, list });
@@ -398,7 +401,7 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
     repo: reg.repo, pet: reg.pet, petSlug, home, homeSlug, number: prog.number, assigned: !!prog.assigned, stage: prog.stage,
     summary: prog.mini_descriptor?.text || reg.job || '', job: reg.job || '', status: reg.status || null, added: reg.added || null, version: versionOf(reg),
     visibility: reg.visibility || null, isPrivate, publicRepo, host: reg.role === 'host',
-    owner, repoUrl: `https://github.com/${owner}/${reg.repo}`, appHref, appPrivate, vetClinicPrivate, mapNode: homeNode && !homeNode.private ? homeNode.id : reg.repo,
+    owner, repoUrl: `https://github.com/${owner}/${reg.repo}`, appHref, appPrivate, appIsPage, vetClinicPrivate, mapNode: homeNode && !homeNode.private ? homeNode.id : reg.repo,
     ring: (homeNode && !homeNode.private ? homeNode : petNode)?.ring || null,
     // A colour behind the pet's own pictures, for a pet that is hard to see on the blueprint (Astra, 2026-11-12, Gone
     // Ghost: "give like a background color for the ghosts. Maybe it's like spooky green"). `backdrop` in pets.json, a
@@ -439,9 +442,13 @@ const checkAttrs = (key) => {
   const note = [c.note, c.on ? `(checked ${c.on})` : ''].filter(Boolean).join(' ');
   return ` data-check="${esc(c.result)}"${note ? ` data-check-note="${esc(note)}"` : ''}`;
 };
-const careOf = (key, planned, unseen) => {
+const careOf = (key, planned, unseen, unmade = false) => {
   const r = CHECKS[key]?.result;
-  return r === 'missing' || (planned && !unseen && !r) ? ['is-unset', 'not created'] : r === 'works' ? ['', 'checked, works']
+  // Not built yet is grey. A 3rd party program is grey only when it is not set up on the farm at all (its own System Map
+  // node is planned) or a check says it is missing; a program she has whose use by this pet is only planned, and a device
+  // she owns, stay orange until checked (Astra, 2026-11-27, Flash Audit round 67 deck, answer 10, "programs grey,
+  // devices wait for a check": greying every planned link would have called Discord and her Quest Pro "not created").
+  return r === 'missing' || (planned && !r && (!unseen || unmade)) ? ['is-unset', 'not created'] : r === 'works' ? ['', 'checked, works']
     : r === 'update' ? ['is-update', 'update waiting for your approval'] : ['is-fix', 'report issues'];
 };
 // What the ON/OFF light does today, said on the light itself (Astra, 2026-11-08, deck "The Farm: art and lights", answer
@@ -462,10 +469,10 @@ const isSite = (u) => typeof u === 'string' && /^https:\/\/[^\s"'<>\\]+$/.test(u
 // Zero's light talked about SteamVR); pageData fills the list from the map.
 const VR_DEVICES = new Set();
 const deviceTip = (key) => (VR_DEVICES.has(String(key).replace(/^device:/, '')) ? 'ON/OFF: green while SteamVR has it on' : 'ON/OFF: green while it is plugged in');
-const lights = (key, name, { planned = false, unseen = false, presence = false, watch = null, site = null } = {}) => {
-  const p = (planned ? ' data-planned="1"' : '') + (unseen ? ' data-unseen="1"' : '');
+const lights = (key, name, { planned = false, unseen = false, presence = false, watch = null, site = null, unmade = false } = {}) => {
+  const p = (planned ? ' data-planned="1"' : '') + (unseen ? ' data-unseen="1"' : '') + (planned && unmade ? ' data-unmade="1"' : '');
   const button = (watch ? ` data-watch="${esc(watch)}"` : '') + (site ? ` data-site="${esc(site)}"` : '');
-  const [careClass, careSays] = careOf(key, planned, unseen);
+  const [careClass, careSays] = careOf(key, planned, unseen, unmade);
   return `<span class="lights"><button type="button" class="light onoff${planned || unseen || presence ? ' is-off' : ''}" data-item="${esc(key)}" data-name="${esc(name)}"${p}${presence ? ' data-presence-managed="1"' : ''} aria-label="${esc(name)}: ${watch === 'tool' || watch === 'driver' ? 'not found' : presence || unseen ? 'not seen running' : planned ? 'off, not built yet' : 'on'}" title="${presence ? 'Live Discord sharing: use the presence controls above' : watch === 'window' ? 'Red: press to open it. Green: press to close it, after you say yes' : watch ? 'Green while it is installed: press to see what it is' : site ? 'A website: press to open it in a new tab' : /^device:/.test(key) ? deviceTip(key) : ONOFF_SAYS}"${button}></button><button type="button" class="light care${careClass ? ` ${careClass}` : ''}" data-item="${esc(key)}" data-name="${esc(name)}"${p}${checkAttrs(key)} aria-label="${esc(name)}: ${careSays}" title="Checked and works, report issues, update waiting, or not created: click to report an issue"></button></span>`;
 };
 
@@ -576,7 +583,7 @@ function itemList(items, prefix, empty) {
     // and no switch: it is a question, not a tool you turn on or off.
     const pillLights = i.waiting
       ? `<span class="lights"><span class="light care is-update" role="img" aria-label="${esc(i.name)}: waiting for your OK" title="Waiting for your OK"></span></span>`
-      : lights(`${prefix}:${i.id}`, i.name, { planned: !built(i.state), unseen: prefix === 'third-party' || prefix === 'device', watch: prefix === 'third-party' ? i.watch : null, site: prefix === 'third-party' ? i.site : null, presence: prefix === 'program' && ['openai-discord-presence', 'anthropic-discord-presence', 'ableton-live-discord-presence', 'anthropic-ipo-countdown', 'openai-ipo-countdown'].includes(i.id) });
+      : lights(`${prefix}:${i.id}`, i.name, { planned: !built(i.state), unseen: prefix === 'third-party' || prefix === 'device', watch: prefix === 'third-party' ? i.watch : null, site: prefix === 'third-party' ? i.site : null, unmade: prefix === 'third-party' && !!i.unmade, presence: prefix === 'program' && ['openai-discord-presence', 'anthropic-discord-presence', 'ableton-live-discord-presence', 'anthropic-ipo-countdown', 'openai-ipo-countdown'].includes(i.id) });
     // Its state ("planned" and so on) shows only once it is opened, in the line above (Astra, 2026-10-23: "the
     // "planned" should only show up upon expansion").
     return `<li class="pill">${pillLights}${name}${i.cadence ? ` <span class="tag cadence" title="How often it runs">${esc(i.cadence)}</span>` : ''}${desc}${i.label ? `<code class="label">${esc(i.label)}</code>` : ''}<details class="pill-more"${showPicture(i) || i.pillOpen ? ' open' : ''}><summary aria-label="More about ${esc(i.name)}"></summary><div class="pill-body">${more}</div></details></li>`;
@@ -1021,7 +1028,7 @@ ${about({
 ${panel(`${d.homeSlug}-quick-summary-panel`, `<p>${esc(d.summary)}</p>`, { cls: 'summary', fold: false })}</div>`;
   // No buttons under the title (Astra, 2026-10-21: an X over "Open today's app" and one over "Repo" on her screenshot,
   // then "1. A" in her slides): the app and the repo are linked in the footer and in L4's Pet ID.
-  const appLink = d.appHref ? `<a href="${esc(d.appHref)}">the app it had before</a>` : d.appPrivate ? `its app (private: ${esc(d.appPrivate)})` : 'no app wired up yet';
+  const appLink = d.appIsPage ? 'this page: its program lives in the hub' : d.appHref ? `<a href="${esc(d.appHref)}">the app it had before</a>` : d.appPrivate ? `its app (private: ${esc(d.appPrivate)})` : 'no app wired up yet';
 
   // The way back to the System Map, top right, opposite the cyberhome (Astra, 2026-10-19: "There's always going to be
   // a system map link back"; Flash Audit A60). It opens the map on this pet program's own node.
@@ -1415,7 +1422,7 @@ export function modelProgramData(src) {
   const map = systemMapData(src.registry, src.extra, src.programs);
   const frames = Object.fromEntries(MOODS.map((m) => [m, `${MODEL_PROGRAM.art}/${m}-${MODEL_PROGRAM.date}.svg`]));
   // Its 3rd party programs are placeholders, so program-watch knows neither (`watch`) and neither is a website (`site`).
-  const item = (id, name, desc, more = {}) => ({ id: `model-${id}`, name, watch: null, site: null, state: 'now', why: '', desc, url: null, picture: null, embed: null, frame: null,
+  const item = (id, name, desc, more = {}) => ({ id: `model-${id}`, name, watch: null, site: null, state: 'now', unmade: false, why: '', desc, url: null, picture: null, embed: null, frame: null,
     inL1: false, inPill: false, pillOpen: false, startClosed: false, panel: null, sharedWith: null, cadence: null, serial: null, group: null, groupName: null, ...more });
   const guide = `https://github.com/${OWNER}/${HUB}/blob/main/PET-PROGRAM-FRAMEWORK.md`;
   const tool = (n, desc, more) => ({ ...item(`tool-${n}`, `tool-${n}`, desc, more), label: `pet-program-name-v1.0-tool-${n}-v1.0`, side: null });
@@ -1428,7 +1435,7 @@ export function modelProgramData(src) {
     summary: 'The model pet program: every tool panel, every kind of item and every light, with placeholder names. One or two sentences on what the pet program does go here.',
     job: 'What Pet Name does, in one sentence.', status: 'hatching', added: 'YYYY-MM-DD', version: { core: '0.0.0', full: '0.0.0', assigned: false },
     visibility: 'private', isPrivate: false, publicRepo: false, host: false, owner: OWNER, repoUrl: `https://github.com/${OWNER}/${reg.repo}`,
-    appHref: null, appPrivate: null, vetClinicPrivate: true, mapNode: 'astras-pet-os', ring: '3',
+    appHref: null, appPrivate: null, appIsPage: false, vetClinicPrivate: true, mapNode: 'astras-pet-os', ring: '3',
     art: { frames, plain: frames, source: 'model-pet-program' }, petFit: modelFit(MOODS), flashAudit: null, lines: moodKey(src.registry, reg), audit: reg.audit,
     round: { checked: '2026-11-02T08:00:00.000Z', says: 'Example: what the Farmer\'s round found.' },
     needs: ['Example: a decision only you can make.'], needsFrom: [], needsFromRound: true,

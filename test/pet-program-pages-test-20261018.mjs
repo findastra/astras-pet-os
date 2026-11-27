@@ -115,7 +115,8 @@ test('one click always points to the pet program page: every pet\'s link is its 
     const html = files[pagePath(r.repo)];
     const today = r.interface_live_url || r.app_url;
     // No button since 2026-10-21 (Astra put an X over "Open today's app"): the Pet ID links it, or says it is private.
-    if (today) assert.match(html, /<dt>App<\/dt><dd>(<a href="[^"]+">the app it had before<\/a>|its app \(private: [^)]+\))<\/dd>/, `${r.repo}: the Pet ID links the app it had`);
+    // A pet whose program lives in the hub has this page as its live address: "this page" (White Hat Lab, 2026-11-27).
+    if (today) assert.match(html, /<dt>App<\/dt><dd>(<a href="[^"]+">the app it had before<\/a>|its app \(private: [^)]+\)|this page: its program lives in the hub)<\/dd>/, `${r.repo}: the Pet ID links the app it had`);
     assert.ok(!html.includes(`href="${r.repo}-20261018.html">the app it had before`), `${r.repo}: the link never opens the page itself`);
   }
 });
