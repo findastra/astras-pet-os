@@ -1,6 +1,6 @@
 # One farm across all your devices, every pet once · 2026-11-27
 
-Astra, 2026-11-27, with a home server (the GEEKOM) joining her desktop PC: "We dont want duplicate pets right? This
+Astra, 2026-11-27, with a home server joining her desktop PC: "We dont want duplicate pets right? This
 Pet OS is being designed so pets can live across devices in a unified group of devices right? That only makes
 sense." Then "Yes, start step 1" for the words-first pull request. Docs only: nothing runs differently.
 

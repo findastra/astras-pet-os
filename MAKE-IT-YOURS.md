@@ -114,7 +114,8 @@ node scripts/farm-pets-20261021.mjs check
   each came from, a SHA-256 of each one's entry and which pets need which. It stays on your computer and is never
   committed. `check` tells you whether your farm is still what the farm lock says. Developers call it a lockfile.
 - **One farm, even with several computers.** Your farm is all of your devices together, and each pet exists once in
-  it. Until your devices can be recorded as hosts (planned), install Astra's PetOS on one computer only: a second
+  it. `pets.json` lists your devices in `hosts` and says which one runs each pet's server (`host`). Until Startup Star
+  starts only what is placed on its own computer (planned), install Astra's PetOS on one computer only: a second
   install on another of your computers makes a second farm, with a second copy of every pet.
 - If Startup Star is running, it restarts so your desktop pets show the change.
 - In your fork (a hub copy in git) the Farmer only checks and records: its `pets.json` changes in a commit, as in the

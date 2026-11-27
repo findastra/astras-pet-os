@@ -74,7 +74,9 @@ Every pet name (icon) and pet program (home) name is decided in **`pet-programs.
 - Farms never connect to each other; GitHub is the only shared place. Local models change only through Astra.
 - **A farm's own devices are one farm, and each pet exists once in it** (Astra, 2026-11-27; amendment in
   [ASTRAS_PET_OS.md](ASTRAS_PET_OS.md)). Never install a second farm (Startup Star or the Linux package) on another
-  device of the same owner: until hosts are recorded in `pets.json` (card 451), a farm runs on one computer.
+  device of the same owner: until Startup Star and the Linux package start only what is placed on their own host
+  (card 451), a farm runs on one computer. A new `server` in `pets.json` names its `host` (one of `hosts`, by System
+  Map Device node), or `test/pet-hosts-test-20261127.mjs` fails.
 - Warn Astra plainly when a word or structure she uses is a blatant programming error, with the standard term.
 - **L1 to L4:** L1 Programs (the third-party programs it runs, plus the programs and tools it creates), L2 Pet program (dashboard and runtime),
   L3 Agentic harness, **L4 the verified human who owns the entire secure ecosystem** (on this farm, Astra). L4

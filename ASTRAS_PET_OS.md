@@ -8,8 +8,9 @@
 >   the one its job needs (its **placement**, held by a lease, section 5.3); a pet that has to see another device gets
 >   a **probe** there, a tool with no face, mood or memory of its own. Every host runs only a **host agent** (on Windows
 >   today, Startup Star) that starts what is placed on it and reports back. The desktop pets still roam on whichever
->   screen you use. Until hosts are recorded in `pets.json` (card 451), never install a second farm (Startup Star or
->   the Linux package) on another device of the same owner: it would start a second copy of every pet.
+>   screen you use. `pets.json` lists the hosts in `hosts`, and each pet's `server` names its `host`. Until Startup Star
+>   and the Linux package start only what is placed on their own host (card 451), never install a second farm (Startup
+>   Star or the Linux package) on another device of the same owner: it would start a second copy of every pet.
 > - 2026-10-24: **Who does the work decides the kind.** A person opens it: native program. Code runs it with no AI
 >   deciding: native tool. An AI reads written steps and makes choices: native trick. L1 holds what runs, L2 the pet
 >   program and its tricks, L3 only L3 talking with L4 about the pet program, L4 you and your records (the Pet ID). A
