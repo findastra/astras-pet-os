@@ -239,6 +239,12 @@ function lastRound(status, reg) {
 /** Everything one page needs, worked out from the sources. */
 export function pageData({ reg, prog, registry, map, frameIndex, drafts, status, exists, list, measure = () => null }) {
   const nodes = new Map(map.nodes.map((n) => [n.id, n]));
+  for (const n of map.nodes) if (n.type === 'host-machine' && /^VR /.test(n.category || '')) VR_DEVICES.add(n.id);
+  // Startup Star can show the pet only with registered frames or a desktop draft (PetSprite.Load); without one, its
+  // clicks have nothing to click yet (Flash Audit round 67, A41: White Hat Weasel's "two clicks" said works today).
+  const framed = reg.art && frameIndex?.pets?.[reg.art];
+  // A private draft counts: the star shows Claude Bot's private BSOD copy (checked against its status file, 2026-11-27).
+  const onDesktop = !!((framed && !framed.placeholder) || (drafts?.pets || []).some((x) => x.repo === reg.repo || x.id === reg.repo || x.name === reg.pet));
   const petNode = nodes.get(reg.repo);
   const homeNode = petNode?.home?.node ? nodes.get(petNode.home.node) : null;
   const mine = new Set([reg.repo, homeNode?.id].filter(Boolean));
@@ -407,7 +413,7 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
     connections: [...talks.values()], related, plays_with: chosen,
     access: { on: grantRows([...(petNode?.access?.on || []), ...(homeNode?.access?.on || [])]), by: grantRows(petNode?.access?.by || []),
       statuses: map.access.statuses, values: map.access.values },
-    languages: code?.languages || [], languageNote: code?.note || null, clicks: reg.clicks || {}, editorial: reg.editorial || null, checks: reg.checks || {},
+    languages: code?.languages || [], languageNote: code?.note || null, clicks: reg.clicks || {}, onDesktop, editorial: reg.editorial || null, checks: reg.checks || {},
   };
 }
 
@@ -452,7 +458,10 @@ const isSite = (u) => typeof u === 'string' && /^https:\/\/[^\s"'<>\\]+$/.test(u
 // A device's light (Astra, 2026-11-12): a VR device is green while SteamVR has it on. A USB device is green while
 // Windows has it plugged in; which devices are USB is each pet's own to say (Drum Dog's parts file, Astra 2026-11-13),
 // so the page learns it from the watch's file ("how": "usb") and says "plugged in" then.
-const deviceTip = () => 'ON/OFF: green while SteamVR has it on, or while it is plugged in';
+// SteamVR is named only on VR devices, the System Map's "VR ..." categories (Flash Audit round 67, A48: the Flipper
+// Zero's light talked about SteamVR); pageData fills the list from the map.
+const VR_DEVICES = new Set();
+const deviceTip = (key) => (VR_DEVICES.has(String(key).replace(/^device:/, '')) ? 'ON/OFF: green while SteamVR has it on' : 'ON/OFF: green while it is plugged in');
 const lights = (key, name, { planned = false, unseen = false, presence = false, watch = null, site = null } = {}) => {
   const p = (planned ? ' data-planned="1"' : '') + (unseen ? ' data-unseen="1"' : '');
   const button = (watch ? ` data-watch="${esc(watch)}"` : '') + (site ? ` data-site="${esc(site)}"` : '');
@@ -1190,9 +1199,9 @@ ${about({
   // tools").
   const clickItems = [
     { id: 'one-click', name: 'one click', state: 'planned', desc: 'Show the current reminder in a dialog box, like BSOD’s blurb.' },
-    { id: 'two-clicks', name: 'two clicks', state: 'now', desc: `Open or close ${d.home}, this page.` },
+    { id: 'two-clicks', name: 'two clicks', state: d.onDesktop === false ? 'planned' : 'now', desc: d.onDesktop === false ? `Open or close ${d.home}, this page, once ${d.pet} is on the desktop (not yet: no desktop pet).` : `Open or close ${d.home}, this page.` },
     ...(bound.length
-      ? bound.map(([n, c]) => ({ id: `${counts[n - 3] || n}-clicks`, name: `${counts[n - 3] || n} clicks`, state: 'now', desc: c.what || c.tool, label: c.label || null }))
+      ? bound.map(([n, c]) => ({ id: `${counts[n - 3] || n}-clicks`, name: `${counts[n - 3] || n} clicks`, state: d.onDesktop === false ? 'planned' : 'now', desc: c.what || c.tool, label: c.label || null }))
       : [{ id: 'three-clicks', name: 'three clicks', state: 'unassigned', desc: 'A tool you assign: none assigned yet.' }]),
   ];
   const clicker = panel(`${d.petSlug}-clicker-training-panel`, `${itemList(clickItems, `click:${d.petSlug}`, '')}
@@ -1450,6 +1459,7 @@ export function modelProgramData(src) {
     related: [{ id: 'model-pet-two', pet: 'Pet Two', home: 'Pet Program Two', state: 'now', why: 'Why they play together: a link that works today.', links: 2, page: 'pet-program-spawner-20261018.html', idle: `${MODEL_PROGRAM.art}/pet-two-idle-${MODEL_PROGRAM.date}.svg`, frames: { idle: `${MODEL_PROGRAM.art}/pet-two-idle-${MODEL_PROGRAM.date}.svg` }, fit: modelFit(['idle']) },
       { id: 'model-pet-three', pet: 'Pet Three', home: null, state: 'planned', why: 'A pet whose program is not named yet: planned.', links: 1, page: null, idle: `${MODEL_PROGRAM.art}/pet-three-idle-${MODEL_PROGRAM.date}.svg`, frames: { idle: `${MODEL_PROGRAM.art}/pet-three-idle-${MODEL_PROGRAM.date}.svg` }, fit: modelFit(['idle']) }],
     plays_with: [],
+    onDesktop: true,
     access: { statuses: map.access.statuses, values: map.access.values,
       on: [grant('owner', 'Astra (you, L4)', ['L4'], ['yes', 'yes', 'yes'], 'enforced', false, 'Example: the verified human may do everything; in code.', { evidence: proof }),
         grant('l3-own', 'The seated agent (L3)', ['L3'], ['yes', 'pr', 'no'], 'written', true, 'Example: reads its own folder and changes it only on a branch Astra merges; a written rule.'),
