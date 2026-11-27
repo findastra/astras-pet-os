@@ -244,7 +244,7 @@ export function menu(list, todays, watching = false) {
   if (own.length) { items.push({ separator: true }); items.push({ text: 'Our own servers (close only if you mean to)' }); }
   for (const p of own) items.push({ text: `Close ${name(p)}`, args: ['--close', String(p.port)] });
   items.push({ separator: true }, { text: 'Look at the ports now', args: ['--once'] });
-  if (watching) items.push({ text: 'Quit the port watch', args: ['--quit'] });
+  if (watching) items.push({ text: "Quit White Hat Lab's server", args: ['--quit'] }); // it stops both watches (A57, 2026-11-27)
   return { schema: MENU_SCHEMA, program: REPO, updated: new Date().toISOString(), items };
 }
 

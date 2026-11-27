@@ -14,6 +14,13 @@ Claude chat's browser pane blocks the router page's scripts), MCP Inspector and 
 settled part 1 the same day: the key stays as it is, blue until she clicks a light orange. Everything else below is
 still open.
 
+**Fixed after "Yes, fix them"** (2026-11-27): in the hub (`changes/white-hat-lab-audit-fixes-20261127.md`) A57's menu
+text, A54 (REA and tplinkrouterc6u listed, White Hat Weasel's INTELLIGENCE-LEVELS row), A28 (two `written` grants),
+A41 (clicks wait for a desktop pet), A48 (SteamVR only on VR devices) and A20's colour comment; in white-hat-lab#14
+A59, A31, A15, A57, A16, A18, A56 and A55. Ten decisions went to her as a deck: A09, A10, A53, A18 (REA's skill), A26
+(router model, private scan-log paths), A56 (the old lock), A08, A19 (the guest list's full-screen button) and A20
+(planned programs and devices grey).
+
 ## How it was checked
 
 - **The Run's checks:** the auditor ran again for item 67 alone (`idle-flash-audit-20261017.mjs <out> 67`), with
