@@ -90,6 +90,24 @@ like that".
 - **The wall line on the page:** in Pulse with segments, the stage shows the strip's stretches labelled with their
   components. Each is black until its component hits, then lit in its colour at Flash for Hold.
 
+## Song structure (light-hive-server 1.14.0, later 2026-11-27)
+
+Astra: "the mouse pad needs to be like the metronome like its beating evenly", then "get rid of the fading thing
+again, bring back blocks. i like the speed but its lacking structure. can you divide up by device for what makes sense,
+also dont be afraid to use color gradient ripple etc on the keyboard. also colors are the same, can we do color
+groupings".
+
+- **First preset, Song structure:** each device has a job. The wall line takes only the hard hits (snares and claps,
+  kick, snares and claps). Squiggle and the mic and headset take the vocals, the keyboard the hats in ripples, the mouse
+  pad the tempo, and the Mirror the song's sections. This follows 1.14.1. Astra: "i can tell you have the vocals on the
+  light strip, make that the squiggle and put the all the hard hitting music on the light strip". Each part has its own colour family, and the scaling is blocks. Black + hit segments
+  comes second.
+- **New on the page:**
+  - the part Song sections;
+  - Colour groups, with a row of 1 to 6 colour swatches for each part's family;
+  - the keyboard's picture (ripple, spectrum, gradient, solid);
+  - a metronome dot that ticks evenly at the mouse pad's tempo, timed on the page from the server's gap, with its BPM.
+
 ## The flash limit is off (light-hive-server 1.11.0, later 2026-11-27)
 
 Astra: "i think we need it to be faster, like ignore epilepsy". The six-a-second limit above is gone for her own room;
