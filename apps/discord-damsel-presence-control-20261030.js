@@ -22,6 +22,7 @@
     if (!s.running) return 'App stopped. Start and open to run it.';
     if (s.mode === 'off') return 'App running; sharing is off.';
     if (s.published && s.connected) return 'Card published to Discord. Discord chooses which activity appears on your profile.';
+    if (s.eligible && s.coordinated) return 'Sharing enabled; waiting for this app’s next display turn.';
     if (s.connected) return 'App running and connected to Discord; no card published yet.';
     return 'App running; no card published. Automatic waits for activity. Open controls for details.';
   }
@@ -33,7 +34,7 @@
       card.querySelector('[data-presence-stop]').disabled = !data || !!busy[key] || !s || !s.running || s.mode === 'off' || !!s.blocked;
     });
     Array.prototype.forEach.call(lights, function (button) {
-      var key = button.dataset.item === 'program:openai-discord-presence' ? 'openai' : 'anthropic';
+      var key = keys.find(function (candidate) { return button.dataset.item === 'program:' + services[candidate]; });
       var s = statuses[key], on = !!(s && s.mode !== 'off' && s.published && s.connected);
       button.classList.toggle('is-off', !on);
       button.setAttribute('aria-pressed', on ? 'true' : 'false');
@@ -98,7 +99,7 @@
     });
   });
   paint();
-  if (location.protocol !== 'file:') {
+  if (location.protocol !== 'file:' && !(location.protocol === 'http:' && location.hostname === '127.0.0.1')) {
     note.textContent = 'Open the installed Discord Damsel desktop pet for Start and open and the local control links.';
     return;
   }

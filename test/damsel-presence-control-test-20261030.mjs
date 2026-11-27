@@ -22,7 +22,7 @@ function node() {
     removeAttribute(name) { delete this.attrs[name]; },
     classList: { toggle() {} } };
 }
-function browser(protocol = 'file:', holdStart = false) {
+function browser(protocol = 'file:', holdStart = false, hostname = '') {
   const note = node(), cards = {}, lights = [], posts = [], scripts = [], tabs = [];
   let failure = false, finishStart;
   const status = { openai: { installed: true, running: false, mode: null, connected: false, published: false },
@@ -33,9 +33,8 @@ function browser(protocol = 'file:', holdStart = false) {
   for (const key of ['openai', 'anthropic', 'ableton', 'anthropic-ipo', 'openai-ipo']) {
     const parts = { '[data-presence-status]': node(), '[data-presence-start]': node(), '[data-presence-stop]': node(), '[data-presence-controls]': node() };
     cards[key] = { querySelector: selector => parts[selector], parts };
-    // Only the two AI apps have program lights on the map.
-    if (!['openai', 'anthropic'].includes(key)) continue;
-    const light = node(); light.dataset = { item: 'program:' + key + '-discord-presence', name: key };
+    const app = { openai: 'openai-discord-presence', anthropic: 'anthropic-discord-presence', ableton: 'ableton-live-discord-presence', 'anthropic-ipo': 'anthropic-ipo-countdown', 'openai-ipo': 'openai-ipo-countdown' }[key];
+    const light = node(); light.dataset = { item: 'program:' + app, name: key };
     light.classList.toggle = (name, on) => on ? light.classes.add(name) : light.classes.delete(name);
     lights.push(light);
   }
@@ -47,7 +46,7 @@ function browser(protocol = 'file:', holdStart = false) {
   const win = { open(url) { const tab = { url, opener: 'original', closed: false, location: { replace(next) { tab.url = next; } }, close() { this.closed = true; } }; tabs.push(tab); return tab; } };
   const document = { getElementById: id => id === 'discord-damsel-presence-control' ? box : note,
     querySelectorAll: () => lights, createElement: () => ({}), head: { appendChild: script => scripts.push(script) } };
-  const context = { window: win, document, location: { protocol }, AbortSignal, Date, setTimeout: () => 1, clearTimeout() {},
+  const context = { window: win, document, location: { protocol, hostname }, AbortSignal, Date, setTimeout: () => 1, clearTimeout() {},
     localStorage: { getItem() { throw new Error('The companion must not touch saved reports.'); }, setItem() { throw new Error('The companion must not write saved reports.'); } },
     fetch: async (url, options) => {
       if (failure) throw new Error('offline');
@@ -80,12 +79,23 @@ test('Damsel generated page has visible start/open/stop controls and verified-li
     for (const what of [`data-presence-start="${key}" disabled`, `data-presence-controls="${key}" aria-disabled="true"`, `data-presence-stop="${key}" disabled`, `<legend>${title}</legend>`]) assert.ok(html.includes(what), what);
   }
   assert.equal(html.match(/data-presence-card="/g).length, 5);
+  assert.equal(html.match(/data-presence-managed="1"/g).length, 5);
   // In its own tool box in L1 since 2026-11-02 (Astra: "No special panels").
   assert.ok(html.indexOf('id="discord-damsel-presence-control"') > html.indexOf('discord-damsel-L1-control-panel'));
   assert.ok(html.indexOf('id="discord-damsel-presence-control"') < html.indexOf('discord-damsel-L2-control-panel'));
   assert.match(html, /src="\.\.\/discord-damsel-presence-control-20261030.js"/);
   for (const [path, page] of Object.entries(files)) if (!path.includes('discord-tower-')) assert.doesNotMatch(page, /src="\.\.\/discord-damsel-presence-control/);
 });
+test('editorial loopback connects through the same private bootstrap as installed pages', async () => {
+  const b = browser('http:', false, '127.0.0.1');
+  b.connect(); await flush();
+  assert.ok(b.posts.length > 0);
+  assert.match(b.note.textContent, /Connected/);
+  const remote = browser('http:', false, 'example.com');
+  assert.equal(remote.scripts.length, 0);
+  assert.equal(remote.posts.length, 0);
+});
+
 test('hosted pages make no local requests and keep honest disconnected lights', () => {
   const b = browser('https:');
   assert.equal(b.scripts.length, 0); assert.equal(b.posts.length, 0);
@@ -109,6 +119,9 @@ test('local controls show actual stopped/off/published states and never touch sa
 });
 test('Ableton Live has its own card: its own controls link, start and stop for it alone', async () => {
   const b = browser(); b.connect(); await flush();
+  assert.equal(b.lights[2].attrs['aria-pressed'], 'true');
+  assert.equal(b.lights[3].attrs['aria-pressed'], 'true');
+  assert.equal(b.lights[4].attrs['aria-pressed'], 'false');
   assert.equal(b.cards.ableton.parts['[data-presence-controls]'].href, ABLETON);
   assert.match(b.cards.ableton.parts['[data-presence-status]'].textContent, /Card published/);
   b.cards.ableton.parts['[data-presence-stop]'].listeners.click(); await flush();
@@ -116,7 +129,7 @@ test('Ableton Live has its own card: its own controls link, start and stop for i
   b.cards.ableton.parts['[data-presence-start]'].listeners.click(); await flush();
   assert.equal(b.tabs[0].url, ABLETON);
   // The AI apps' lights are unchanged by Ableton's buttons.
-  assert.equal(b.lights.length, 2);
+  assert.equal(b.lights.length, 5);
   assert.equal(b.lights[0].attrs['aria-pressed'], 'false');
 });
 test('the addresses come from this PC only: no list, or one that is not loopback, makes no request', async () => {
