@@ -11,6 +11,21 @@ tool list does not reach the hub on its own and this copies the new tool by hand
   Remote API, the same kind of link as Audio Rescue's listen-for-robotic-sound; it records no sound. So Voicemeeter is
   now one of Light Hive's third-party programs, and RGBee's `needs` in `pets.json` name it (optional: without it the
   server reads Windows' default-speaker meter).
+- **Its own page** (`apps/rgbee-spotify-sync-20261127.html`), added later that day. Astra: "need more beat cueing and
+  different colors to represent different parts of the wave form ... it would be cool if the line was the wave length.
+  get a bunch of setting options ready lets experiment". It is the spotify-sync show's settings page, through
+  light-hive-server's `GET` and `POST /sync` (1.5.0 and later):
+  - a start/stop switch;
+  - a live view, asked about four times a second while it is on screen: five parts of the sound, the 15-section line
+    from the lowest to the highest notes, and a beat dot that changes colour on each beat, at most once per gap;
+  - presets (Colour blocks, D&B blocks, Wavelength line, Ping-pong room, Bands room, Meter rise, Slow and dim);
+  - every setting: mode, strip, what a beat is, colour order, the palette (2 to 8), a colour for each part of the sound,
+    brightness, beats, shortest gap, dim blocks, steps, contrast, and each light's part and side.
+
+  The page finds the server through `light-hive-helper-data.js` like the other Light Hive tools, so only the PC's copy
+  reaches the lights. Its mode and strip lists come from the server, so a new one shows up by itself. Nothing on it
+  flashes more than three times a second, nothing moves under reduced motion, and light and device text goes in with
+  `textContent`. The System Map node now links and embeds the page, like rainforest-storm-tool's.
 - **Its check light** (`pets.json`, RGBee's `checks`): blue, works. Checked live on her PC on 2026-11-27: Spotify on the
   PC gave 12 bolts in about 90 seconds, and the server still reported it listening to Voicemeeter later that day.
 - Rebuilt: Light Hive's pet program page, TOOLS-AND-TRICKS.md, the markdown pets and the System Map page.

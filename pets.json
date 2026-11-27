@@ -2220,7 +2220,7 @@
       "checks": {
         "tool:spotify-sync-tool": {
           "result": "works",
-          "note": "Checked live on Astra’s PC: with Spotify playing on the PC through Voicemeeter, light-hive-server 1.3.0 struck 12 lightning bolts in about 90 seconds and Astra saw the lights follow the music. Still listening to Voicemeeter A1 to A5 with no problem later that day.",
+          "note": "Checked live on Astra’s PC: with Spotify playing on the PC through Voicemeeter, light-hive-server 1.3.0 struck 12 lightning bolts in about 90 seconds and Astra saw the lights follow the music. Still listening to Voicemeeter A1 to A5 with no problem later that day. Its settings page, the same day: it read the running show from the server (on, hearing, five bands, the 15-section line, the beat count) and built every setting the server offers, with nothing sent to the lights.",
           "on": "2026-11-27"
         }
       },
@@ -2269,7 +2269,7 @@
           {
             "node": "voicemeeter",
             "how": "optional",
-            "why": "spotify-sync reads Voicemeeter’s A1 to A5 levels so Light Hive’s themes follow the music; without it, Windows’ default-speaker meter."
+            "why": "spotify-sync hears the music through Voicemeeter: its A1 to A5 levels for Light Hive’s themes, and Voicemeeter Input as the default speakers for the show. Without it, Windows’ default speakers."
           }
         ]
       }
