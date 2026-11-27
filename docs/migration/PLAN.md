@@ -28,7 +28,8 @@ Evidence: [AUDIT.md](AUDIT.md), [GAP-ANALYSIS.md](GAP-ANALYSIS.md).
 5. **Private access for phones and tablets:** Tailscale (free personal plan, needs an account
    and the app on each device) or another VPN you already use?
 6. **Where the Farm runs first:** your Windows PC (simplest; off when the PC is off) or a home
-   server / Raspberry Pi you already have?
+   server / Raspberry Pi you already have? Still open. Decided 2026-11-27: wherever it runs, it is
+   **one farm across all of Astra's devices**, each pet once (amendment in ASTRAS_PET_OS.md).
 7. **The unmerged 2026-10-09 branch** (`pets-roam-life-20261009`, never pushed): drop it, or
    keep only its request-log idea as input to the Farm inbox (recommended)?
 8. **Seeded pets:** jobs for Procreate Panda and Skill Scout. Decided 2026-10-12: Pole Puff
@@ -70,7 +71,7 @@ Evidence: [AUDIT.md](AUDIT.md), [GAP-ANALYSIS.md](GAP-ANALYSIS.md).
 | 5 Harness | One agent framework chosen after a short comparison against Node and C#; observe → verify loop for Deck Duck | B, F |
 | 6 Pet-to-pet | Deck Duck asks Patch Cat for diagnostics with the typed envelope | B |
 | 7 Desktop | Tray double-click = all desktop pets, triple-click = lineup; cross-monitor roaming; desktop moods from real status | E |
-| 8 More hosts and pets | Home server or Pi host; the v5.2 pets in the order v5.2 gives | M–R |
+| 8 More hosts and pets | More devices join the same farm as hosts (home server, Pi): one registry, one Friendly Farmer, a host agent per device, each pet's server placed on one host with a lease, probes where a pet must see another device; never a second farm (Astra, 2026-11-27). Then the v5.2 pets in the order v5.2 gives | M–R |
 
 Kennel, marketing site and Farmer's pet incubation (G, H, J, L) start after Phase 3 proves the
 Farm, because they all list or create Farm cards.
