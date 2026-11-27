@@ -10024,6 +10024,307 @@
    "interface": "apps/pet-programs/the-threshold-20261018.html",
    "idle": "desktop-art/door-dormouse/idle-20261114.png",
    "blink": "desktop-art/door-dormouse/blink-20261114.png"
+  },
+  {
+   "id": "dubstep-gunsmith",
+   "name": "Dubstep Gunsmith",
+   "interface": "https://github.com/findastra/dubstep-armory",
+   "idle": "desktop-art/dubstep-gunsmith/idle-20261114.png",
+   "blink": "desktop-art/dubstep-gunsmith/blink-20261114.png"
+  },
+  {
+   "id": "pole-puff",
+   "name": "Pole Puff",
+   "interface": "https://github.com/findastra/infinite-studio",
+   "idle": "desktop-art/pole-puff/idle-20261114.png",
+   "blink": "desktop-art/pole-puff/blink-20261114.png"
+  },
+  {
+   "id": "procreate-panda",
+   "name": "Procreate Panda",
+   "interface": "https://github.com/findastra/bamboo-studio",
+   "idle": "desktop-art/procreate-panda/idle-20261114.png",
+   "blink": "desktop-art/procreate-panda/blink-20261114.png"
+  },
+  {
+   "id": "skill-scout",
+   "name": "Skill Scout",
+   "interface": "apps/pet-programs/lunas-log-20261018.html",
+   "idle": "art/icons/skill-scout-20261012.png",
+   "blink": "art/icons/skill-scout-20261012.png"
+  },
+  {
+   "id": "osc-sealion",
+   "name": "OSC Sealion",
+   "interface": "https://github.com/findastra/osc-sonar",
+   "idle": "desktop-art/osc-sealion/idle-20261114.png",
+   "blink": "desktop-art/osc-sealion/blink-20261114.png"
+  },
+  {
+   "id": "piranesi-nessi",
+   "name": "Piranesi Nessi",
+   "interface": "https://github.com/findastra/nessis-ocean",
+   "idle": "desktop-art/piranesi-nessi/idle-20261114.png",
+   "blink": "desktop-art/piranesi-nessi/blink-20261114.png"
+  },
+  {
+   "id": "photo-dodo",
+   "name": "Photo Dodo",
+   "interface": "https://github.com/findastra/photo-roost",
+   "idle": "desktop-art/photo-dodo/idle-20261114.png",
+   "blink": "desktop-art/photo-dodo/blink-20261114.png"
+  },
+  {
+   "id": "video-vulture",
+   "name": "Video Vulture",
+   "interface": "https://github.com/findastra/video-vault",
+   "idle": "desktop-art/video-vulture/idle-20261114.png",
+   "blink": "desktop-art/video-vulture/blink-20261114.png"
+  },
+  {
+   "id": "closet-cat",
+   "name": "Closet Cat",
+   "interface": "https://github.com/findastra/the-cats-closet",
+   "idle": "desktop-art/closet-cat/idle-20261114.png",
+   "blink": "desktop-art/closet-cat/blink-20261114.png"
+  },
+  {
+   "id": "gatekeeper-goddess",
+   "name": "Gatekeeper Goddess",
+   "interface": "apps/pet-programs/iron-gates-20261018.html",
+   "idle": "desktop-art/gatekeeper-goddess/idle-20261114.png",
+   "blink": "desktop-art/gatekeeper-goddess/blink-20261114.png"
+  },
+  {
+   "id": "queue-quokka",
+   "name": "Queue Quokka",
+   "interface": "https://github.com/findastra/task-island",
+   "idle": "desktop-art/queue-quokka/idle-20261114.png",
+   "blink": "desktop-art/queue-quokka/blink-20261114.png"
+  },
+  {
+   "id": "server-salamander",
+   "name": "Server Salamander",
+   "interface": "apps/pet-programs/server-hearth-20261018.html",
+   "idle": "desktop-art/server-salamander/idle-20261114.png",
+   "blink": "desktop-art/server-salamander/blink-20261114.png"
+  },
+  {
+   "id": "docker-dragon",
+   "name": "Docker Dragon",
+   "interface": "https://github.com/findastra/container-hoard",
+   "idle": "desktop-art/docker-dragon/idle-20261114.png",
+   "blink": "desktop-art/docker-dragon/blink-20261114.png"
+  },
+  {
+   "id": "test-tortoise",
+   "name": "Test Tortoise",
+   "interface": "https://github.com/findastra/test-track",
+   "idle": "desktop-art/test-tortoise/idle-20261114.png",
+   "blink": "desktop-art/test-tortoise/blink-20261114.png"
+  },
+  {
+   "id": "token-toucan",
+   "name": "Token Toucan",
+   "interface": "https://github.com/findastra/token-canopy",
+   "idle": "desktop-art/token-toucan/idle-20261114.png",
+   "blink": "desktop-art/token-toucan/blink-20261114.png"
+  },
+  {
+   "id": "calendar-crow",
+   "name": "Calendar Crow",
+   "interface": "https://github.com/findastra/crows-nest",
+   "idle": "desktop-art/calendar-crow/idle-20261114.png",
+   "blink": "desktop-art/calendar-crow/blink-20261114.png"
+  },
+  {
+   "id": "browser-bat",
+   "name": "Browser Bat",
+   "interface": "https://github.com/findastra/browser-belfry",
+   "idle": "desktop-art/browser-bat/idle-20261114.png",
+   "blink": "desktop-art/browser-bat/blink-20261114.png"
+  },
+  {
+   "id": "data-dragonfly",
+   "name": "Data Dragonfly",
+   "interface": "https://github.com/findastra/data-marsh",
+   "idle": "desktop-art/data-dragonfly/idle-20261114.png",
+   "blink": "desktop-art/data-dragonfly/blink-20261114.png"
+  },
+  {
+   "id": "update-urchin",
+   "name": "Update Urchin",
+   "interface": "https://github.com/findastra/update-tidepool",
+   "idle": "desktop-art/update-urchin/idle-20261114.png",
+   "blink": "desktop-art/update-urchin/blink-20261114.png"
+  },
+  {
+   "id": "linux-penguin",
+   "name": "Linux Penguin",
+   "interface": "apps/pet-programs/linux-iceberg-20261018.html",
+   "idle": "desktop-art/linux-penguin/idle-20261114.png",
+   "blink": "desktop-art/linux-penguin/blink-20261114.png"
+  },
+  {
+   "id": "stock-fox",
+   "name": "Stock Fox",
+   "interface": "https://github.com/findastra/market-meadow",
+   "idle": "desktop-art/stock-fox/idle-20261114.png",
+   "blink": "desktop-art/stock-fox/blink-20261114.png"
+  },
+  {
+   "id": "passport-pelican",
+   "name": "Passport Pelican",
+   "interface": "https://github.com/findastra/passport-harbor",
+   "idle": "desktop-art/passport-pelican/idle-20261114.png",
+   "blink": "desktop-art/passport-pelican/blink-20261114.png"
+  },
+  {
+   "id": "journal-jellyfish",
+   "name": "Journal Jellyfish",
+   "interface": "apps/pet-programs/journal-lagoon-20261018.html",
+   "idle": "desktop-art/journal-jellyfish/idle-20261114.png",
+   "blink": "desktop-art/journal-jellyfish/blink-20261114.png"
+  },
+  {
+   "id": "shell-squid",
+   "name": "Shell Squid",
+   "interface": "https://github.com/findastra/shell-trench",
+   "idle": "desktop-art/shell-squid/idle-20261114.png",
+   "blink": "desktop-art/shell-squid/blink-20261114.png"
+  },
+  {
+   "id": "kernel-koala",
+   "name": "Kernel Koala",
+   "interface": "apps/pet-programs/kernel-grove-20261018.html",
+   "idle": "desktop-art/kernel-koala/idle-20261114.png",
+   "blink": "desktop-art/kernel-koala/blink-20261114.png"
+  },
+  {
+   "id": "proxy-axolotl",
+   "name": "Proxy Axolotl",
+   "interface": "https://github.com/findastra/proxy-lake",
+   "idle": "desktop-art/proxy-axolotl/idle-20261114.png",
+   "blink": "desktop-art/proxy-axolotl/blink-20261114.png"
+  },
+  {
+   "id": "cluster-crab",
+   "name": "Cluster Crab",
+   "interface": "https://github.com/findastra/cluster-shore",
+   "idle": "desktop-art/cluster-crab/idle-20261114.png",
+   "blink": "desktop-art/cluster-crab/blink-20261114.png"
+  },
+  {
+   "id": "storage-stoat",
+   "name": "Storage Stoat",
+   "interface": "https://github.com/findastra/storage-warren",
+   "idle": "desktop-art/storage-stoat/idle-20261114.png",
+   "blink": "desktop-art/storage-stoat/blink-20261114.png"
+  },
+  {
+   "id": "white-hat-weasel",
+   "name": "White Hat Weasel",
+   "interface": "apps/pet-programs/white-hat-lab-20261018.html",
+   "idle": "desktop-art/white-hat-weasel/idle-20261114.png",
+   "blink": "desktop-art/white-hat-weasel/blink-20261114.png"
+  },
+  {
+   "id": "cipher-owl",
+   "name": "Cipher Owl",
+   "interface": "apps/pet-programs/cipher-hollow-20261018.html",
+   "idle": "desktop-art/cipher-owl/idle-20261114.png",
+   "blink": "desktop-art/cipher-owl/blink-20261114.png"
+  },
+  {
+   "id": "llama-librarian",
+   "name": "Llama Librarian",
+   "interface": "https://github.com/findastra/model-library",
+   "idle": "desktop-art/llama-librarian/idle-20261114.png",
+   "blink": "desktop-art/llama-librarian/blink-20261114.png"
+  },
+  {
+   "id": "inference-iguana",
+   "name": "Inference Iguana",
+   "interface": "apps/pet-programs/benchmark-rock-20261018.html",
+   "idle": "desktop-art/inference-iguana/idle-20261114.png",
+   "blink": "desktop-art/inference-iguana/blink-20261114.png"
+  },
+  {
+   "id": "agent-ant",
+   "name": "Agent Ant",
+   "interface": "https://github.com/findastra/agent-colony",
+   "idle": "desktop-art/agent-ant/idle-20261114.png",
+   "blink": "desktop-art/agent-ant/blink-20261114.png"
+  },
+  {
+   "id": "roaming-raven",
+   "name": "Roaming Raven",
+   "interface": "apps/pet-programs/roam-map-20261018.html",
+   "idle": "desktop-art/roaming-raven/idle-20261114.png",
+   "blink": "desktop-art/roaming-raven/blink-20261114.png"
+  },
+  {
+   "id": "cache-coyote",
+   "name": "Cache Coyote",
+   "interface": "https://github.com/findastra/cache-canyon",
+   "idle": "desktop-art/cache-coyote/idle-20261114.png",
+   "blink": "desktop-art/cache-coyote/blink-20261114.png"
+  },
+  {
+   "id": "sync-mink",
+   "name": "Sync Mink",
+   "interface": "https://github.com/findastra/sync-stream",
+   "idle": "desktop-art/sync-mink/idle-20261114.png",
+   "blink": "desktop-art/sync-mink/blink-20261114.png"
+  },
+  {
+   "id": "triage-tapir",
+   "name": "Triage Tapir",
+   "interface": "https://github.com/findastra/the-triage-desk",
+   "idle": "desktop-art/triage-tapir/idle-20261114.png",
+   "blink": "desktop-art/triage-tapir/blink-20261114.png"
+  },
+  {
+   "id": "pet-police-officer",
+   "name": "Pet Police Officer",
+   "interface": "apps/pet-programs/the-police-station-20261018.html",
+   "idle": "desktop-art/pet-police-officer/idle-20261114.png",
+   "blink": "desktop-art/pet-police-officer/blink-20261114.png"
+  },
+  {
+   "id": "ai-dashund",
+   "name": "AI Dashund",
+   "interface": "apps/pet-programs/ai-doghouse-20261018.html",
+   "idle": "desktop-art/ai-dashund/idle-20261114.png",
+   "blink": "desktop-art/ai-dashund/blink-20261114.png"
+  },
+  {
+   "id": "rescue-retriever",
+   "name": "Rescue Retriever",
+   "interface": "https://github.com/findastra/the-recovery-room",
+   "idle": "desktop-art/rescue-retriever/idle-20261114.png",
+   "blink": "desktop-art/rescue-retriever/blink-20261114.png"
+  },
+  {
+   "id": "intel-owl",
+   "name": "Intel Owl",
+   "interface": "https://github.com/findastra/threat-observatory",
+   "idle": "desktop-art/intel-owl/idle-20261114.png",
+   "blink": "desktop-art/intel-owl/blink-20261114.png"
+  },
+  {
+   "id": "pc-master",
+   "name": "PC Master",
+   "interface": "apps/pet-programs/pc-master-race-20261018.html",
+   "idle": "desktop-art/pc-master/idle-20261114.png",
+   "blink": "desktop-art/pc-master/blink-20261114.png"
+  },
+  {
+   "id": "flowsheet-flamingo",
+   "name": "Flowsheet Flamingo",
+   "interface": "apps/pet-programs/the-pilot-plant-20261018.html",
+   "idle": "desktop-art/flowsheet-flamingo/idle-20261114.png",
+   "blink": "desktop-art/flowsheet-flamingo/blink-20261114.png"
   }
  ]
 }
