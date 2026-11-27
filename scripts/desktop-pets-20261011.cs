@@ -373,18 +373,19 @@ namespace AstraDesktopPets {
       if(!DesktopArt&&!Layered)for(int y=-1;y<=1;y++)for(int x=-1;x<=1;x++)if(x!=0||y!=0) {
         var edge=to;edge.Offset(x*inkPixel,y*inkPixel);g.DrawImage(mask,edge,crop,GraphicsUnit.Pixel);
       }
-      // A drawing with no added ink is shrunk evenly (ShrunkPicture); a legacy sprite's ink above is drawn the old way,
-      // so its picture is too, to stay lined up with it.
-      bool even=DesktopArt||Layered;
-      if(!(even&&DrawShrunk(g,Frame(blink),crop,to,!Layered,null)))g.DrawImage(Frame(blink),to,crop,GraphicsUnit.Pixel);
-      var bands=Bands(blink);
-      if(Rainbow&&bands!=null) {
-        using(var colors=new ImageAttributes()) {
-          colors.SetColorMatrix(RgbCycle(Environment.TickCount & Int32.MaxValue));
-          if(!(even&&DrawShrunk(g,bands,crop,to,!Layered,colors)))g.DrawImage(bands,new PointF[]{new PointF(to.Left,to.Top),new PointF(to.Right,to.Top),new PointF(to.Left,to.Bottom)},crop,GraphicsUnit.Pixel,colors);
-        }
+      // A drawing with no added ink is shrunk evenly (below); a legacy sprite's ink above is drawn the old way, so its
+      // picture is too, to stay lined up with it.
+      var frame=Frame(blink);var bands=Rainbow?Bands(blink):null;Rectangle dest;
+      if((DesktopArt||Layered)&&ShrinkTarget(g,crop,to,out dest)) {
+        var even=ShrunkPictures(frame,bands,crop,dest.Size,!Layered);
+        DrawPixels(g,even.Picture,dest,null);
+        if(even.Bands!=null)using(var colors=RainbowColors())DrawPixels(g,even.Bands,dest,colors);
+        return;
       }
+      g.DrawImage(frame,to,crop,GraphicsUnit.Pixel);
+      if(bands!=null)using(var colors=RainbowColors())g.DrawImage(bands,new PointF[]{new PointF(to.Left,to.Top),new PointF(to.Right,to.Top),new PointF(to.Left,to.Bottom)},crop,GraphicsUnit.Pixel,colors);
     }
+    static ImageAttributes RainbowColors() { var colors=new ImageAttributes();colors.SetColorMatrix(RgbCycle(Environment.TickCount & Int32.MaxValue));return colors; }
     // Even shrinking (Astra, 2026-11-27: "the drum dog's eyes look kind of weird"; Claude Opus 5.5). Drawn straight from
     // the 256-pixel drawing with nearest-neighbour scaling, a pet about 2.2 times smaller on the screen kept some source
     // pixels and dropped others, so two equal eyes came out different shapes. Now each picture is shrunk once to its exact
@@ -392,58 +393,93 @@ namespace AstraDesktopPets {
     // colour weighted by alpha, so the clear background never tints an edge), kept until the size or picture changes, and
     // drawn pixel for pixel. A colour-keyed window shows no partial alpha (CrispTransparency), so there a pixel is solid
     // from half covered up; a layered window keeps the averaged alpha. Drawn at or above its own size, nothing changes.
-    sealed class ShrunkEntry { internal Bitmap Source,Picture;internal Rectangle Crop;internal Size Size;internal bool Crisp; }
+    // A rainbow pet's body and bands are shrunk together, so they share each screen pixel instead of each leaving it
+    // half clear (Shrink, the layers).
+    sealed class ShrunkEntry { internal Bitmap Source,BandsSource,Picture,Bands;internal Rectangle Crop;internal Size Size;internal bool Crisp; }
     readonly List<ShrunkEntry> shrunk=new List<ShrunkEntry>();
-    Bitmap ShrunkPicture(Bitmap source,Rectangle crop,Size size,bool crisp) {
-      foreach(var s in shrunk)if(ReferenceEquals(s.Source,source)&&s.Crop==crop&&s.Size==size&&s.Crisp==crisp)return s.Picture;
+    ShrunkEntry ShrunkPictures(Bitmap source,Bitmap bands,Rectangle crop,Size size,bool crisp) {
+      foreach(var s in shrunk)if(ReferenceEquals(s.Source,source)&&ReferenceEquals(s.BandsSource,bands)&&s.Crop==crop&&s.Size==size&&s.Crisp==crisp)return s;
       if(shrunk.Count>=16)ClearShrunk(); // a new display scale, or many moods: start again
-      var picture=Shrink(source,crop,size.Width,size.Height,crisp);
-      shrunk.Add(new ShrunkEntry{Source=source,Picture=picture,Crop=crop,Size=size,Crisp=crisp});return picture;
+      var layers=Shrink(bands==null?new[]{source}:new[]{source,bands},crop,size.Width,size.Height,crisp);
+      var entry=new ShrunkEntry{Source=source,BandsSource=bands,Picture=layers[0],Bands=bands==null?null:layers[1],Crop=crop,Size=size,Crisp=crisp};
+      shrunk.Add(entry);return entry;
     }
-    void ClearShrunk() { foreach(var s in shrunk)s.Picture.Dispose();shrunk.Clear(); }
-    // Draws `crop` of `picture` into `to` (in the graphics' own units), shrunk evenly. False when the picture is not
-    // being shrunk there (drawn at or above its own size, or under a rotation), and the caller draws it as before.
-    bool DrawShrunk(Graphics g,Bitmap picture,Rectangle crop,RectangleF to,bool crisp,ImageAttributes colors) {
-      float[] m;using(var transform=g.Transform)m=transform.Elements;
+    void ClearShrunk() { foreach(var s in shrunk){s.Picture.Dispose();if(s.Bands!=null)s.Bands.Dispose();}shrunk.Clear(); }
+    // Where `to` (in the graphics' own units) lands in whole screen pixels. False when the picture is not being shrunk
+    // there (drawn at or above its own size, or under a rotation), and it is drawn as before.
+    static bool ShrinkTarget(Graphics g,Rectangle crop,RectangleF to,out Rectangle dest) {
+      float[] m;using(var transform=g.Transform)m=transform.Elements;dest=Rectangle.Empty;
       if(m[1]!=0||m[2]!=0)return false;
       int x0=(int)Math.Round(to.Left*m[0]+m[4]),x1=(int)Math.Round(to.Right*m[0]+m[4]),y0=(int)Math.Round(to.Top*m[3]+m[5]),y1=(int)Math.Round(to.Bottom*m[3]+m[5]);
-      int w=x1-x0,h=y1-y0;if(w<1||h<1||w>=crop.Width||h>=crop.Height)return false;
-      var small=ShrunkPicture(picture,crop,new Size(w,h),crisp);
+      if(x1-x0<1||y1-y0<1||x1-x0>=crop.Width||y1-y0>=crop.Height)return false;
+      dest=new Rectangle(x0,y0,x1-x0,y1-y0);return true;
+    }
+    static void DrawPixels(Graphics g,Bitmap small,Rectangle dest,ImageAttributes colors) {
       var state=g.Save();
       try {
         g.ResetTransform();g.InterpolationMode=InterpolationMode.NearestNeighbor;g.PixelOffsetMode=PixelOffsetMode.Half;
-        var dest=new Rectangle(x0,y0,w,h);
-        if(colors==null)g.DrawImage(small,dest,0,0,w,h,GraphicsUnit.Pixel);else g.DrawImage(small,dest,0,0,w,h,GraphicsUnit.Pixel,colors);
+        if(colors==null)g.DrawImage(small,dest,0,0,dest.Width,dest.Height,GraphicsUnit.Pixel);else g.DrawImage(small,dest,0,0,dest.Width,dest.Height,GraphicsUnit.Pixel,colors);
       }finally{g.Restore(state);}
-      return true;
     }
-    // `crop` of `source` shrunk to width by height by area averaging (above). Crisp: every pixel clear or solid.
-    internal static Bitmap Shrink(Bitmap source,Rectangle crop,int width,int height,bool crisp) {
-      int sw=source.Width,sh=source.Height;var src=new int[sw*sh];
-      var from=source.LockBits(new Rectangle(0,0,sw,sh),ImageLockMode.ReadOnly,PixelFormat.Format32bppArgb);
-      try{for(int y=0;y<sh;y++)Marshal.Copy(IntPtr.Add(from.Scan0,y*from.Stride),src,y*sw,sw);}finally{source.UnlockBits(from);}
-      var dst=new int[width*height];double fx=crop.Width/(double)width,fy=crop.Height/(double)height;
+    // A rainbow pet's body and bands are two pictures that fill opposite pixels (ApplyEffects). Shrunk evenly, together
+    // they must still cover a solid area completely: no see-through seam where they meet (read-only review, 2026-11-27).
+    internal static void RainbowSeamTest() {
+      var body=new Bitmap(190,40,PixelFormat.Format32bppArgb);var bands=new Bitmap(190,40,PixelFormat.Format32bppArgb);
+      for(int y=0;y<40;y++)for(int x=0;x<190;x++){if((x/7)%2==0)body.SetPixel(x,y,Color.White);else bands.SetPixel(x,y,Color.Red);}
+      var pet=new PetSprite{Id="rgbee",Name="Rainbow seam test",DesktopArt=true};pet.Idle=body;pet.Blink=new Bitmap(body);pet.idleBands=bands;pet.blinkBands=new Bitmap(bands);pet.Crop=new Rectangle(0,0,190,40);
+      try {
+        using(var shot=new Bitmap(88,19,PixelFormat.Format32bppArgb)) {
+          using(var g=Graphics.FromImage(shot)){g.Clear(Color.Transparent);g.ScaleTransform(1.5f,1.5f);g.InterpolationMode=InterpolationMode.NearestNeighbor;g.PixelOffsetMode=PixelOffsetMode.Half;pet.Draw(g,false,new RectangleF(0,0,88/1.5f,19/1.5f));}
+          for(int y=0;y<shot.Height;y++)for(int x=0;x<shot.Width;x++){int a=shot.GetPixel(x,y).A;if(a<254)throw new Exception("A rainbow pet's body and bands must leave no see-through seam: alpha "+a+" at "+x+","+y+".");}
+        }
+      }finally{pet.Dispose();}
+    }
+    // `crop` of `layers` (drawn bottom to top, all the same size) shrunk to width by height by area averaging (above), one
+    // picture per layer. Each screen pixel is covered as much as all the layers together cover it, and that cover is
+    // shared by how much of it each layer fills: the top layer takes its share, each layer under it fills its share of
+    // what shows through, so drawn one over the other they add up with no seam. Crisp: every pixel clear or solid, and a
+    // solid pixel goes whole to the layer that fills most of it.
+    internal static Bitmap[] Shrink(Bitmap[] layers,Rectangle crop,int width,int height,bool crisp) {
+      int n=layers.Length,sw=layers[0].Width,sh=layers[0].Height;var src=new int[n][];var dst=new int[n][];
+      for(int i=0;i<n;i++) {
+        if(layers[i].Width!=sw||layers[i].Height!=sh)throw new ArgumentException("Pet picture layers must be the same size.");
+        src[i]=new int[sw*sh];dst[i]=new int[width*height];
+        var from=layers[i].LockBits(new Rectangle(0,0,sw,sh),ImageLockMode.ReadOnly,PixelFormat.Format32bppArgb);
+        try{for(int y=0;y<sh;y++)Marshal.Copy(IntPtr.Add(from.Scan0,y*from.Stride),src[i],y*sw,sw);}finally{layers[i].UnlockBits(from);}
+      }
+      double fx=crop.Width/(double)width,fy=crop.Height/(double)height;var a=new double[n];var r=new double[n];var gr=new double[n];var b=new double[n];
       for(int ty=0;ty<height;ty++) {
         double y0=crop.Y+ty*fy,y1=y0+fy;
         for(int tx=0;tx<width;tx++) {
-          double x0=crop.X+tx*fx,x1=x0+fx,cover=0,a=0,r=0,gr=0,b=0;
+          double x0=crop.X+tx*fx,x1=x0+fx,cover=0,total=0;
+          for(int i=0;i<n;i++)a[i]=r[i]=gr[i]=b[i]=0;
           for(int sy=Math.Max(0,(int)y0);sy<y1&&sy<sh;sy++) {
             double wy=Math.Min(y1,sy+1)-Math.Max(y0,sy);if(wy<=0)continue;
             for(int sx=Math.Max(0,(int)x0);sx<x1&&sx<sw;sx++) {
               double wx=Math.Min(x1,sx+1)-Math.Max(x0,sx);if(wx<=0)continue;
-              int p=src[sy*sw+sx];double part=wx*wy,pa=((p>>24)&255)*part;
-              cover+=part;a+=pa;r+=((p>>16)&255)*pa;gr+=((p>>8)&255)*pa;b+=(p&255)*pa;
+              double part=wx*wy;cover+=part;
+              for(int i=0;i<n;i++){int p=src[i][sy*sw+sx];double pa=((p>>24)&255)*part;a[i]+=pa;r[i]+=((p>>16)&255)*pa;gr[i]+=((p>>8)&255)*pa;b[i]+=(p&255)*pa;}
             }
           }
-          if(cover<=0||a<=0)continue;
-          double alpha=a/cover;int A=crisp?(alpha>=127.5?255:0):Math.Min(255,(int)Math.Round(alpha));if(A==0)continue;
-          int R=Math.Min(255,(int)Math.Round(r/a)),G=Math.Min(255,(int)Math.Round(gr/a)),B=Math.Min(255,(int)Math.Round(b/a));
-          dst[ty*width+tx]=(A<<24)|(R<<16)|(G<<8)|B;
+          for(int i=0;i<n;i++)total+=a[i];
+          if(cover<=0||total<=0)continue;
+          double whole=Math.Min(1,total/cover/255),through=1;int most=0;for(int i=1;i<n;i++)if(a[i]>a[most])most=i;
+          if(crisp&&whole<.5)continue;
+          for(int i=n-1;i>=0;i--) {
+            if(a[i]<=0)continue;
+            double share=crisp?(i==most?1:0):whole*a[i]/total,alpha=through>0?Math.Min(1,share/through):0;through*=1-alpha;
+            int A=(int)Math.Round(alpha*255);if(A==0)continue;
+            int R=Math.Min(255,(int)Math.Round(r[i]/a[i])),G=Math.Min(255,(int)Math.Round(gr[i]/a[i])),B=Math.Min(255,(int)Math.Round(b[i]/a[i]));
+            dst[i][ty*width+tx]=(A<<24)|(R<<16)|(G<<8)|B;
+          }
         }
       }
-      var result=new Bitmap(width,height,PixelFormat.Format32bppArgb);
-      var to=result.LockBits(new Rectangle(0,0,width,height),ImageLockMode.WriteOnly,PixelFormat.Format32bppArgb);
-      try{for(int y=0;y<height;y++)Marshal.Copy(dst,y*width,IntPtr.Add(to.Scan0,y*to.Stride),width);}finally{result.UnlockBits(to);}
+      var result=new Bitmap[n];
+      for(int i=0;i<n;i++) {
+        result[i]=new Bitmap(width,height,PixelFormat.Format32bppArgb);
+        var to=result[i].LockBits(new Rectangle(0,0,width,height),ImageLockMode.WriteOnly,PixelFormat.Format32bppArgb);
+        try{for(int y=0;y<height;y++)Marshal.Copy(dst[i],y*width,IntPtr.Add(to.Scan0,y*to.Stride),width);}finally{result[i].UnlockBits(to);}
+      }
       return result;
     }
     internal static ColorMatrix RgbCycle(long milliseconds) {
@@ -1464,6 +1500,7 @@ namespace AstraDesktopPets {
           if(left<1||Math.Abs(left-right)>Math.Max(left,right)*.02)throw new Exception("Two equal marks must shrink equally (the eyes): "+Math.Round(left)+" vs "+Math.Round(right));
         }
       }finally{marks.Dispose();}
+      PetSprite.RainbowSeamTest();
     }
     internal void SelfTest() {
       if(pets.Count<1||farmer==null)throw new Exception("Roster test failed.");
