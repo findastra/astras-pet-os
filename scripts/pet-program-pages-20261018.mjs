@@ -583,7 +583,7 @@ function itemList(items, prefix, empty) {
     // and no switch: it is a question, not a tool you turn on or off.
     const pillLights = i.waiting
       ? `<span class="lights"><span class="light care is-update" role="img" aria-label="${esc(i.name)}: waiting for your OK" title="Waiting for your OK"></span></span>`
-      : lights(`${prefix}:${i.id}`, i.name, { planned: !built(i.state), unseen: prefix === 'third-party' || prefix === 'device', watch: prefix === 'third-party' ? i.watch : null, site: prefix === 'third-party' ? i.site : null, unmade: prefix === 'third-party' && !!i.unmade, presence: prefix === 'program' && ['openai-discord-presence', 'anthropic-discord-presence'].includes(i.id) });
+      : lights(`${prefix}:${i.id}`, i.name, { planned: !built(i.state), unseen: prefix === 'third-party' || prefix === 'device', watch: prefix === 'third-party' ? i.watch : null, site: prefix === 'third-party' ? i.site : null, unmade: prefix === 'third-party' && !!i.unmade, presence: prefix === 'program' && ['openai-discord-presence', 'anthropic-discord-presence', 'ableton-live-discord-presence', 'anthropic-ipo-countdown', 'openai-ipo-countdown'].includes(i.id) });
     // Its state ("planned" and so on) shows only once it is opened, in the line above (Astra, 2026-10-23: "the
     // "planned" should only show up upon expansion").
     return `<li class="pill">${pillLights}${name}${i.cadence ? ` <span class="tag cadence" title="How often it runs">${esc(i.cadence)}</span>` : ''}${desc}${i.label ? `<code class="label">${esc(i.label)}</code>` : ''}<details class="pill-more"${showPicture(i) || i.pillOpen ? ' open' : ''}><summary aria-label="More about ${esc(i.name)}"></summary><div class="pill-body">${more}</div></details></li>`;
