@@ -15,6 +15,9 @@
      Later 2026-11-20 (Astra, on her phone: "I don't want the button that says send to lights. Maybe that can be like a
      resync button at the top, but I want it to just change as I tap it ... I need to see the color palettes more
      vertically"): every tap goes straight to the lights; Resync at the top; one colour per row on phones.
+     2026-11-27 (Astra: "make sure the tools are represented accurately and usable on the hive"): every theme
+     light-hive-server has (spotify-sync, night-storm, purple-storm and dnb added), Corsair through iCUE's SDK, each Govee
+     light by how it is reached (home network, Bluetooth or Govee's cloud), MSI still not reached.
      Claude Opus 5.5 (claude-opus-5-5), 2026-11-08, 2026-11-11, 2026-11-13 and 2026-11-20. -->
 <style>
 :root{color-scheme:dark;--bg:#050507;--card:rgba(255,255,255,.045);--card-line:rgba(255,255,255,.10);--ink:#f2f5f8;--soft:#c3ccd5;--dim:#9aa6b2;
@@ -139,7 +142,11 @@ button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visi
         <button class="quiet" id="saveScene" type="button">Save as scene</button>
       </div>
       <div class="themes" role="group" aria-label="Themes">
+        <button class="quiet theme" type="button" data-theme="spotify-sync" aria-pressed="false">🎧 spotify-sync</button>
         <button class="quiet theme" type="button" data-theme="storm" aria-pressed="false">⛈ Storm</button>
+        <button class="quiet theme" type="button" data-theme="night-storm" aria-pressed="false">🌌 Night storm</button>
+        <button class="quiet theme" type="button" data-theme="purple-storm" aria-pressed="false">💜 Purple storm</button>
+        <button class="quiet theme" type="button" data-theme="dnb" aria-pressed="false">🥁 D&amp;B</button>
         <button class="quiet theme" type="button" data-theme="rainforest-storm" aria-pressed="false">🌧 Rainforest storm</button>
         <button class="quiet theme" type="button" data-theme="rainforest" aria-pressed="false">🌿 Rainforest</button>
         <button class="quiet theme" type="button" data-theme="party" aria-pressed="false">🎉 Party</button>
@@ -187,10 +194,10 @@ button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visi
   <details class="about">
     <summary>More details</summary>
     <dl>
-      <dt>How it works</dt><dd>Tap a colour or scene and the lights change; Resync sends it again. Click a light’s dot to give it its own colour in this scene. A theme keeps playing after you close the page; Send or Lights off stops it.</dd>
+      <dt>How it works</dt><dd>Tap a colour or scene and the lights change; Resync sends it again. Click a light’s dot to give it its own colour in this scene. A theme keeps playing after you close the page; tapping a colour or Lights off stops it. spotify-sync’s own settings are in its tool.</dd>
       <dt>Where it comes from</dt><dd>Light Hive’s server, light-hive-server, on this PC (findastra/rgbee <code>server/</code>). The live site only previews.</dd>
-      <dt>Your rules</dt><dd>Every RGB light in the apartment (2026-11-08); easy to read, details in here (2026-11-11); fewer words, the old app’s features in here (2026-11-13); themes that follow the music (2026-11-20). Never more than three flashes a second.</dd>
-      <dt>Not built yet</dt><dd>Every reached light takes the scene colour: a light’s own colour shows on the desk only. Corsair and MSI need iCUE and MSI Center. Themes follow how loud the music is, not each beat. The helper doesn’t start by itself yet.</dd>
+      <dt>Your rules</dt><dd>Every RGB light in the apartment (2026-11-08); easy to read, details in here (2026-11-11); fewer words, the old app’s features in here (2026-11-13); themes that follow the music (2026-11-20); every theme the server has, the lights as they are reached today (2026-11-27). Never more than three flashes a second.</dd>
+      <dt>Not built yet</dt><dd>Every reached light takes the scene colour: a light’s own colour shows on the desk only. MSI’s lights (MAKIMA’s board) aren’t reached: OpenRGB finds the chip, but the board ignores what it sends. The storms and moods follow how loud the music is; spotify-sync and D&amp;B follow the beat. light-hive-server doesn’t start by itself at sign-in yet.</dd>
     </dl>
     <div class="row">
       <button class="quiet" id="export" type="button">Export backup</button>
@@ -230,11 +237,11 @@ const PRESETS = [['Neon green', '#39ff88'], ['Astra purple', '#aa3cff'], ['Ice c
 const KNOWN = [
   { id: 'seiren', name: 'Razer Seiren V3 Chroma', via: 'razer' },
   { id: 'kraken', name: 'Razer Kraken Ultimate', via: 'razer' },
-  { id: 'mirror', name: 'Mirror', via: 'govee' },
-  { id: 'squiggle', name: 'Squiggle', via: 'govee' },
-  { id: 'lightstrip', name: 'Lightstrip', via: 'govee' },
-  { id: 'corsair', name: 'Corsair K65 PLUS', via: 'brand', why: 'Needs Corsair iCUE' },
-  { id: 'msi', name: 'MSI Mystic Light', via: 'brand', why: 'Needs MSI Center' },
+  { id: 'mirror', name: 'Mirror', via: 'govee', sku: 'H6159' },
+  { id: 'squiggle', name: 'Squiggle', via: 'govee', sku: 'H61A0' },
+  { id: 'lightstrip', name: 'Light Strip', via: 'govee', sku: 'H619E' },
+  { id: 'corsair', name: 'Corsair K65 PLUS', via: 'corsair' },
+  { id: 'msi', name: 'MSI Mystic Light', via: 'brand', why: 'Not reached: the board ignores what OpenRGB sends' },
   { id: 'mousepad', name: 'Mouse pad', via: 'none', why: 'Not found: plugged in?' },
   { id: 'viper', name: 'Razer Viper V3 Pro', via: 'none', why: 'Has no lights' }
 ];
@@ -272,10 +279,13 @@ function stateOf(l) {
   if (l.via === 'brand' || l.via === 'mine') return ['wait', l.why];
   if (!answer) return ['wait', ON_THIS_PC ? 'Server not running' : 'Preview only'];
   if (l.via === 'razer') return answer.razer && answer.razer.ok ? ['on', 'Reached'] : ['wait', 'Open the Razer Chroma App'];
-  const ble = (answer.bluetooth || []).filter((x) => x.state === 'connected').length;
-  if ((answer.govee || []).length) return ['on', 'Reached'];
-  if (ble >= 3) return ['on', 'Reached by Bluetooth'];
-  return ['wait', ble ? 'Bluetooth: ' + ble + ' of 3 Govee lights reached' : 'Bluetooth: out of reach, or held by Govee Home'];
+  if (l.via === 'corsair') return answer.corsair && answer.corsair.ok && (answer.corsair.devices || []).length ? ['on', 'Reached through iCUE'] : ['wait', 'Open Corsair iCUE'];
+  // Each Govee light by its model: the home network first, then Bluetooth, then Govee's cloud (about once a second).
+  const has = (list, ok) => (Array.isArray(list) ? list : []).some((x) => x && x.sku === l.sku && ok(x));
+  if (has(answer.govee, () => true)) return ['on', 'Reached on the home network'];
+  if (has(answer.bluetooth, (x) => x.state === 'connected')) return ['on', 'Reached by Bluetooth'];
+  if (has(answer.cloud, (x) => x.state === 'ok')) return ['on', 'Reached through Govee’s cloud'];
+  return ['wait', 'Out of reach, or held by Govee Home'];
 }
 
 // Colour maths for breathe and cycle (slow and smooth: never a flash).
@@ -383,10 +393,10 @@ async function send() {
   stopLoop(); showTheme('none');
   const r = await sendNow();
   $('said').textContent = !r ? (ON_THIS_PC ? 'Server not running: preview only.' : 'Live page: preview only.')
-    : 'Sent. Razer ' + (r.razer === 'ok' ? 'took it' : 'didn’t answer') + ' · Govee ' + (r.govee + (r.bluetooth || 0)) + '.';
+    : 'Sent. Razer ' + (r.razer === 'ok' ? 'took it' : 'didn’t answer') + (r.corsair ? ' · Corsair ' + (r.corsair === 'ok' ? 'took it' : 'didn’t answer') : '') + ' · Govee ' + ((+r.govee || 0) + (+r.bluetooth || 0)) + '.';
   if (r && $('effect').value !== 'static' && !REDUCED) loop = setInterval(sendNow, 250);
 }
-// Themes run in the helper, so they keep going (and follow the music) with this page closed.
+// Themes run in light-hive-server, so they keep going (and follow the music) with this page closed.
 function showTheme(t) { document.querySelectorAll('.theme').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.theme === t))); }
 async function playTheme(t) {
   stopLoop();

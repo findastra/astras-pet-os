@@ -364,12 +364,12 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 22 | RGBee | Light Hive | native tool | rgbee-color-corrector | `light-hive-v1.0-rgbee-color-corrector-v1.0` | Works today |
 | 22 | RGBee | Light Hive | native tool | spotify-sync | `light-hive-v1.0-spotify-sync-tool-v1.0` | Works today |
 | 22 | RGBee | Light Hive | native tool | sync-my-lights-tool | `light-hive-v1.0-sync-my-lights-tool-v1.0` | Works today |
+| 22 | RGBee | Light Hive | third-party program | Corsair iCUE |  | Works today |
 | 22 | RGBee | Light Hive | third-party program | Razer Chroma App |  | Works today |
+| 22 | RGBee | Light Hive | third-party program | Razer Synapse |  | Works today |
 | 22 | RGBee | Light Hive | third-party program | Voicemeeter |  | Works today |
-| 22 | RGBee | Light Hive | third-party program | Corsair iCUE |  | Planned |
 | 22 | RGBee | Light Hive | third-party program | Logitech G HUB |  | Planned |
 | 22 | RGBee | Light Hive | third-party program | MSI Center |  | Planned |
-| 22 | RGBee | Light Hive | third-party program | Razer Synapse |  | Planned |
 | 23 | Mine Mole | Crypto Burrow | native tool | hash-lab-tool | `crypto-burrow-v1.0-hash-lab-tool-v1.0` | Works today |
 | 23 | Mine Mole | Crypto Burrow | native tool | learn-mining-tool | `crypto-burrow-v1.0-learn-mining-tool-v1.0` | Works today |
 | 23 | Mine Mole | Crypto Burrow | native tool | mining-ledger-tool | `crypto-burrow-v1.0-mining-ledger-tool-v1.0` | Works today |

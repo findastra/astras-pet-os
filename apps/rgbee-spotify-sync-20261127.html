@@ -179,6 +179,7 @@ let HELPER = null, lastFind = 0;
 function findHelper() {
   lastFind = Date.now();
   return new Promise((done) => {
+    if (location.pathname.startsWith('/light-hive/')) { HELPER = location.origin; done(); return; } // served by light-hive-server (this PC or Astra's phone)
     if (!ON_THIS_PC) { HELPER = null; done(); return; }
     const s = document.createElement('script'); s.src = HELPER_DATA + '?t=' + Date.now();
     s.onload = () => { s.remove(); const d = window.lightHiveHelper; HELPER = d && d.schema === 'light-hive-helper-v1' && Date.now() - new Date(d.time).getTime() < 60000 && /^http:\/\/(127\.0\.0\.1|localhost):\d+$/.test(d.control) ? d.control : null; done(); };
@@ -227,7 +228,7 @@ const FEEL = [['brightness', 'Brightness', 5, 100, 1, '%', ''],
   ['contrast', 'Contrast', 1, 10, 1, '', 'Higher makes quiet and loud look further apart.']];
 const DEFAULTS = { mode: 'scatter', strip: 'blocks', beat_on: 'bass', order: 'cycle',
   palette: ['#9e00ff', '#00e5ff', '#ff2bd6', '#39ff14'], band_colors: ['#ff0040', '#ff7a00', '#39ff14', '#00e5ff', '#9e00ff'],
-  brightness: 60, sensitivity: 5, gap_ms: 350, floor: 10, steps: 4, contrast: 5,
+  brightness: 60, sensitivity: 8, gap_ms: 350, floor: 10, steps: 4, contrast: 5,
   assign: { strip: 'bass', mirror: 'beat', squiggle: 'mid', keyboard: 'treble', razer: 'high-mid' },
   side: { strip: 'A', keyboard: 'A', mirror: 'B', squiggle: 'B', razer: 'B' } };
 const PRESETS = [
@@ -242,14 +243,14 @@ const PRESETS = [
 const isHex = (c) => typeof c === 'string' && /^#[0-9a-f]{6}$/i.test(c);
 const ids = (list) => list.map((x) => x[0]);
 const one = (v, list, d) => (list.includes(v) ? v : d);
-const NAMES = { mode: MODES, strip: STRIPS, beat_on: BEAT_ON, order: ORDERS };
-const OPTS = { mode: ids(MODES), strip: ids(STRIPS), beat_on: ids(BEAT_ON), order: ids(ORDERS) };
+const NAMES = { mode: MODES, strip: STRIPS, beat_on: BEAT_ON, order: ORDERS, part: PARTS, light: LIGHTS.map((l) => [l.id, l.name, l.note]) };
+const OPTS = { mode: ids(MODES), strip: ids(STRIPS), beat_on: ids(BEAT_ON), order: ids(ORDERS), part: ids(PARTS), light: LIGHTS.map((l) => l.id) };
 const nameOf = (key, v) => NAMES[key].find((x) => x[0] === v) || [v, v.replace(/-/g, ' '), ''];
-function learn(options) {   // the server's own lists of modes and strips; true when one changed
-  let changed = false;
-  for (const [key, from] of [['mode', 'modes'], ['strip', 'strips']]) {
-    const list = options && Array.isArray(options[from]) ? options[from].filter((v) => typeof v === 'string' && /^[a-z][a-z-]{0,23}$/.test(v)) : [];
-    if (list.length && list.join() !== OPTS[key].join()) { OPTS[key] = list; changed = true; }
+function learn(options) {   // the server's own lists (modes, strips, parts, lights); says which changed
+  const changed = new Set();
+  for (const [key, from] of [['mode', 'modes'], ['strip', 'strips'], ['part', 'parts'], ['light', 'lights']]) {
+    const list = options && Array.isArray(options[from]) ? options[from].filter((v) => typeof v === 'string' && /^[a-z][a-z-]{0,23}$/.test(v)).slice(0, 24) : [];
+    if (list.length && list.join() !== OPTS[key].join()) { OPTS[key] = list; changed.add(key); }
   }
   return changed;
 }
@@ -264,9 +265,9 @@ function clean(s) {
     beat_on: one(s.beat_on, OPTS.beat_on, DEFAULTS.beat_on), order: one(s.order, OPTS.order, DEFAULTS.order),
     palette: pal.length >= 2 ? pal : DEFAULTS.palette.slice(), band_colors: bc.length === 5 ? bc : DEFAULTS.band_colors.slice(), assign: {}, side: {} };
   for (const [k, , lo, hi] of FEEL) out[k] = int(s[k], lo, hi, DEFAULTS[k]);
-  for (const { id } of LIGHTS) {
-    out.assign[id] = one(s.assign && s.assign[id], ids(PARTS), DEFAULTS.assign[id]);
-    out.side[id] = one(s.side && s.side[id], ['A', 'B'], DEFAULTS.side[id]);
+  for (const id of OPTS.light) {
+    out.assign[id] = one(s.assign && s.assign[id], OPTS.part, one(DEFAULTS.assign[id], OPTS.part, 'beat'));
+    out.side[id] = one(s.side && s.side[id], ['A', 'B'], DEFAULTS.side[id] || 'A');
   }
   return out;
 }
@@ -299,7 +300,12 @@ async function post(turn, note) {
 }
 function take(r, withSettings) {
   on = !!r.on; live = r.live && typeof r.live === 'object' ? r.live : null;
-  if (learn(r.options)) { for (const [key] of CHOICES) options(key); if (!withSettings) fill(); }
+  const learnt = learn(r.options);
+  if (learnt.size) {
+    for (const [key] of CHOICES) options(key);
+    if (learnt.has('part') || learnt.has('light')) lightRows();
+    S = clean(S); if (!withSettings) fill();
+  }
   if (withSettings && r.settings) { S = clean(r.settings); fill(); }
   drawPower(); drawLive();
 }
@@ -348,11 +354,16 @@ function build() {
     box.append(r, out); if (what) box.append(el('span', 'hint', what));
     $('feel').append(box);
   }
-  for (const l of LIGHTS) {
-    const li = el('li', 'light'); li.append(el('b', null, l.name), el('p', 'hint', l.note));
+  lightRows();
+}
+function lightRows() {   // one row per light the server drives, each with the parts it offers
+  $('lights').replaceChildren();
+  for (const id of OPTS.light) {
+    const [, name, note] = nameOf('light', id);
+    const li = el('li', 'light'); li.append(el('b', null, name)); if (note) li.append(el('p', 'hint', note));
     const pair = el('div', 'pair');
-    const part = select(PARTS, l.name + ': the part it follows', (v) => change({ assign: { ...S.assign, [l.id]: v } })); part.id = 'part-' + l.id;
-    const side = select([['A', 'Side A'], ['B', 'Side B']], l.name + ': its side', (v) => change({ side: { ...S.side, [l.id]: v } })); side.id = 'side-' + l.id;
+    const part = select(OPTS.part.map((p) => [p, nameOf('part', p)[1]]), name + ': the part it follows', (v) => change({ assign: { ...S.assign, [id]: v } })); part.id = 'part-' + id;
+    const side = select([['A', 'Side A'], ['B', 'Side B']], name + ': its side', (v) => change({ side: { ...S.side, [id]: v } })); side.id = 'side-' + id;
     pair.append(part, side); li.append(pair); $('lights').append(li);
   }
 }
@@ -371,7 +382,7 @@ function fill() {
     $('hint-' + key).textContent = nameOf(key, S[key])[2];
   }
   for (const [key, , , , , u] of FEEL) { $('feel-' + key).value = S[key]; $('said-' + key).textContent = S[key] + u; }
-  for (const l of LIGHTS) { $('part-' + l.id).value = S.assign[l.id]; $('side-' + l.id).value = S.side[l.id]; }
+  for (const id of OPTS.light) { $('part-' + id).value = S.assign[id]; $('side-' + id).value = S.side[id]; }
   const pal = $('palette'); pal.replaceChildren();
   S.palette.forEach((c, i) => pal.append(swatch(c, 'Palette colour ' + (i + 1),
     (v) => change({ palette: S.palette.map((x, j) => (j === i ? v : x)) }),

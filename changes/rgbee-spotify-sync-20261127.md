@@ -30,6 +30,28 @@ tool list does not reach the hub on its own and this copies the new tool by hand
   PC gave 12 bolts in about 90 seconds, and the server still reported it listening to Voicemeeter later that day.
 - Rebuilt: Light Hive's pet program page, TOOLS-AND-TRICKS.md, the markdown pets and the System Map page.
 
+## Every Light Hive tool as the server is today (later 2026-11-27)
+
+Astra: "need more rapid flashing and color blocking but looking good, do this and make sure the tools are represented
+accurately and usable on the hive".
+
+- **Hub #403 merged into this branch**, unchanged: theme buttons, rgbee-color-corrector, light-hive-helper →
+  light-hive-server. Its generated files were rebuilt.
+- **spotify-sync's page:** its modes, strips, parts and lights all come from the server's `options`. A "Colour blocks"
+  preset (scatter + blocks, light-hive-server 1.6.0) is added, and the starting settings follow 1.6.0's.
+- **sync-my-lights:**
+  - a button for every theme the server plays: spotify-sync, storm, night-storm, purple-storm, dnb,
+    rainforest-storm, rainforest, party, chill, fire;
+  - Corsair K65 reached through iCUE's SDK;
+  - each Govee light by how it is reached (home network, Bluetooth or Govee's cloud);
+  - MSI not reached (OpenRGB finds the chip, the board ignores it);
+  - its More details name light-hive-server.
+- **rainforest-storm:** its lights check counts Corsair and every Govee light however it is reached, and its More
+  details name light-hive-server.
+- **System Map and `pets.json`:** light-hive-server's job; Mirror, Squiggle, Light Strip and the K65 with their models
+  and how Light Hive reaches them; RGBee's links to them, to the Razer lights, iCUE and Synapse are "now". MSI stays
+  planned, with why. RGBee's needs say the same.
+
 Goes with hub #403 (Light Hive's themes, rgbee-color-corrector, light-hive-helper → light-hive-server), which is still
 open: both add a tool to RGBee, so whichever merges second takes main's generated files, rebuilds and tests.
 

@@ -2244,22 +2244,22 @@
           {
             "node": "msi-center",
             "how": "optional",
-            "why": "Planned: RGBee plans lighting scenes for every RGB light in the room; these are the apps that control those lights."
+            "why": "Planned: MSI’s lights (MAKIMA’s board) aren’t reached yet; OpenRGB finds the chip, but the board ignores what it sends."
           },
           {
             "node": "corsair-icue",
             "how": "optional",
-            "why": "Planned: RGBee plans lighting scenes for every RGB light in the room; these are the apps that control those lights."
+            "why": "Light Hive reaches the Corsair K65 through iCUE’s SDK, so iCUE must be running."
           },
           {
             "node": "razer-synapse",
             "how": "optional",
-            "why": "Planned: RGBee plans lighting scenes for every RGB light in the room; these are the apps that control those lights."
+            "why": "Razer’s lighting runs inside Synapse: Light Hive reaches the Razer lights only while it runs."
           },
           {
             "node": "razer-chroma",
             "how": "optional",
-            "why": "Planned: the Razer lights (mic and headset) sync through the Chroma App, so RGBee's scenes would go to it."
+            "why": "Light Hive’s colours, themes and lightning reach the Razer mic and headset through Razer’s Chroma SDK."
           },
           {
             "node": "logitech-g-hub",
