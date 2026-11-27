@@ -1,6 +1,6 @@
 # 451: One farm across all your devices, every pet once
 
-status: open. #451 merged 2026-11-27 (039db1e7) and its two skills installed; step 1 is hub #NEWPR, waiting on Astra's merge; steps 2 to 4 next, one pull request each, each with her OK
+status: open. #451 merged 2026-11-27 (039db1e7) and its two skills installed; step 1 is hub #455, waiting on Astra's merge; steps 2 to 4 next, one pull request each, each with her OK
 for: any
 implementer: Claude Opus 5.5 (`claude-opus-5-5`), 2026-11-27
 reviewer: Astra
@@ -20,7 +20,7 @@ address (PROTECTION-RINGS.md, known gap 12); the details are in White Hat Weasel
   [changes/one-farm-many-devices-20261127.md](../changes/one-farm-many-devices-20261127.md). `npm test` on the
   branch: 536 tests, 530 pass, 0 fail, 6 skipped. dev-mindset and farm-security installed in both seats with Luna's
   Log's `skill-install-tool` right after the merge.
-- Hub #NEWPR (`claude/pet-hosts-20261127`), step 1: `hosts` in `pets.json` (only `windows-pc`, the System Map's
+- Hub #455 (`claude/pet-hosts-20261127`), step 1: `hosts` in `pets.json` (only `windows-pc`, the System Map's
   "Desktop PC", for now) and `"host": "windows-pc"` next to all 10 `server` lines; `test/pet-hosts-test-20261127.mjs`.
   Details: [changes/pet-hosts-20261127.md](../changes/pet-hosts-20261127.md).
 - Found while checking (origin/main `8321cca9`), the parts that still treat one computer as one farm:
@@ -32,7 +32,7 @@ address (PROTECTION-RINGS.md, known gap 12); the details are in White Hat Weasel
 
 ## Not done (in this order, one pull request each)
 
-1. ~~**Hosts in the registry.**~~ Hub #NEWPR. Left from it: Astra's answer on whether `role: "host"` becomes
+1. ~~**Hosts in the registry.**~~ Hub #455. Left from it: Astra's answer on whether `role: "host"` becomes
    `orchestrator` (proposed, not decided; its own pull request if yes). The home server joins `hosts` when it has a
    System Map node (draft #384 adds a "Home server" node) and something is placed on it.
 2. **Startup Star starts only what is placed on its own PC** (`BackgroundPets.Servers()`), so a star on a second
@@ -42,7 +42,7 @@ address (PROTECTION-RINGS.md, known gap 12); the details are in White Hat Weasel
    host. This comes before any part of Astra's PetOS goes on the home server.
 4. **Phase 8 proper:** leases (one copy at a time), heartbeats, "runs on" on the Farm's cards, the farm lock listing
    hosts, and PLAN decision 6 (where the Farm itself runs), best decided after the home server's Ubuntu install.
-5. ~~**After #451 merges:** install dev-mindset and farm-security.~~ Done 2026-11-27. After #NEWPR merges, install
+5. ~~**After #451 merges:** install dev-mindset and farm-security.~~ Done 2026-11-27. After #455 merges, install
    them again (both change in it).
 
 ## Rule until then
