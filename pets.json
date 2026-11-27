@@ -570,6 +570,14 @@
       }
     }
   },
+  "hosts": {
+    "about": "The devices that have joined this farm (Astra, 2026-11-27: one farm across all your devices, every pet once). Each key is a System Map node in category Device, named by its kind only, never a model, computer name or address (PROTECTION-RINGS.md, known gap 12). A pet's `server` runs on exactly one host, the one named in its `host`. Astra (L4) approves every device that joins. A record, not a lock: Startup Star and the Linux package do not read `host` yet (card 451), so a farm still runs on one computer. Not the Friendly Farmer's `role: \"host\"`.",
+    "windows-pc": {
+      "os": "windows",
+      "agent": "startup-star",
+      "job": "The desktop PC, the farm's first computer: Startup Star runs the desktop pets and every pet server here."
+    }
+  },
   "pets": [
     {
       "repo": "astras-pet-os",
@@ -1717,6 +1725,7 @@
       "version": "0.1.0",
       "version_assigned": true,
       "server": "audio-rescue-server-20261127.exe",
+      "host": "windows-pc",
       "note": "DRAFT. A compact neckless grey bug with red and black details, shown at the standard pet height. Made with OpenAI Codex (GPT-6) on 2026-10-08. Audio repair runs in the separate local Windows app; browser moods do not measure audio health. Source in the private repo findastra/voicemeeter-bug since 2026-10-11.",
       "interface_local_url": "apps/pet-programs/voicemeeter-bug-20261018.html",
       "interface_url": "apps/pet-programs/voicemeeter-bug-20261018.html",
@@ -1846,6 +1855,7 @@
       "published": true,
       "job": "Observability: correlates logs, traces, health and failures.",
       "server": "bin/log-den-server-20261126.exe",
+      "host": "windows-pc",
       "added": "2026-10-18",
       "version": "0.1.2-20261019",
       "note": "DRAFT art, generated 2026-10-19 with Astra's OK: an electric-teal lynx with navy spots, tangerine ear tufts and a lime logbook. A Windows tray program (built on the PC, started at sign-in from a Startup-folder shortcut); its page shows live records only on Astra's PC.",
@@ -1920,6 +1930,7 @@
       "published": true,
       "job": "Network: packet loss, DNS, latency, routing.",
       "server": "bin/packet-river-server-20261126.exe",
+      "host": "windows-pc",
       "added": "2026-10-18",
       "version": "0.1.2-20261019",
       "note": "DRAFT art, generated 2026-10-19 with Astra's OK: an aqua-cyan piranha with a crimson belly, lemon fins and a toothy underbite. A Windows tray program (built on the PC, started at sign-in from a Startup-folder shortcut); its page shows live records only on Astra's PC.",
@@ -2001,6 +2012,7 @@
       "published": true,
       "job": "Incident timelines and log analysis.",
       "server": "bin/evidence-locker-server-20261126.exe",
+      "host": "windows-pc",
       "added": "2026-10-18",
       "version": "0.1.2-20261019",
       "note": "DRAFT art, generated 2026-10-19 with Astra's OK: a golden-yellow ferret with a violet bandit mask and a hot pink magnifying glass. A Windows tray program (built on the PC, started at sign-in from a Startup-folder shortcut); its page shows live records only on Astra's PC.",
@@ -2681,6 +2693,7 @@
       "version": "0.1.0",
       "version_assigned": true,
       "server": "wonderland-launchpad-server-20261121.exe",
+      "host": "windows-pc",
       "interface_local_url": "apps/pet-programs/rift-rabbit-20261018.html",
       "interface_url": "apps/pet-programs/rift-rabbit-20261018.html",
       "audit": {
@@ -3103,6 +3116,7 @@
       "added": "2026-10-18",
       "version": "0.3.0",
       "server": "workflow-whirlpool-server-20261120.mjs",
+      "host": "windows-pc",
       "interface_local_url": "apps/pet-programs/workflow-whirlpool-20261018.html",
       "interface_url": "apps/pet-programs/workflow-whirlpool-20261018.html",
       "app_url": "https://findastra.github.io/astras-pet-os/apps/workflow-whirlpool-20261018.html",
@@ -3217,6 +3231,7 @@
       "added": "2026-10-21",
       "version": "0.1.0-20261021",
       "server": "bin/kernel-grove-server-20261120.exe",
+      "host": "windows-pc",
       "audit": {
         "cadence": "weekly",
         "subject": "what runs on the PC: leftovers, memory and what starts at sign-in",
@@ -3286,6 +3301,7 @@
       "added": "2026-10-23",
       "version": "0.1.0-20261023",
       "server": "bin/benchmark-rock-server-20261120.exe",
+      "host": "windows-pc",
       "audit": {
         "cadence": "weekly",
         "subject": "the graphics cards: their memory, how busy they are and what is using them",
@@ -3963,6 +3979,7 @@
       "added": "2026-11-02",
       "version": "v0.1.0",
       "server": "scripts/white-hat-lab-server-20261120.mjs",
+      "host": "windows-pc",
       "checks": {
         "tool:port-check-tool": {
           "result": "works",
@@ -4172,6 +4189,7 @@
       "added": "2026-11-03",
       "version": "0.1.0-20261103",
       "server": "pc-master-race-server-20261120.mjs",
+      "host": "windows-pc",
       "audit": {
         "cadence": "weekly",
         "subject": "your PC’s core tools: which are on the PC, signed and up to date",

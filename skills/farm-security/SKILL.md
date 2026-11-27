@@ -63,8 +63,10 @@ The whole `astras-pet-os` repo is the core: every change to it merges only with 
   pet exists once in it (ASTRAS_PET_OS.md, amendment of 2026-11-27). A device joins only with L4's approval. Hosts
   talk only through the farm's typed, allowlisted actions (ASTRAS_PET_OS.md, section 5.2), never through a remote shell
   a pet opens. SSH between the owner's own devices is the setup cable for L4 and the seated chat, not a pet channel.
-  Status: **written only**; recording and checking hosts is **planned** (card 451). Until then a farm runs on one
-  computer: a second install on another of the owner's devices would be a second farm with a copy of every pet.
+  Status: **written only**. The placement is recorded (`pets.json` `hosts`, and a `host` on each `server`, checked by
+  `test/pet-hosts-test-20261127.mjs`), but that is a record, not a lock: the host agents following it is **planned**
+  (card 451). Until then a farm runs on one computer: a second install on another of the owner's devices would be a
+  second farm with a copy of every pet. Hosts are named by their System Map node, by kind only (known gap 12).
 - Teams and person-to-person features wait until a professional security engineer maintains the design.
 - Sharing a farm online ("flexing") is one-way publishing to GitHub Pages: never private pets, never personal data.
 - A pet from someone else (the sick cow) never runs on a farm until it is signed, checked, quarantined (read-only)
