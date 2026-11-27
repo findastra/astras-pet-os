@@ -103,7 +103,9 @@ function boot(repo, ids, { programs = [], link = null, here = true, answer = () 
     addEventListener(type, f) { (this.listeners[type] ||= []).push(f); },
     head: {
       appendChild(s) {
-        loads.push(s.getAttribute('src'));
+        // Only the programs list counts here; since 2026-11-26 the page also reads Deck Duck's knob pick
+        // (test/key-requests-test-20261019.mjs checks that one).
+        if (!/deck-pick-page-data/.test(s.getAttribute('src'))) loads.push(s.getAttribute('src'));
         sandbox.benchmarkRockPrograms = { schema: 'benchmark-rock-programs-v1', time: new Date(BASE + now - (state.age || 0)).toISOString(), programs: state.programs, devices: [], ...(state.link ? { link: state.link } : {}) };
         s.onload();
       },
