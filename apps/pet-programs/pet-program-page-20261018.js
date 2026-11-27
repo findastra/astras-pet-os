@@ -99,9 +99,12 @@
   function power(k, planned) { if (planned) return 'off'; var s = lights[k] || {}; return s.power || (s.off ? 'off' : 'on'); }
   // The second light (Astra, 2026-10-24: "the gray should be 'not created' ... they need to all be checked if they work
   // or not by you"; "yellow is 'report issues'"; an update found by the update audit is orange until L4 approves it):
+  // The colours as the page's key shows them (Astra, 2026-11-27: "you should have shown blue because you thought it
+  // worked but once i checked and it had issues, i was supposed to be able to click it from blue to orange. yellow is
+  // rare it means you found it needs an update"; the stylesheet paints is-fix with --update and is-update with --fix):
   //   none   grey    not created: not built yet, or the check found it is not on this PC
-  //   fix    yellow  report issues: you reported one (click), the check found one, or it has not been checked yet
-  //   update orange  an update is waiting for your approval (Steam, or the update audit on GitHub)
+  //   fix    orange  report issues: you reported one (click), the check found one, or it has not been checked yet
+  //   update yellow  an update is waiting for your approval (Steam, or the update audit on GitHub)
   //   ok     blue    checked, and it works
   // A check is the hub's record (pets.json `checks`): data-check on the light, with its note and date.
   function care(b) {

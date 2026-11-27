@@ -932,6 +932,26 @@
       "in_pill": true
     },
     {
+      "id": "rea",
+      "name": "REA",
+      "type": "program",
+      "state": "now",
+      "layer": 6,
+      "category": "MCP server",
+      "job": "Third-party program (morluto/rea, MIT): REA (Reverse Engineer Anything), an MCP server for reverse engineering programs, packages and web pages, registered with Claude Code on Astra's PC (2026-11-20). White Hat Lab keeps the master of its reverse-engineer-anything skill (white-hat-lab#12). Used only on things Astra owns or is allowed to test.",
+      "does": "Takes apart programs, packages and web pages to see what they really do."
+    },
+    {
+      "id": "tplinkrouterc6u",
+      "name": "tplinkrouterc6u",
+      "type": "program",
+      "state": "now",
+      "layer": 6,
+      "category": "Dependency",
+      "job": "Third-party Python library (tplinkrouterc6u on PyPI, MIT), 5.42.0 on Astra's PC: it speaks the home TP-Link router's encrypted web sign-in. The Ghost In The Walls reader (scripts/ghost-walls-guest-reader-20261126.py) signs in with it read only, lists the guest devices and signs out.",
+      "does": "Lets the guest watch read the router's list of guest devices."
+    },
+    {
       "id": "learn-computer-organization-tool",
       "name": "learn-computer-organization-tool",
       "type": "tool",
@@ -8489,6 +8509,20 @@
     },
     {
       "from": "white-hat-lab",
+      "to": "rea",
+      "carries": "opens",
+      "state": "now",
+      "why": "White Hat Weasel uses REA through its reverse-engineer-anything skill when a check needs a program taken apart (white-hat-lab#12, 2026-11-20); only on what Astra owns or may test. Listed in Flash Audit round 67 (A54)."
+    },
+    {
+      "from": "white-hat-lab",
+      "to": "tplinkrouterc6u",
+      "carries": "runs-on",
+      "state": "now",
+      "why": "The Ghost In The Walls reader signs in to the router with it, read only, every 30 minutes inside White Hat Lab's server (Astra, 2026-11-26: \"Start the tracker\"). Listed in Flash Audit round 67 (A54)."
+    },
+    {
+      "from": "white-hat-lab",
       "to": "wireshark",
       "carries": "opens",
       "state": "now",
@@ -10486,6 +10520,50 @@
         "status": "written",
         "how": "Program-watch's own code: its listener answers on 127.0.0.1 only, at a port and with a random code it picks at each start and writes only to its page file in Documents. The random code is what keeps web pages out: the listener also refuses any Origin that is not this PC or none, but a file page sends Origin null, and so can a sandboxed frame or a data: page on any website, so the Origin check alone keeps nothing out. It checks the Host header and opens or closes only an id in its own table whose kind is window; the pages send only that id, and only to the address in that file (test/program-buttons-test-20261107.mjs checks the page side only). Nothing enforces this: Benchmark Rock runs as you, so nothing outside its own code stops it doing more. Asked for by Astra on 2026-11-07; she approves it by merging. Not run on Windows yet: the listener is on a benchmark-rock branch, not merged.",
         "next": "Iron Gates issues the grant; The Police Station watches every open and close."
+      },
+      {
+        "id": "white-hat-weasel-look",
+        "who": "White Hat Weasel (White Hat Lab: port-watch-tool, ghost-in-the-walls-tool)",
+        "level": [
+          "L1",
+          "L2"
+        ],
+        "subjects": [
+          "id:white-hat-lab"
+        ],
+        "on": "every port open on this PC, the program behind it and who is connected (no administrator), and the home router's list of guest devices, read only with the router login Astra added herself",
+        "resources": [
+          "ring:5",
+          "ring:6"
+        ],
+        "r": "yes",
+        "w": "no",
+        "x": "no",
+        "status": "written",
+        "how": "White Hat Lab's server reads ports with Get-NetTCPConnection every 10 minutes and the guest list every 30 minutes through tplinkrouterc6u, and writes only its own data folders (Astra's PetOS Data and its LocalAppData folder). The router login comes from a Windows user variable through API Fairy's key request and is never printed. Nothing enforces this: it runs as you. Asked for on 2026-11-19 (\"All recommended\") and 2026-11-26 (\"Start the tracker\"); Astra approves this record by merging.",
+        "next": "Iron Gates issues the grant; The Police Station watches that White Hat Lab writes only its own folders."
+      },
+      {
+        "id": "white-hat-weasel-stop",
+        "who": "White Hat Weasel (White Hat Lab: port-watch-tool)",
+        "level": [
+          "L1",
+          "L4"
+        ],
+        "subjects": [
+          "id:white-hat-lab"
+        ],
+        "on": "our own servers only (Astra's PetOS helpers and chat preview servers), one at a time, when Astra clicks Close in White Hat Weasel's Startup Star menu; never another program",
+        "resources": [
+          "ring:5",
+          "ring:6"
+        ],
+        "r": "yes",
+        "w": "no",
+        "x": "yes",
+        "status": "written",
+        "how": "Only after Astra's click in the star's menu (--close <port>); the server closes a port only when its program's command line is one of our own servers. That check is code in scripts/white-hat-lab-server-20261120.mjs, but nothing outside White Hat Lab enforces it: it runs as you. Asked for on 2026-11-19 (\"All recommended\"); Astra approves this record by merging.",
+        "next": "Iron Gates issues the grant; The Police Station watches every close."
       },
       {
         "id": "kernel-koala-stop",

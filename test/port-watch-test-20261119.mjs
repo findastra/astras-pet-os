@@ -128,7 +128,7 @@ test('the menu only offers our own servers, in words Startup Star accepts', () =
   assert.match(m.items[0].text, /1 port look/);
   assert.ok(!m.items.some((i) => i.args && i.args[0] === '--quit'), 'stopped, the star offers Start instead');
   const on = menu(ports, ask(ports, {}, now), true);
-  assert.deepEqual(on.items[on.items.length - 1], { text: 'Quit the port watch', args: ['--quit'] });
+  assert.deepEqual(on.items[on.items.length - 1], { text: "Quit White Hat Lab's server", args: ['--quit'] });
 });
 
 test('its own Quit stops only the copy that runs this server, then clears the lock', () => {

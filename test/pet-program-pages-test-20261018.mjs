@@ -94,7 +94,8 @@ test('clicker training: one and two clicks are the same for every pet, tools fro
     const pill = (name) => new RegExp(`<li class="pill"><span class="lights">.*?data-item="click:${d.petSlug}:[^"]+" data-name="${name}".*?class="item-name"[^>]*>${name}</(?:a|span)>.*?<span class="item-desc">([^<]*)</span>`);
     assert.match(box, pill('one click'), `${d.repo}: one click`);
     assert.match(box.match(pill('one click'))[1], /^Show the current reminder in a dialog box/);
-    assert.equal(box.match(pill('two clicks'))[1], esc(`Open or close ${d.home}, this page.`), `${d.repo}: two clicks`);
+    // The same two clicks for every pet; a pet with no desktop pet yet says they wait for one (Flash Audit round 67, A41).
+    assert.equal(box.match(pill('two clicks'))[1], esc(d.onDesktop === false ? `Open or close ${d.home}, this page, once ${d.pet} is on the desktop (not yet: no desktop pet).` : `Open or close ${d.home}, this page.`), `${d.repo}: two clicks`);
     const three = d.clicks['3'];
     if (three) assert.equal(box.match(pill('three clicks'))[1], esc(three.what || three.tool), `${d.repo}: three clicks run ${three.tool}`);
     else assert.match(box.match(pill('three clicks'))[1], /^A tool you assign/, `${d.repo}: three clicks`);
@@ -236,7 +237,9 @@ test('a native ON/OFF light says it only keeps the choice in this browser; a pro
   assert.match(farm, /data-item="third-party:github"[^>]*title="A website: press to open it in a new tab"/, 'a website');
   const drums = files[pagePath('drum-dog')];
   // Since 2026-11-13: which devices are USB is Drum Dog's to say (its parts file); the page learns it from the watch.
-  assert.match(drums, /data-item="device:akai-apc64"[^>]*title="ON\/OFF: green while SteamVR has it on, or while it is plugged in"/, 'a device light');
+  // SteamVR is named only on the System Map's VR devices (Flash Audit round 67, A48).
+  assert.match(drums, /data-item="device:akai-apc64"[^>]*title="ON\/OFF: green while it is plugged in"/, 'a device light');
+  assert.match(files[pagePath('rift-rabbit')], /data-item="device:quest-pro"[^>]*title="ON\/OFF: green while SteamVR has it on"/, 'a VR device light');
   assert.doesNotMatch(drums, /data-usb=/, 'no USB list kept in the hub');
   assert.match(drums || '', /data-item="third-party:web-browser"[^>]*data-watch="window"/, 'the web browser opens');
   const js = readFileSync(`${root}/${DIR}/${ASSETS.js}`, 'utf8');
