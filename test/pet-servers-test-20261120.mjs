@@ -66,6 +66,17 @@ test("Log Den's three renames together (2026-11-26): Log Den's server runs all t
   assert.ok(star.includes('Host=p[0]=="log-den"?null:"log-den"'), 'the two watches stay inside Log Den\'s server');
 });
 
+test("Audio Rescue's server (2026-11-27): the Bug's one program, in his own folder, for his start, menu and repair", () => {
+  const pet = (repo) => [...pets.pets, ...pets.pipeline].find((p) => p.repo === repo);
+  // A plain file name: the Bug runs from his folder, Documents\ChatGPT\Voicemeeter Bug.
+  assert.equal(pet('voicemeeter-bug').server, 'audio-rescue-server-20261127.exe');
+  assert.ok(star.includes('BugExe { get { return BackgroundPets.ServerIn("voicemeeter-bug",BugDir,'), 'the star takes the Bug\'s program from pets.json');
+  assert.ok(star.includes('PetFiles.StartBug("--hosted")') && star.includes('PetFiles.StartBug("--repair")') && star.includes('Exe=PetFiles.BugExe'),
+    'his start, his three-click repair and his menu all go through that one path');
+  const page = read('apps/voicemeeter-bug-20261008.html');
+  assert.ok(page.includes('Voicemeeter Bug\\\\audio-rescue-server-20261127.exe') && !page.includes('voicemeeter-bug-20261008.exe'), 'his page names the server');
+});
+
 test("PC Master Race's server is a node script the star starts at sign-in; The Pilot Plant's look runs once and is no server", () => {
   const pet = (repo) => [...pets.pets, ...pets.pipeline].find((p) => p.repo === repo);
   assert.equal(pet('pc-master-race').server, 'pc-master-race-server-20261120.mjs');
