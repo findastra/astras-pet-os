@@ -40,3 +40,15 @@ Prior independent service/UI review accepted safe installation checks, sanitized
 Narrowed desktop review and integration checks follow below. The owner-reported maintenance flag remains available for the owner to clear.
 
 Narrowed desktop review accepted SHA256 e4f544eccb719f5b64cca5fb65afa8e648ea987f851043dda6c72f46bd22095a. Reviewer verified the exact diff contains only the Damsel helper, fixed hidden launch route and self-test; no sizing, diagnostics, preview or encoding changes. Root rebuilt that exact source and the full native self-test passed; all five UI tests passed again. Implementation scope released for integration.
+
+
+## 2026-11-27 repair follow-up
+
+State: READY_FOR_REVIEW. Implementer: OpenAI Codex. Branch: `codex/presence-automatic-20261127`.
+The active writer owns the presence runtime/helper and existing hub presence-control script, generator and tests. Read-only checker `review_presence` independently reviewed the final behavior and reported no blockers; it passed Ableton 16, Tower focused 19, and hub 9 tests.
+
+The five native apps remember their sharing mode and cooperate through expiring display turns. The helper starts in the background, connects authenticated editorial pages, and waits for withdrawal before selecting the next card. All five existing hub lights reflect runtime state. No layout change.
+
+A real restart preserved Automatic. A live 40-second branch run gave each enabled OpenAI, Anthropic and Ableton app a Discord-accepted turn. Actual viewer-side profile presentation remains unverified. The branch copies are running for the preview; canonical sources are unchanged. Owner approval is needed before merging and switching startup back to updated canonical copies.
+
+See `changes/presence-automatic-20261127.md`. No folders have been deleted or moved.
