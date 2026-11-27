@@ -42,7 +42,10 @@ namespace AstraDesktopPets {
       string hub=SafePath(DraftsList);return File.Exists(hub)?hub:Path.Combine(Path.GetDirectoryName(StateFile),"desktop-drafts-20261011.json"); } }
     internal static string Exe { get { return Path.Combine(Root,"bin","desktop-pets-20261008.exe"); } }
     internal static string StartupCommand { get { return "\"" + Exe + "\" \"" + Root + "\" --startup"; } }
-    internal static string BugExe { get { return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),"ChatGPT","Voicemeeter Bug","voicemeeter-bug-20261008.exe"); } }
+    // Voicemeeter Bug's folder, and in it Audio Rescue's server, named in pets.json (Flash Audit A72, 2026-11-27); a farm whose
+    // pets.json has no line for it starts the program under its old name.
+    internal static string BugDir { get { return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),"ChatGPT","Voicemeeter Bug"); } }
+    internal static string BugExe { get { return BackgroundPets.ServerIn("voicemeeter-bug",BugDir,Path.Combine(BugDir,"voicemeeter-bug-20261008.exe")); } }
     internal static Dictionary<string,object> Read(string relative) { return Json.Deserialize<Dictionary<string,object>>(File.ReadAllText(SafePath(relative))); }
     internal static string SafePath(string relative) {
       if(String.IsNullOrWhiteSpace(relative)||Path.IsPathRooted(relative))throw new InvalidDataException("Expected a relative pet asset path.");
@@ -1527,14 +1530,14 @@ namespace AstraDesktopPets {
       // Only Startup Star in Task Manager (2026-11-19): a helper an older star started is found and started again by this
       // star; its own sub-copies go with it, but nothing else it opened (Voicemeeter stays up); a Temp test copy is left alone.
       {
-        var dc=BackgroundPets.Find("desktop-commander");var bugEntry=BackgroundPets.Find("voicemeeter-bug");var chat=BackgroundPets.Find("chat-rat");
+        var dc=BackgroundPets.Find("desktop-commander");var bugEntry=BackgroundPets.Find("voicemeeter-bug");var chat=BackgroundPets.Find("chat-rat");string bugName=Path.GetFileName(bugEntry.Exe);
         if(chat==null||chat.Pet!="Chat Rat"||chat.StartArgs[chat.StartArgs.Length-1]!="serve"||!chat.Needs.EndsWith(Path.Combine("chat-rat","chat-rat-20261016.mjs")))throw new Exception("Chat Rat's server must start with the star from its own folder.");
         var procs=new List<BackgroundPets.Proc>{
           new BackgroundPets.Proc{Id=10,Parent=1,Name="desktop-pets-20261008.exe",Line="star"},
           new BackgroundPets.Proc{Id=20,Parent=999,Name="node.exe",Line="node C:\\x\\npm-cache\\desktop-commander\\index.js remote"},
           new BackgroundPets.Proc{Id=21,Parent=20,Name="node.exe",Line="node C:\\x\\npm-cache\\desktop-commander\\dist\\index.js"},
-          new BackgroundPets.Proc{Id=30,Parent=10,Name="voicemeeter-bug-20261008.exe",Line="\"voicemeeter-bug-20261008.exe\" --hosted"},
-          new BackgroundPets.Proc{Id=31,Parent=999,Name="voicemeeter-bug-20261008.exe",Line="\"voicemeeter-bug-20261008.exe\" --hosted"},
+          new BackgroundPets.Proc{Id=30,Parent=10,Name=bugName,Line="\""+bugName+"\" --hosted"},
+          new BackgroundPets.Proc{Id=31,Parent=999,Name=bugName,Line="\""+bugName+"\" --hosted"},
           new BackgroundPets.Proc{Id=32,Parent=31,Name="voicemeeter8.exe",Line="voicemeeter8.exe"},
           new BackgroundPets.Proc{Id=40,Parent=999,Name="node.exe",Line="node chat-rat-20261016.mjs serve"},
           new BackgroundPets.Proc{Id=41,Parent=999,Name="node.exe",Line="node E:\\Temp\\claude\\s\\chat-rat-20261016.mjs serve"},
@@ -1559,6 +1562,12 @@ namespace AstraDesktopPets {
       if(rabbit==null||!BackgroundPets.Servers().TryGetValue("rift-rabbit",out rabbitServer)||!System.Text.RegularExpressions.Regex.IsMatch(rabbitServer,"^wonderland-launchpad-server-[0-9]{8}\\.exe$")
         ||rabbit.Exe!=Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),"Astra's PetOS Data","rift-rabbit","program",rabbitServer)||BackgroundPets.Watches("rift-rabbit"))
         throw new Exception("Rift Rabbit's launcher must be Wonderland Launchpad's server, named in pets.json, started from its program folder, with no alarmed face.");
+      // Audio Rescue's server (2026-11-27): the Bug's program, named in pets.json, in his own folder; his menu, his start at
+      // sign-in (--hosted) and his three-click repair all use it.
+      var bugPet=BackgroundPets.Find("voicemeeter-bug");string bugServer;
+      if(bugPet==null||!BackgroundPets.Servers().TryGetValue("voicemeeter-bug",out bugServer)||!System.Text.RegularExpressions.Regex.IsMatch(bugServer,"^audio-rescue-server-[0-9]{8}\\.exe$")
+        ||bugPet.Exe!=Path.Combine(PetFiles.BugDir,bugServer)||PetFiles.BugExe!=bugPet.Exe)
+        throw new Exception("The Bug's program must be Audio Rescue's server, named in pets.json, in his own folder.");
       var petChat=BackgroundPets.Find("pet-chat");
       if(petChat==null||petChat.Pet!="Pet chat"||petChat.Exe!=Path.Combine(PetFiles.Root,"bin","pet-chat-helper-20261103.exe")||BackgroundPets.Watches("pet-chat"))throw new Exception("The pet chat helper must start from the farm's bin, under Pet chat in the menu, with no alarmed face.");
       testActions.RemoveRange(signIn,testActions.Count-signIn);

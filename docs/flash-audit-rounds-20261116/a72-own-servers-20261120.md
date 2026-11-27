@@ -47,10 +47,10 @@ files are built pages that `npm run build` rewrites. Q1 and Q2 are the two quest
 | 2 | Kernel Grove | `bin/kernel-grove-20261021.exe` (leftover watch) | no | the star, only when asked | `kernel-grove-server-20261120.exe` | hub 9, kernel-grove 5 | **done 2026-11-20**: kernel-grove#11 and #411, rebuilt on her PC |
 | 3 | White Hat Lab | `scripts/port-watch-20261119.mjs`, in the hub | no | the star | `white-hat-lab-server-20261120.mjs` | hub 8 | **done 2026-11-21**: #425, rebuilt on her PC, with a Quit of its own; it stays in the hub (the hub carries White Hat Lab's tools), so its `server` path is inside the hub |
 | 4 | Wonderland Launchpad | `rift-rabbit-20261024.exe` (the VR launcher) | yes | the star | `wonderland-launchpad-server-20261121.exe` (the day it was updated) | hub 6, rift-rabbit 6 | **done 2026-11-25**: rift-rabbit#17 (merged 2026-11-21) and #431, rebuilt on her PC; the old copies are in its program folder's `before-20261121`. The uncommitted folder in rift-rabbit's PC folder (old desktop art) is left alone |
-| 5 | Log Den | `bin/log-den-20261018.exe` (hosts 6 and 7) | no | the star | `log-den-server-20261126.exe` (the day it was updated) | hub 73, log-den 7 | 5 to 7 build together. **Merged 2026-11-27**: findastra/log-den#17, packet-river#18, evidence-locker#17 and #443, with her OK ("go ahead"); Log Den's server still runs 6 and 7, and the PC switch follows #443's steps |
+| 5 | Log Den | `bin/log-den-20261018.exe` (hosts 6 and 7) | no | the star | `log-den-server-20261126.exe` (the day it was updated) | hub 73, log-den 7 | 5 to 7 build together. **Merged 2026-11-27**: findastra/log-den#17, packet-river#18, evidence-locker#17 and #443, with her OK ("go ahead"); Log Den's server still runs 6 and 7; switched on her PC the same day |
 | 6 | Packet River | inside Log Den (`packet-river-20261018.exe --alone`) | no | Log Den | `packet-river-server-20261126.exe` | hub 20, packet-river 7 | with 5: **merged 2026-11-27** |
 | 7 | Evidence Locker | inside Log Den (`evidence-locker-20261018.exe --alone`) | no | Log Den | `evidence-locker-server-20261126.exe` | hub 69, evidence-locker 7 | with 5: **merged 2026-11-27** |
-| 8 | Audio Rescue | `voicemeeter-bug-20261008.exe --hosted` | no | the star | `audio-rescue-server-20261120.exe` | hub 22 | its build wants the hub beside its folder (known trap) |
+| 8 | Audio Rescue | `voicemeeter-bug-20261008.exe --hosted` | no | the star | `audio-rescue-server-20261127.exe` (the day it was updated) | hub 22 | its build wants the hub beside its folder (known trap). Open 2026-11-27: findastra/voicemeeter-bug#16 and the hub's pull request; one program, no second copy (his status window comes from the running copy) |
 | 9 | The Farm | `bin/pet-chat-helper-20261103.exe` | yes | the star | joins `the-farm-server-20261120.mjs` | hub 15 | written again in Node: it is C# today |
 | 10 | The Farm | `scripts/flash-audit-helper-20261108.mjs` | yes | the star | joins `the-farm-server-20261120.mjs` | hub 14 | |
 | 11 | The Farm | `scripts/pet-moods-20261114.mjs` | no | the star | joins `the-farm-server-20261120.mjs` | hub 14 | |
@@ -85,8 +85,8 @@ and Startup Star runs them:
 
 Still open in another chat: Light Hive's server (row 18), `light-hive-server-20261120`, in findastra/rgbee#16 and #403.
 #403 still edits the port watch by its old name, `scripts/port-watch-20261119.mjs`, which #425 renamed; since #431 the
-Weasel knows any server named in `pets.json`. Rows 5 to 7 are merged (2026-11-27); the rest of the table is still to
-do: rows 8 to 11, 13 to 17.
+Weasel knows any server named in `pets.json`. Rows 5 to 7 are merged and switched on her PC (2026-11-27), row 8 is
+open; the rest of the table is still to do: rows 9 to 11, 13 to 17.
 
 ## How each rename goes
 

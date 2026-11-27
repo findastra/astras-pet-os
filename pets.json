@@ -1716,6 +1716,7 @@
       "added": "2026-10-08",
       "version": "0.1.0",
       "version_assigned": true,
+      "server": "audio-rescue-server-20261127.exe",
       "note": "DRAFT. A compact neckless grey bug with red and black details, shown at the standard pet height. Made with OpenAI Codex (GPT-6) on 2026-10-08. Audio repair runs in the separate local Windows app; browser moods do not measure audio health. Source in the private repo findastra/voicemeeter-bug since 2026-10-11.",
       "interface_local_url": "apps/pet-programs/voicemeeter-bug-20261018.html",
       "interface_url": "apps/pet-programs/voicemeeter-bug-20261018.html",
