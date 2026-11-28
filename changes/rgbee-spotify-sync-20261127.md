@@ -123,6 +123,95 @@ Astra: "still feels too random ... can you do a setting where it matches to synt
   - Flash from 5;
   - a Synesthesia preset (flash 12), first.
 
+## Patterns, one colour, rainbows and the APC64 (light-hive-server 1.19.0 and 1.20.0, later 2026-11-27)
+
+Astra: "need more patterns, longer strings, make some times its only one color", "the colors need to slow down sometimes
+in certain segments, colors are still not coherent, the bars on the keyboard get rid of those and jsut do those on the
+APC", "I want to see some snaking and rainbow features, stark changes into gradual rolls, things can be slow and fast",
+"like can the mouse pad just be the tempo", "need to see more on the squiggle than just one flashing color". The server
+side is in findastra/rgbee#17 (3750735); this is the page catching up.
+
+- **The wall line:** Changes with the song (the new default) picks a pattern by the music's pace: calm stretches roll,
+  steady ones flash on the hits, loud ones and drops snake, comet and chase. The page names every pattern: segments,
+  waves, waves from the middle, chase, fill, halves, stack, comet, snake, roll. In Pulse, the wall's stretches show
+  whenever the strip is on segments, also while it changes with the song.
+- **The keyboard:** no bars any more (spectrum and stack are gone); chase, fill, halves, comet, snake and roll are new.
+- **A new card, Patterns and moments:**
+  - choices for one-colour moments (now and then, always, never), colours slowing down when calm, rainbows (at drops,
+    each new section, never) and the APC64's pads (bars, snake, off);
+  - sliders for Run, Sparkle keys, Room colours (0 to 5), Calm hold, One colour every, One colour for and Rainbow for.
+- **Feel:** Strobes, Strobe speed and Accent pickiness get words, so More from the server is empty again. White flash
+  starts at 60 ms, the server's own.
+- **Beat lengths in bars** (Astra: "these beat lendths need to make more sense like with 4 8 12 etc not random"): Colour
+  every, Calm hold, One colour for and Rainbow for move 4 beats at a time and say their bars ("16 beats · 4 bars"). A
+  value set before (27) shows as it is until it is moved. The server's own timing (patterns changing every 32 hits, not
+  on bars) is light-hive-server's to change; her words went to the session that writes it.
+- **Presets:** Patterns with the song comes second (patterns, keyboard, one colour, slowing and rainbows all on auto or
+  at drops, three room colours).
+- **The live view:** a "Now" line (the pace, the strip's and the keyboard's patterns, a one-colour or rainbow moment, the
+  room's colours as swatches), and a line saying how the Squiggle and the APC64 are. The wall's preview snaps each
+  stretch to the nearest room colour by hue, as the server does, and the metronome dot takes the tempo family's first
+  colour, like the mouse pad.
+- **Lights:** the Squiggle's row says it takes 15 sections over Bluetooth (the whole light on the home network until
+  Bluetooth connects), and the mouse pad's that on Tempo it is only the metronome.
+- **Following the metronome** (Astra: "i should be able to set something to follow the metronome"): the part Tempo is
+  now called Tempo (the metronome), and a line under the table says any light set to it ticks with the metronome, as
+  evenly as the mouse pad from light-hive-server 1.21.0 on; the keyboard only when its picture is Solid, and the Light
+  Strip follows its segments instead.
+- **System Map:** spotify-sync's job lists the new settings; the Squiggle says how the show reaches its 15 sections;
+  RGBee now links to the Akai APC64 (manages, now): the show lights its pads through its DAW port and hands it back to
+  Ableton whenever the show stops.
+- **More details:** how the patterns follow the pace, the APC64's DAW port (protocol from
+  github.com/esazhin/apc64-control, not Akai's), and Astra's new rules.
+
+## What's in use, Reset, Random, and Synesthesia that shows (later 2026-11-27)
+
+Astra: "i can tell this isnt working bevcause when i try to set every light to tempo they are still doing different
+things, so needs to be clear on here which things can be selected with other things, like there should be some
+highlight areound the pill if its active", "i wanna see the synethesia colors work, also need a reset to default button
+at the top, and a random configuration selection next to that".
+
+- **In use now:** every setting the show uses right now has a cyan ring; the ones it doesn't are dimmed with the reason
+  ("Not used now: …"). The rules follow light-hive-server 1.20's code:
+  - only Pulse uses the table, the wall line, colours from, the keyboard's picture, the moments, Flash, Base and Hold;
+    in Every beat, Scatter and Ping-pong every light takes the palette colours on the beat, so setting every light to
+    Tempo changes nothing there (she was on Every beat);
+  - in Pulse the Light Strip never follows its row in the table: it follows the wall line's segments, and not even
+    those while it snakes or rolls; the keyboard's part isn't used in Snake and Roll; the Squiggle's only in steady
+    stretches (it rolls when calm and snakes when loud);
+  - Brightness isn't used in Pulse (Flash and Base are); Dim blocks only in Bands, meter, bounce or wavelength line;
+  - the note key says when room colours, one-colour moments or rainbows can cover the note colours.
+- **Pressed presets** glow with a cyan ring.
+- **Reset to default** and **Random mix** sit next to Start the show. Reset puts every setting back to the server's own
+  starting settings but keeps her Brightness, Flash and Base. Random mix picks patterns, colour ways, moments, room
+  colours, segments and which light follows what (beat lengths in whole bars, the mouse pad on Tempo), keeps her
+  Brightness, Flash, Base, Hold and Beats, starts the show and says what it picked. The old "Back to the starting
+  settings" button at the bottom is gone.
+- **Synesthesia** now turns off what covers the note colours (room colours 0, slowing, one-colour moments and rainbows
+  off) and puts the five parts side by side on the wall line, so each light shows its note's colour.
+- **The note colours themselves** are light-hive-server's: Itoh et al. 2017 (Results, Fig. 3) has hue = pitch class
+  with the white keys evenly round the circle (C 0°, D 51°, E 103°, F 154°, G 206°, A 257°, B 309°, "re with yellow",
+  "sol with cyan"), saturation falling from do to si, and sharps coloured by their name ("do-sharp had a reddish color
+  whereas re-flat was yellowish"). The hues up to 1.20 (D orange, E yellow) were squashed toward red and yellow.
+  light-hive-server 1.21.0 uses the paper's hues (sharps a third of the way on, saturation down to 70% at B) and sends
+  them as `options.note_colors`; the page's key and note chips use those whenever the server sends them, and its own
+  older table before that.
+
+## Ready for light-hive-server 1.21.0 (later 2026-11-27)
+
+1.21.0 is committed in findastra/rgbee#17's branch but not pushed or installed yet (Astra's OK pending). The page
+shows each of its settings only once the running server has it, so nothing changes on 1.20:
+
+- **How bright each light flashes** (Astra: "keyboard needs to be brigher, need a vague brightness section for each
+  device"): under the table, a rough step for each light and the APC64: Like Flash, Very dim, Dim, Medium, Bright,
+  Full (`light_brightness`; a value set another way shows as its own %).
+- **The APC64's looks** (Astra: "give more APC options, include teh ones on the ableton live preview, those were so
+  good"): Changes with the song, Bars, Drum rack, Step sequencer, Session clips, Snake, Off; the live line names the look
+  showing. 1.21.0 also leaves the APC64 out of the white strobe ("the APC keeps doing all white ... dont let it do that").
+- **On the bar:** Pattern for (1 to 16 bars) in Patterns and moments, and Strobe at most (once every 1 to 16 bars) in
+  Feel. The server rounds the beat lengths to whole bars too.
+- **The note colours** from `options.note_colors` (above).
+
 ## Song colours and the keyboard (light-hive-server 1.15.0, later 2026-11-27)
 
 Astra: "keyboard looks fire, dont be afraid to switch up the patterns and colors on it between chrous", "we need some
@@ -137,8 +226,8 @@ kind of color converter for songs, like something so that the colors dont seem t
 - **Now playing:** the song's title, from Spotify's window through the server, and its harmony. It is only shown on the
   page and never kept.
 - **Song structure** adds the keyboard on auto and the converter on.
-- **Newer settings:** the server's newer `strobe_count`, `strobe_div` and `accent` appear under More from the server
-  until the page has words for them.
+- **Newer settings:** the server's newer `strobe_count`, `strobe_div` and `accent` appeared under More from the server
+  until the page had words for them (see Patterns, one colour, rainbows and the APC64 above).
 
 ## The flash limit is off (light-hive-server 1.11.0, later 2026-11-27)
 

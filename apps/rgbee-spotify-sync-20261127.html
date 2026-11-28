@@ -43,7 +43,19 @@ button{font:inherit;cursor:pointer;color:var(--ink)}
   border:1px solid var(--card-line);background:rgba(255,255,255,.03)}
 .chip:hover{border-color:rgba(255,255,255,.28)}
 .chip i{width:20px;height:20px;border-radius:50%;background:var(--s)}
-.chip[aria-pressed=true]{border-color:var(--cyan);background:rgba(0,229,255,.10)}
+.chip[aria-pressed=true]{border-color:var(--cyan);background:rgba(0,229,255,.16);color:var(--ink);box-shadow:0 0 0 2px var(--cyan),0 0 16px rgba(0,229,255,.45)}
+/* In use now (Astra, 2026-11-27: "needs to be clear on here which things can be selected with other things, like there
+   should be some highlight areound the pill if its active"): a cyan ring; not used now: dimmed, with the reason. */
+.choice,.slider{padding:8px 10px;border-radius:12px;border:1px solid transparent}
+.choice.use,.slider.use{border-color:rgba(0,229,255,.55);box-shadow:0 0 10px rgba(0,229,255,.18);background:rgba(0,229,255,.04)}
+.choice.unused>:not(.why),.slider.unused>:not(.why),td.unused>:not(.why),.unused:not(.choice):not(.slider):not(td){opacity:.4}
+.why{color:var(--amber);font-size:13px;grid-column:1/-1}
+.why:empty{display:none}
+p>.why{display:block;margin-top:2px}
+.segs.use{outline:1.5px solid rgba(0,229,255,.55);outline-offset:4px;border-radius:10px}
+.brights{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:4px 10px}
+.brights .choice{font-size:14px}
+.who td.use select{border-color:rgba(0,229,255,.7);box-shadow:0 0 8px rgba(0,229,255,.25)}
 .quiet{font-size:14px;border-radius:999px;padding:6px 14px;border:1px solid var(--card-line);background:transparent;color:var(--soft)}
 .quiet:hover{color:var(--ink);border-color:rgba(255,255,255,.28)}
 .go{font-weight:700;border:0;border-radius:999px;padding:11px 24px;background:var(--c);color:#050507;
@@ -116,6 +128,7 @@ select{font:inherit;font-size:15px;color:var(--ink);background:#101016;border:1p
 .fams.made .dot input{pointer-events:none}
 .switch input{width:18px;height:18px;vertical-align:-3px;accent-color:var(--cyan);margin-right:6px}
 #nowPlaying i{display:inline-block;width:12px;height:12px;border-radius:50%;vertical-align:-1px;margin-right:6px;background:var(--songc,#888)}
+.nowshow i{display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:-2px;margin:0 2px;background:var(--rc);border:1px solid #ffffff33}
 .fam{display:grid;grid-template-columns:11em 1fr;align-items:center;gap:10px;color:var(--soft);font-size:15px}
 .metro{display:flex;align-items:center;gap:8px;color:var(--soft);font-size:13px;font-variant-numeric:tabular-nums}
 .metro i{width:14px;height:14px;border-radius:50%;background:var(--mc,#ffb02b)}
@@ -152,11 +165,15 @@ select{font:inherit;font-size:15px;color:var(--ink);background:#101016;border:1p
     <div class="side">
       <div class="row">
         <button class="go" id="power" type="button" role="switch" aria-checked="false">Start the show</button>
+        <button class="quiet" id="defaults" type="button" title="Every setting back to light-hive-server’s own starting settings; your Brightness, Flash and Base stay as they are">Reset to default</button>
+        <button class="quiet" id="random" type="button" title="A random mix of patterns, colours, moments and which light follows what; your Brightness, Flash, Base, Hold and Beats stay as they are">Random mix</button>
         <button class="quiet" id="refresh" type="button" hidden>Show what it hears now</button>
       </div>
       <p class="hear" id="hear"></p>
       <p class="hear" id="nowPlaying" hidden></p>
       <p class="hear notes" id="notes" hidden></p>
+      <p class="hear nowshow" id="nowShow" hidden></p>
+      <p class="hear" id="lightsNow" hidden></p>
       <div class="bands" id="bands" role="img" aria-label="How loud each part of the song is, from the kick to the hi-hats"></div>
     </div>
     <div class="line" id="line" role="img" aria-label="The sound from the lowest to the highest notes, as the Light Strip's 15 sections show it in Wavelength line"></div>
@@ -169,11 +186,16 @@ select{font:inherit;font-size:15px;color:var(--ink);background:#101016;border:1p
   <section class="card" aria-labelledby="lightsTitle">
     <h2 id="lightsTitle">Which light follows which part of the song</h2>
     <table class="who">
-      <thead><tr><th scope="col">Light</th><th scope="col">Follows</th><th scope="col"><abbr title="Its side in Ping-pong">Side</abbr></th></tr></thead>
+      <thead><tr><th scope="col">Light</th><th scope="col">Follows</th><th scope="col"><abbr title="Its side in Ping-pong (only used in Ping-pong)">Side</abbr></th></tr></thead>
       <tbody id="lights"></tbody>
     </table>
+    <p class="hint">Any light set to Tempo (the metronome) ticks with the metronome, as evenly as the mouse pad (light-hive-server 1.21.0; before that, on the song’s tempo at the show’s own step). The keyboard ticks only when its picture is Solid, and the Light Strip follows its segments instead (Astra: “i should be able to set something to follow the metronome”).</p>
     <p class="hint">The wall line, left to right, when it is cut into segments:</p>
     <div class="segs" id="segments" role="group" aria-label="The wall line's segments, left to right"></div>
+    <div id="brightBox" hidden>
+      <p class="hint">How bright each light flashes (Astra: “keyboard needs to be brigher, need a vague brightness section for each device”). Like Flash follows the Flash slider; the others are that light’s own, its white strobe too.</p>
+      <div class="brights" id="brights" role="group" aria-label="How bright each light flashes"></div>
+    </div>
   </section>
 
   <section class="card" aria-labelledby="presetsTitle">
@@ -186,13 +208,20 @@ select{font:inherit;font-size:15px;color:var(--ink);background:#101016;border:1p
     <div class="choices" id="choices"></div>
   </section>
 
+  <section class="card" aria-labelledby="momentsTitle">
+    <h2 id="momentsTitle">Patterns and moments</h2>
+    <p class="hint">How long the patterns run, how many colours the room shares, and the moments now and then: one colour, slower colours, rainbows. And the APC64’s pads as a light.</p>
+    <div class="choices" id="moments"></div>
+    <div class="sliders" id="momentFeel"></div>
+  </section>
+
   <section class="card" aria-labelledby="colourTitle">
     <h2 id="colourTitle">Colours</h2>
     <p class="hint">Synesthesia’s note key: each note’s colour, in rainbow order through the scale, lighter as the melody sits higher.</p>
     <div class="notekey" id="noteKey" role="list" aria-label="The colour of each of the 12 notes"></div>
     <label class="choice switch"><span><input type="checkbox" id="songColors"> Song colour converter</span>
       <span class="hint">Each song gets its own colour families, made from one base colour and a harmony, so the next song looks different. Turn it off to use your own colour groups below.</span></label>
-    <p class="hint" id="groupsSaid">Colour groups: each part’s own family of colours, used when colours come from Colour groups.</p>
+    <p class="hint"><span id="groupsSaid">Colour groups: each part’s own family of colours, used when colours come from Colour groups.</span></p>
     <div class="fams" id="groups"></div>
     <p class="hint">The palette: the colours every beat steps through.</p>
     <div class="swatches" id="palette"></div>
@@ -214,14 +243,11 @@ select{font:inherit;font-size:15px;color:var(--ink);background:#101016;border:1p
   <details class="about">
     <summary>More details</summary>
     <dl>
-      <dt>How it works</dt><dd>Press Start the show and play something on Spotify on this PC. The table at the top says which light follows which part of the song: the kick and bass, the bass line, vocals and melody, snares and claps, hi-hats and cymbals, every beat, the tempo or the song’s sections. Song structure gives each device its job (the wall line the hard hits, snares and kick; Squiggle, the mic and the headset the vocals; the keyboard the hats in ripples, the mouse pad an even metronome, the Mirror the sections) and each part its own colour family. Synesthesia colours each part by the notes it hears, in rainbow order through the scale (C red, D orange, E yellow, F green, G cyan, A blue, B violet, the sharps between) and paler as the melody sits higher, after the pitch-class synesthesia studies Paper Girl’s chromesthesia quiz cites (Itoh et al. 2017; Ward, Huckstep and Tsakanikos 2006). Pick a preset or change any setting: it goes to the lights straight away and is saved on the PC. In Pulse every light sits dark (or at Base) and flashes on its own part’s hits; White patterns does it in white, to learn the patterns first. The live view shows what the server hears: the song’s tempo in the dot, its sections, drops and accents, the five parts (a part’s bar lights up on its hits), and the line from the lowest to the highest notes.</dd>
-      <dt>Where it comes from</dt><dd>Light Hive’s server on this PC (findastra/rgbee <code>server/</code>, light-hive-server 1.5.0 and later). It hears Windows’ loopback of the default speakers (Voicemeeter Input on this PC, where Spotify plays), splits the sound into bands and finds the beats. Nothing is recorded or saved. Only your PC’s copy of this page reaches it; the live site only previews.</dd>
-      <dt>Your rules</dt><dd>2026-11-27: every beat changes the colour, parts of the line answer different parts of the sound, the line is the wave length, lots of settings to experiment with, solid blocks; dim lighting with bright flashes on the beats, one colour across larger sections, plain white to learn the patterns. Fast strobing is on by your choice: you lifted Light Hive’s flash limit for your own room on 2026-11-27 (it was three a second, then six), so the lights can change every 40 ms. This page’s own preview changes about four times a second at most, and nothing on it moves when your computer asks for less motion.</dd>
+      <dt>How it works</dt><dd>Press Start the show and play something on Spotify on this PC. The table at the top says which light follows which part of the song: the kick and bass, the bass line, vocals and melody, snares and claps, hi-hats and cymbals, every beat, the tempo or the song’s sections. Song structure gives each device its job (the wall line the hard hits, snares and kick; Squiggle, the mic and the headset the vocals; the keyboard the hats in ripples, the mouse pad an even metronome, the Mirror the sections) and each part its own colour family. Synesthesia colours each part by the notes it hears, in rainbow order through the scale (C red, D orange, E yellow, F green, G cyan, A blue, B violet, the sharps between) and paler as the melody sits higher, after the pitch-class synesthesia studies Paper Girl’s chromesthesia quiz cites (Itoh et al. 2017; Ward, Huckstep and Tsakanikos 2006). Patterns with the song lets the wall line and the keyboard change pattern with the music’s pace: calm stretches roll slowly, steady ones flash on the hits, loud ones and drops snake, comet and chase. The room shares a few colours each section, colours hold longer when it’s calm, now and then the whole room goes one colour, and a rainbow runs through every light at a drop. The APC64’s pads show the bars. Pick a preset or change any setting: it goes to the lights straight away and is saved on the PC. In Pulse every light sits dark (or at Base) and flashes on its own part’s hits; White patterns does it in white, to learn the patterns first. The live view shows what the server hears: the song’s tempo in the dot, its sections, drops and accents, the five parts (a part’s bar lights up on its hits), the line from the lowest to the highest notes, and what the show is doing now (the pace, the strip’s and the keyboard’s patterns, the room’s colours, the Squiggle and the APC64).</dd>
+      <dt>Where it comes from</dt><dd>Light Hive’s server on this PC (findastra/rgbee <code>server/</code>, light-hive-server 1.5.0 and later). It hears Windows’ loopback of the default speakers (Voicemeeter Input on this PC, where Spotify plays), splits the sound into bands and finds the beats. Nothing is recorded or saved. The APC64’s pads are lit through its DAW port (the protocol from github.com/esazhin/apc64-control, not Akai’s); the server hands the APC64 back to Ableton whenever the show stops. Only your PC’s copy of this page reaches it; the live site only previews.</dd>
+      <dt>Your rules</dt><dd>2026-11-27: every beat changes the colour, parts of the line answer different parts of the sound, the line is the wave length, lots of settings to experiment with, solid blocks; dim lighting with bright flashes on the beats, one colour across larger sections, plain white to learn the patterns; more patterns and longer runs, sometimes only one colour; colours that slow down in some stretches and fit together; no bars on the keyboard (they’re on the APC64 now); snakes, rainbows and gradual rolls; the mouse pad just the tempo; more than one colour on the Squiggle. Fast strobing is on by your choice: you lifted Light Hive’s flash limit for your own room on 2026-11-27 (it was three a second, then six), so the lights can change every 40 ms. This page’s own preview changes about four times a second at most, and nothing on it moves when your computer asks for less motion.</dd>
       <dt>Not built yet</dt><dd>The server doesn’t start by itself at sign-in, and the show doesn’t come back on after a restart (your settings do). Music playing on another device can’t be heard: pick this PC in Spotify Connect. MSI’s lights aren’t reached yet.</dd>
     </dl>
-    <div class="row">
-      <button class="quiet" id="defaults" type="button">Back to the starting settings</button>
-    </div>
   </details>
 </main>
 <script>
@@ -266,9 +292,19 @@ const MODES = [['pulse', 'Pulse', 'Each light is one block that sits at Base and
   ['beat', 'Every beat', 'Every beat, every light jumps to the next colour in the palette.'],
   ['ping-pong', 'Ping-pong', 'Lights on side A and side B take neighbouring palette colours and swap on each beat.'],
   ['bands', 'Bands', 'Each light shows its own part of the song in that part’s colour, brighter when it is louder.']];
-const LINES = [['wave', 'Waves', 'Each hit of the first segment’s part sends a wave along the wall line from one end (Wave speed, Wave tail).'],
+// light-hive-server 1.19.0 and 1.20.0 (Astra: "need more patterns, longer strings", "I want to see some snaking and
+// rainbow features, stark changes into gradual rolls, things can be slow and fast").
+const LINES = [['auto', 'Changes with the song', 'A new pattern at every song section (or every 32 hits, 96 when calm), picked by the music’s pace: calm stretches roll, steady ones flash on the hits, loud ones and drops snake, comet and chase.'],
+  ['segments', 'Segments', 'The wall line is cut into stretches, each following its own part of the song (below the table).'],
+  ['wave', 'Waves', 'Each hit of the first segment’s part sends a wave along the wall line from one end (Wave speed, Wave tail).'],
   ['center', 'Waves from the middle', 'Each hit sends a wave out from the middle of the wall line to both ends.'],
-  ['segments', 'Segments', 'The wall line is cut into stretches, each following its own part of the song (below the table).']];
+  ['chase', 'Chase', 'Each hit lights a run of Run sections that jumps on along the line.'],
+  ['fill', 'Fill', 'Each hit fills the line from the middle out to both ends.'],
+  ['halves', 'Halves', 'Hits light the left half, then the right.'],
+  ['stack', 'Stack', 'Each hit lights 3 more sections, until the line is full.'],
+  ['comet', 'Comet', 'Each hit sends a comet Run sections long, with a stepped tail, along the strip, each from the other end.'],
+  ['snake', 'Snake', 'A run of the section’s colours, in blocks, slithers along the line without stopping: a pass a bar when loud (and longer), two when steady, four when calm.'],
+  ['roll', 'Roll', 'The section’s colours as a gradient that travels along the line, a pass every 4 bars.']];
 const SCALES = [['level', 'Follows loudness', 'A part’s brightness follows how loud it is, in Steps.'],
   ['blocks', 'Solid blocks', 'A part lights as one solid block on its hits.']];
 const COLORS_BY = [['synesthesia', 'Synesthesia', 'Each part takes the colour of the notes it hears, in rainbow order through the scale (the note key below), lighter as the melody sits higher.'],
@@ -283,13 +319,37 @@ const WHITES = [['both', 'Drops and accents', 'Every light flashes white for Whi
   ['drops', 'Drops only', 'Every light flashes white on drops only.'],
   ['accents', 'Accents only', 'Every light flashes white on the hardest kicks only.'],
   ['off', 'Never', 'No white flashes: colours only.']];
-const KEYBOARD = [['auto', 'Changes with the song', 'A new pattern and colour family at every song section (ripple, spectrum, sparkle, sweep, gradient).'],
+// No bars on the keyboard (1.20.0; Astra: "the bars on the keyboard get rid of those and jsut do those on the APC").
+const KEYBOARD = [['auto', 'Changes with the song', 'A new pattern and colour family at every song section, picked by the pace, Sparkle more than half the time.'],
   ['ripple', 'Ripple', 'Each hit sends a ripple of colour across the keys.'],
-  ['spectrum', 'Spectrum', 'The keys show the sound from low to high, like the line.'],
-  ['sparkle', 'Sparkle', 'Keys sparkle in their part’s colours on the hits.'],
+  ['sparkle', 'Sparkle', 'Each hit lights Sparkle keys random keys, each a solid key in its part’s colours.'],
   ['sweep', 'Sweep', 'A band of colour sweeps across the keys.'],
   ['gradient', 'Gradient', 'A colour gradient across the keys, in its part’s colours.'],
+  ['chase', 'Chase', 'Each hit lights a run of keys that jumps on across the keyboard.'],
+  ['fill', 'Fill', 'Each hit fills the keys from the middle out.'],
+  ['halves', 'Halves', 'Hits light the left half of the keys, then the right.'],
+  ['comet', 'Comet', 'Each hit sends a comet across the keys.'],
+  ['snake', 'Snake', 'A run of the section’s colours slithers across the keys.'],
+  ['roll', 'Roll', 'The section’s colours as a gradient that travels across the keys.'],
   ['solid', 'Solid', 'Every key the same colour, like the other lights.']];
+// One colour, slower colours, rainbows and the APC64 (light-hive-server 1.19.0 and 1.20.0).
+const MONOS = [['auto', 'Now and then', 'Every few sections (One colour every), every light but the mouse pad takes one colour from the song, the bass note’s in Synesthesia, for a while (One colour for). White stays the strobe.'],
+  ['on', 'Always', 'Every light but the mouse pad keeps one colour, and picks a new one each time.'],
+  ['off', 'Never', 'Each light keeps its own colours.']];
+const SLOWS = [['auto', 'Slower when calm', 'Each light holds its colour for Calm hold beats in calm stretches (a breakdown, or the last few seconds quieter than before), a bar when steady, and a beat when loud or after a drop.'],
+  ['off', 'Never', 'Colours change as fast as the notes, all song.']];
+const RAINBOWS = [['drops', 'At drops', 'At each drop the whole rainbow travels along every light for Rainbow for beats; the one-colour lights run through it. The white strobe still comes first.'],
+  ['sections', 'Each new section', 'The rainbow travels along every light at each new song section.'],
+  ['off', 'Never', 'No rainbows.']];
+// 1.21.0 adds Ableton Live's looks (Astra: "give more APC options, include teh ones on the ableton live preview, those
+// were so good"), and leaves the APC64 out of the white strobe ("the APC keeps doing all white ... dont let it do that").
+const APC64S = [['auto', 'Changes with the song', 'A new look at each pattern change: bars, drums, steps, session or snake.'],
+  ['bars', 'Bars', 'The APC64’s pads as an equalizer: 8 columns, low at the left to high at the right, each as tall as that part is loud, in the section’s colours.'],
+  ['drums', 'Drum rack', 'A 4×4 drum rack, like Ableton’s: each part’s pads rest in its colour and light on its hits.'],
+  ['steps', 'Step sequencer', 'Like Ableton’s step sequencer: the parts as rows, the bar’s 8 eighths as columns, a playhead along the top row.'],
+  ['session', 'Session clips', 'Like Ableton’s session view: slices of the sound as tracks, bars as rows, the newest at the top.'],
+  ['snake', 'Snake', 'A snake of the section’s colours winds along the pads.'],
+  ['off', 'Off', 'The show leaves the APC64 alone, for Ableton.']];
 const STRIPS = [['blocks', 'Colour blocks', 'Five blocks of three sections, each a different palette colour, moving on by a block on each beat.'],
   ['same', 'Same as the lights', 'The Light Strip does what the other lights do.'],
   ['spectrum', 'Wavelength line', 'The line is the sound: section 1 is the lowest notes, 15 the highest, each in its part’s colour.'],
@@ -302,37 +362,55 @@ const ORDERS = [['cycle', 'In order', 'Beats step through the palette one colour
   ['random', 'Random', 'Each beat picks another palette colour at random.']];
 // The parts as song components (the server's bands, low to high, then the beat and the song's tempo).
 const PARTS = [['bass', 'Kick and bass'], ['low-mid', 'Bass line'], ['mid', 'Vocals and melody'], ['high-mid', 'Snares and claps'],
-  ['treble', 'Hi-hats and cymbals'], ['beat', 'Every beat'], ['tempo', 'Tempo'], ['section', 'Song sections']];
+  ['treble', 'Hi-hats and cymbals'], ['beat', 'Every beat'], ['tempo', 'Tempo (the metronome)'], ['section', 'Song sections']];
 const BANDS = PARTS.slice(0, 5).map((p) => p[1]);
 const LIGHTS = [
   { id: 'strip', name: 'Light Strip (the wall line)', note: 'H619E · 15 sections over Bluetooth' },
   { id: 'mirror', name: 'Mirror', note: 'H6159 · Govee cloud only: about once a second at most' },
-  { id: 'squiggle', name: 'Squiggle', note: 'H61A0 · on the home network' },
+  { id: 'squiggle', name: 'Squiggle', note: 'H61A0 · 15 sections over Bluetooth; the whole light on the home network until Bluetooth connects' },
   { id: 'keyboard', name: 'Keyboard', note: 'Corsair K65' },
   { id: 'razer', name: 'Razer mic and headset', note: 'Seiren and Kraken' },
-  { id: 'mousepad', name: 'Mouse pad', note: 'Razer Goliathus Chroma' }];
-// [setting, label, lowest, highest, step, unit, what it does]
+  { id: 'mousepad', name: 'Mouse pad', note: 'Razer Goliathus Chroma · on Tempo it is only the metronome, one colour a song' }];
+// [setting, label, lowest, highest, step, unit, what it does, its card (Feel unless named)]
 const FEEL = [['brightness', 'Brightness', 5, 100, 1, '%', ''],
   ['flash', 'Flash', 5, 100, 1, '%', 'How bright a light flashes on a hit (Pulse).'],
   ['base', 'Base', 0, 30, 1, '%', 'How bright a light sits between hits; 0 is dark (Pulse).'],
   ['hold_ms', 'Hold', 40, 1000, 10, ' ms', 'How long a flash stays before it drops back (Pulse).'],
-  ['change_every', 'Colour every', 1, 64, 1, ' beats', 'Colours move on every so many beats.'],
+  // Beat lengths go in whole bars of 4 beats (Astra, 2026-11-27: "these beat lendths need to make more sense like with 4 8
+  // 12 etc not random").
+  ['change_every', 'Colour every', 4, 64, 4, ' beats', 'Colours move on every so many beats.'],
   ['heat', 'Heat', 0, 100, 1, '%', 'How far the loudest peaks lean toward white.'],
   ['wave_speed', 'Wave speed', 5, 80, 1, ' /s', 'How fast a wave runs along the wall line, in sections a second.'],
   ['wave_tail', 'Wave tail', 1, 8, 1, '', 'How many sections a wave’s glow trails behind it.'],
-  ['white_ms', 'White flash', 40, 600, 10, ' ms', 'How long a white accent lasts.'],
+  ['white_ms', 'White flash', 40, 600, 10, ' ms', 'How long each white strobe lasts.'],
+  ['strobe_count', 'Strobes', 1, 8, 1, '', 'How many white strobes a drop or a super loud kick gets.'],
+  ['strobe_div', 'Strobe speed', 1, 8, 1, ' a beat', 'How many strobes fit in one of the song’s beats (4: quarter beats).'],
+  ['accent', 'Accent pickiness', 1, 10, 1, '', 'How hard a kick must hit to strobe the room: 1 the most kicks, 10 only the very hardest.'],
+  ['strobe_bars', 'Strobe at most', 1, 16, 1, ' bars', 'The hardest kicks strobe at most once every so many bars; drops always strobe.'],
+  ['pattern_bars', 'Pattern for', 1, 16, 1, ' bars', 'How long an auto pattern lasts before the next (twice as long when calm).', 'momentFeel'],
+  ['run', 'Run', 1, 15, 1, ' sections', 'How many sections one hit lights in Chase, and how long a comet or snake is.', 'momentFeel'],
+  ['sparkle_keys', 'Sparkle keys', 1, 48, 1, ' keys', 'How many random keys one hit lights in Sparkle.', 'momentFeel'],
+  ['color_set', 'Room colours', 0, 5, 1, '', 'How many colours the whole room shares in each song section, from the notes as it starts; each light takes the nearest. 0 turns it off.', 'momentFeel'],
+  ['calm_beats', 'Calm hold', 4, 64, 4, ' beats', 'How long a light keeps its colour in calm stretches.', 'momentFeel'],
+  ['mono_every', 'One colour every', 1, 8, 1, ' sections', 'How many new sections (or 8 bars each) between one-colour moments.', 'momentFeel'],
+  ['mono_beats', 'One colour for', 4, 64, 4, ' beats', 'How long a one-colour moment lasts.', 'momentFeel'],
+  ['rainbow_beats', 'Rainbow for', 4, 32, 4, ' beats', 'How long a rainbow moment lasts.', 'momentFeel'],
   ['sensitivity', 'Beats', 1, 12, 1, '', 'Higher catches more hits.'],
   ['gap_ms', 'Shortest gap', 40, 2000, 10, ' ms', 'The least time between two changes of a light; 40 ms is the show’s own step.'],
   ['floor', 'Dim blocks', 0, 50, 1, '%', 'How bright a block stays when its part is quiet.'],
   ['steps', 'Steps', 2, 8, 1, '', 'How many brightness levels a block jumps between.'],
   ['contrast', 'Contrast', 1, 10, 1, '', 'Higher makes quiet and loud look further apart.']];
-// light-hive-server 1.14.0's own starting settings: each device a job, each part a colour family.
+// light-hive-server's own starting settings (1.14.0's device jobs and colour families, 1.20.0's patterns): each device a
+// job, each part a colour family, the patterns changing with the song.
 const GROUPS = { bass: ['#ff0040', '#ff2bd6'], 'low-mid': ['#ff2bd6', '#ff0040'], mid: ['#9e00ff', '#6a2bff'], 'high-mid': ['#00e5ff', '#2bffd5'],
   treble: ['#2b5bff', '#00b3ff'], beat: ['#9e00ff', '#ff2bd6'], tempo: ['#ffb02b', '#ff7a00'], section: ['#9e00ff', '#ff2bd6', '#00e5ff'] };
-const DEFAULTS = { mode: 'pulse', line: 'segments', scale: 'blocks', colors_by: 'groups', change_on: 'both', white: 'both', keyboard: 'auto', song_colors: true,
+const DEFAULTS = { mode: 'pulse', line: 'auto', scale: 'blocks', colors_by: 'groups', change_on: 'both', white: 'both', keyboard: 'auto', song_colors: true,
+  mono: 'auto', slow: 'auto', rainbow: 'drops', apc64: 'bars',
   strip: 'blocks', beat_on: 'any', order: 'cycle', segments: ['high-mid', 'bass', 'high-mid'], groups: GROUPS,
   palette: ['#9e00ff', '#ff2bd6', '#00e5ff', '#2b5bff'], band_colors: ['#ff0040', '#ff7a00', '#39ff14', '#00e5ff', '#9e00ff'],
-  brightness: 60, flash: 100, base: 0, hold_ms: 200, change_every: 16, heat: 0, wave_speed: 30, wave_tail: 4, white_ms: 180,
+  brightness: 60, flash: 100, base: 0, hold_ms: 200, change_every: 16, heat: 0, wave_speed: 30, wave_tail: 4, white_ms: 60,
+  strobe_count: 3, strobe_div: 4, accent: 6, run: 8, sparkle_keys: 18, color_set: 3, calm_beats: 16, mono_every: 3, mono_beats: 16, rainbow_beats: 8,
+  strobe_bars: 2, pattern_bars: 4, light_brightness: { strip: 0, mirror: 0, squiggle: 0, keyboard: 35, razer: 0, mousepad: 0, apc64: 50 },
   sensitivity: 11, gap_ms: 60, floor: 10, steps: 4, contrast: 5,
   assign: { strip: 'bass', mirror: 'section', squiggle: 'mid', keyboard: 'treble', razer: 'mid', mousepad: 'tempo' },
   side: { strip: 'A', keyboard: 'A', mirror: 'B', squiggle: 'B', razer: 'B', mousepad: 'A' } };
@@ -340,7 +418,14 @@ const DEFAULTS = { mode: 'pulse', line: 'segments', scale: 'blocks', colors_by: 
 const PRESETS = [
   // Astra: "still feels too random ... can you do a setting where it matches to synthestesia", "still too bright"
   // (light-hive-server 1.17.0): each part in the colour of its notes, flash 12.
-  { name: 'Synesthesia', set: { colors_by: 'synesthesia', flash: 12 } },
+  // Then "i wanna see the synethesia colors work": room colours, slowing, one-colour and rainbow moments all cover the
+  // note colours, so this preset turns them off, and the wall line shows the five parts side by side.
+  { name: 'Synesthesia', set: { mode: 'pulse', colors_by: 'synesthesia', flash: 12, color_set: 0, slow: 'off', mono: 'off', rainbow: 'off',
+    line: 'segments', segments: ['bass', 'low-mid', 'mid', 'high-mid', 'treble'] } },
+  // Astra: "need more patterns, longer strings, make some times its only one color" (1.19.0), "the colors need to slow
+  // down sometimes in certain segments, colors are still not coherent", "I want to see some snaking and rainbow
+  // features" (1.20.0): the patterns change with the song's pace, the room shares a few colours per section.
+  { name: 'Patterns with the song', set: { mode: 'pulse', line: 'auto', keyboard: 'auto', mono: 'auto', slow: 'auto', rainbow: 'drops', color_set: 3 } },
   // Astra: "i like the speed but its lacking structure. can you divide up by device for what makes sense ... can we do
   // color groupings" (light-hive-server 1.14.0): each device its job, each part its colour family, blocks. 1.14.1: "make
   // that the squiggle and put the all the hard hitting music on the light strip": the strip is snares, kick, snares.
@@ -372,6 +457,7 @@ const one = (v, list, d) => (list.includes(v) ? v : d);
 // Every choice: [setting, the server's options key, labels].
 const LISTS = [['mode', 'modes', MODES], ['line', 'line', LINES], ['scale', 'scale', SCALES], ['colors_by', 'colors_by', COLORS_BY],
   ['change_on', 'change_on', CHANGE_ON], ['white', 'white', WHITES], ['keyboard', 'keyboard', KEYBOARD], ['strip', 'strips', STRIPS], ['beat_on', 'beat_on', BEAT_ON],
+  ['mono', 'mono', MONOS], ['slow', 'slow', SLOWS], ['rainbow', 'rainbow', RAINBOWS], ['apc64', 'apc64', APC64S],
   ['order', 'order', ORDERS], ['part', 'parts', PARTS], ['light', 'lights', LIGHTS.map((l) => [l.id, l.name, l.note])]];
 const NAMES = Object.fromEntries(LISTS.map(([k, , list]) => [k, list]));
 const OPTS = Object.fromEntries(LISTS.map(([k, , list]) => [k, ids(list)]));
@@ -386,7 +472,7 @@ function learn(options) {   // the server's own lists; says which changed
 }
 const int = (v, lo, hi, d) => { const n = Math.round(Number(v)); return Number.isFinite(n) ? Math.min(hi, Math.max(lo, n)) : d; };
 const unit = (v) => { const n = Number(v); return Number.isFinite(n) ? Math.min(1, Math.max(0, n)) : 0; };
-const CHOICE_KEYS = ['mode', 'line', 'scale', 'colors_by', 'change_on', 'white', 'keyboard', 'strip', 'beat_on', 'order'];
+const CHOICE_KEYS = ['mode', 'line', 'scale', 'colors_by', 'change_on', 'white', 'keyboard', 'strip', 'beat_on', 'order', 'mono', 'slow', 'rainbow', 'apc64'];
 function clean(s) {
   s = s && typeof s === 'object' ? s : {};
   const colours = (a) => (Array.isArray(a) ? a.filter(isHex).map((c) => c.toLowerCase()) : []);
@@ -402,7 +488,11 @@ function clean(s) {
     const fam = s.groups && typeof s.groups === 'object' ? colours(s.groups[p]).slice(0, 6) : [];
     out.groups[p] = fam.length ? fam : (GROUPS[p] || [out.palette[0]]).slice();
   }
-  for (const [k, , lo, hi] of FEEL) out[k] = int(s[k], lo, hi, DEFAULTS[k]);
+  for (const [k, , lo, hi] of FEEL) out[k] = int(s[k], lo, hi, DEFAULTS[k]);   // the server's own value, shown as it is (27 stays 27 until moved)
+  // Each light's own brightness (light-hive-server 1.21.0): 0 = like Flash, 1 to 100 that light's own flash.
+  const lb = s.light_brightness && typeof s.light_brightness === 'object' ? s.light_brightness : {};
+  out.light_brightness = {};
+  for (const id of Object.keys({ ...DEFAULTS.light_brightness, ...lb })) if (/^[a-z][a-z0-9-]{0,23}$/.test(id)) out.light_brightness[id] = int(lb[id], 0, 100, DEFAULTS.light_brightness[id] || 0);
   for (const id of OPTS.light) {
     out.assign[id] = one(s.assign && s.assign[id], OPTS.part, one(DEFAULTS.assign[id], OPTS.part, 'beat'));
     out.side[id] = one(s.side && s.side[id], ['A', 'B'], DEFAULTS.side[id] || 'A');
@@ -410,6 +500,8 @@ function clean(s) {
   return out;
 }
 const pick = (s, keys) => Object.fromEntries(keys.map((k) => [k, s[k]]));
+// A beat length also says its bars: "16 beats · 4 bars".
+const feelSaid = (v, u) => v + u + (u === ' beats' && v % 4 === 0 ? ' · ' + v / 4 + (v === 4 ? ' bar' : ' bars') : '');
 
 let S = clean(DEFAULTS), on = false, live = null, online = false;
 function el(tag, cls, text) { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
@@ -438,7 +530,19 @@ async function post(turn, note) {
 }
 // Settings the server has and this page has no words for (it keeps learning new ones): a list when the server offers
 // its choices, a number box for a number. They go to the server as they are; it checks and limits every value.
-const KNOWN = new Set([...CHOICE_KEYS, 'segments', 'groups', 'song_colors', 'palette', 'band_colors', 'assign', 'side', ...FEEL.map((f) => f[0])]);
+const KNOWN = new Set([...CHOICE_KEYS, 'segments', 'groups', 'song_colors', 'palette', 'band_colors', 'assign', 'side', 'light_brightness', ...FEEL.map((f) => f[0])]);
+// The settings the running server has: a control for a newer setting stays hidden until the server has it.
+let serverKeys = new Set(), gateSig = '';
+function gate() {
+  const has = (k) => !serverKeys.size || serverKeys.has(k), sig = [...serverKeys].join();
+  if (sig === gateSig) return; gateSig = sig;
+  for (const [k] of FEEL) { const c = $('feel-' + k); if (c) c.closest('label').hidden = !has(k); }
+  for (const [k] of CHOICES) { const c = $('pick-' + k); if (c) c.closest('label').hidden = !has(k); }
+  $('brightBox').hidden = !has('light_brightness') || !serverKeys.size;
+  tell();
+}
+// The server's own note colours (1.21.0, options.note_colors: 12 colours, C to B), so the key can't drift from the lights.
+let serverNotes = null;
 let moreSig = '';
 function more(r) {
   const st = r.settings && typeof r.settings === 'object' ? r.settings : {}, op = r.options && typeof r.options === 'object' ? r.options : {};
@@ -468,7 +572,10 @@ function more(r) {
 }
 function take(r, withSettings) {
   on = !!r.on; live = r.live && typeof r.live === 'object' ? r.live : null;
-  more(r);
+  if (r.settings && typeof r.settings === 'object') serverKeys = new Set(Object.keys(r.settings));
+  const nc = r.options && Array.isArray(r.options.note_colors) && r.options.note_colors.length === 12 && r.options.note_colors.every(isHex) ? r.options.note_colors.map((c) => c.toLowerCase()) : null;
+  if (JSON.stringify(nc) !== JSON.stringify(serverNotes)) { serverNotes = nc; noteKey(); }
+  more(r); gate();
   const learnt = learn(r.options);
   if (learnt.size) {
     for (const [key] of CHOICES) options(key);
@@ -487,7 +594,8 @@ function select(list, label, onPick) {
   return s;
 }
 const CHOICES = [['mode', 'The lights'], ['line', 'The wall line (Pulse)'], ['scale', 'Colour scaling'], ['colors_by', 'Colours come from'],
-  ['change_on', 'Colours move on'], ['white', 'White flashes'], ['keyboard', 'The keyboard’s picture'], ['strip', 'The Light Strip (other modes)'], ['beat_on', 'A beat is'], ['order', 'Colours go']];
+  ['change_on', 'Colours move on'], ['white', 'White flashes'], ['keyboard', 'The keyboard’s picture'], ['strip', 'The Light Strip (other modes)'], ['beat_on', 'A beat is'], ['order', 'Colours go'],
+  ['mono', 'One-colour moments', 'moments'], ['slow', 'Colours slow down', 'moments'], ['rainbow', 'Rainbows', 'moments'], ['apc64', 'The APC64’s pads', 'moments']];
 // A preset over the current settings: its assign and side change only the lights they name.
 const over = (set) => ({ ...S, ...set, assign: { ...S.assign, ...(set.assign || {}) }, side: { ...S.side, ...(set.side || {}) } });
 const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
@@ -511,27 +619,27 @@ function build() {
     });
     $('presets').append(b);
   }
-  for (const [key, label] of CHOICES) {
+  for (const [key, label, card] of CHOICES) {
     const box = el('label', 'choice'); box.append(el('span', null, label));
     const s = select([], label, (v) => change({ [key]: v })); s.id = 'pick-' + key;
     const hint = el('span', 'hint'); hint.id = 'hint-' + key;
-    box.append(s, hint); $('choices').append(box); options(key);
+    box.append(s, hint); $(card || 'choices').append(box); options(key);
   }
   for (let i = 0; i < 5; i++) {
     const band = el('div', 'band'); const well = el('div', 'well'); const bar = el('i', 'bar'); bar.id = 'bar' + i;
     well.append(bar); band.append(well, el('span', null, BANDS[i])); $('bands').append(band);
   }
   for (let i = 0; i < 15; i++) { const b = el('i'); b.id = 'sec' + i; $('line').append(b); }
-  for (const [key, label, lo, hi, step, u, what] of FEEL) {
+  for (const [key, label, lo, hi, step, u, what, card] of FEEL) {
     const box = el('label', 'slider'); box.append(el('span', null, label));
     const r = el('input'); r.type = 'range'; r.min = lo; r.max = hi; r.step = step; r.id = 'feel-' + key;
     const out = el('output'); out.id = 'said-' + key;
-    r.addEventListener('input', () => { out.textContent = r.value + u; });
+    r.addEventListener('input', () => { out.textContent = feelSaid(+r.value, u); });
     r.addEventListener('change', () => change({ [key]: +r.value }));
     box.append(r, out); if (what) box.append(el('span', 'hint', what));
-    $('feel').append(box);
+    $(card || 'feel').append(box);
   }
-  lightRows(); noteKey();
+  lightRows(); noteKey(); brightRows();
   $('songColors').addEventListener('change', () => change({ song_colors: $('songColors').checked }));
 }
 function lightRows() {   // the main table: one row per light the server drives, and the part of the song it follows
@@ -553,6 +661,20 @@ function lightRows() {   // the main table: one row per light the server drives,
       if (segs.length) change({ segments: segs });
     });
     s.id = 'seg-' + i; $('segments').append(s);
+  }
+}
+// Each light's brightness, in rough steps (a value set another way shows as its own %).
+const BRIGHTS = [[0, 'Like Flash'], [10, 'Very dim'], [25, 'Dim'], [50, 'Medium'], [75, 'Bright'], [100, 'Full']];
+const lightName = (id) => (id === 'apc64' ? 'APC64' : nameOf('light', id)[1].replace(/ \(.*\)$/, ''));
+let brightSig = '';
+function brightRows() {
+  const ids = Object.keys(S.light_brightness), sig = ids.join();
+  if (sig === brightSig) return; brightSig = sig;
+  $('brights').replaceChildren();
+  for (const id of ids) {
+    const box = el('label', 'choice'); box.append(el('span', null, lightName(id)));
+    const s = select(BRIGHTS.map(([v, w]) => [String(v), w]), lightName(id) + ': how bright it flashes', (v) => change({ light_brightness: { ...S.light_brightness, [id]: +v } }));
+    s.id = 'bright-' + id; box.append(s); $('brights').append(box);
   }
 }
 function swatch(colour, label, onColour, onRemove) {
@@ -583,7 +705,14 @@ function songFamilies() {
 // it (after Itoh et al. 2017 and Ward, Huckstep and Tsakanikos 2006): full colour, paler as the melody sits higher.
 const NOTE_NAMES = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
 const NOTE_HUE = [0, 18, 35, 48, 62, 120, 160, 185, 210, 235, 255, 280];
-const noteHex = (name, lighter) => { const i = NOTE_NAMES.indexOf(name); return i < 0 ? null : hsvHex(NOTE_HUE[i], 1 - 0.45 * unit(lighter), 1); };
+// A newer server sends its own 12 colours (Itoh et al. 2017's hue = pitch class, light-hive-server 1.21.0); then the key
+// uses those, and a higher melody leans them toward white.
+const noteHex = (name, lighter) => {
+  const i = NOTE_NAMES.indexOf(name); if (i < 0) return null;
+  if (!serverNotes) return hsvHex(NOTE_HUE[i], 1 - 0.45 * unit(lighter), 1);
+  const t = 0.45 * unit(lighter);
+  return '#' + [1, 3, 5].map((j) => { const v = parseInt(serverNotes[i].slice(j, j + 2), 16); return Math.round(v + (255 - v) * t).toString(16).padStart(2, '0'); }).join('');
+};
 function noteKey() {
   const box = $('noteKey'); box.replaceChildren();
   for (const n of NOTE_NAMES) {
@@ -622,9 +751,15 @@ function fill() {
     $('pick-' + key).value = S[key];
     $('hint-' + key).textContent = nameOf(key, S[key])[2];
   }
-  for (const [key, , , , , u] of FEEL) { $('feel-' + key).value = S[key]; $('said-' + key).textContent = S[key] + u; }
+  for (const [key, , , , , u] of FEEL) { $('feel-' + key).value = S[key]; $('said-' + key).textContent = feelSaid(S[key], u); }
   for (const id of OPTS.light) { $('part-' + id).value = S.assign[id]; $('side-' + id).value = S.side[id]; }
   for (let i = 0; i < 5; i++) $('seg-' + i).value = S.segments[i] || '';
+  brightRows();
+  for (const [id, v] of Object.entries(S.light_brightness)) {
+    const s = $('bright-' + id); if (!s) continue;
+    if (![...s.options].some((o) => o.value === String(v))) { const o = el('option', null, v + '%'); o.value = String(v); s.append(o); }
+    s.value = String(v);
+  }
   const pal = $('palette'); pal.replaceChildren();
   S.palette.forEach((c, i) => pal.append(swatch(c, 'Palette colour ' + (i + 1),
     (v) => change({ palette: S.palette.map((x, j) => (j === i ? v : x)) }),
@@ -642,7 +777,7 @@ function fill() {
     const p = PRESETS.find((x) => x.name === b.dataset.preset);
     b.setAttribute('aria-pressed', String(!!p && presetOn(p)));
   }
-  tell();
+  markUse(); tell();
 }
 
 // The live view. It is a preview, not a copy of the lights: it changes when it asks (about four times a second), and a
@@ -670,8 +805,37 @@ function partColour(p) {
   if (S.colors_by === 'components') return S.palette[(beatIndex + Math.max(0, OPTS.part.indexOf(p))) % n];
   return S.palette[beatIndex % n];
 }
+// What the show is doing now (light-hive-server 1.19.0 and later, live.now): the strip's and the keyboard's patterns,
+// the music's pace, a one-colour or rainbow moment, the section's room colours, and how the Squiggle and APC64 are.
+const word = (v) => (typeof v === 'string' && /^[a-z][a-z -]{0,23}$/.test(v) ? v : '');
+function liveNow() {
+  const n = live && live.now && typeof live.now === 'object' ? live.now : {};
+  return { strip: word(n.strip), keyboard: word(n.keyboard), pace: word(n.pace), one: n.one_color === true, rainbow: n.rainbow === true,
+    colors: Array.isArray(n.colors) ? n.colors.filter(isHex).map((c) => c.toLowerCase()).slice(0, 5) : [],
+    squiggle: typeof n.squiggle === 'string' ? n.squiggle.slice(0, 120) : '', apc64: typeof n.apc64 === 'string' ? n.apc64.slice(0, 60) : '', apcLook: word(n.apc64_look) };
+}
+// The room's colours as the server snaps them (1.20.0): each light takes the section's colour nearest its own by hue, and
+// in a one-colour moment every light takes the low end's.
+function hueOf(hex) {
+  const [r, g, b] = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255), mx = Math.max(r, g, b), d = mx - Math.min(r, g, b);
+  if (d < 0.02) return -1;
+  const h = 60 * (mx === r ? ((g - b) / d) % 6 : mx === g ? (b - r) / d + 2 : (r - g) / d + 4);
+  return h < 0 ? h + 360 : h;
+}
+const hueGap = (a, b) => { if (a < 0 || b < 0) return a < 0 && b < 0 ? 0 : 180; const d = Math.abs(a - b) % 360; return d > 180 ? 360 - d : d; };
+function roomColour(p) {
+  const nw = liveNow(), set = S.color_set > 0 ? nw.colors : [], c = partColour(nw.one ? 'bass' : p);
+  if (!set.length || !isHex(c)) return c;
+  const h = hueOf(c);
+  return set.reduce((best, x) => (hueGap(hueOf(x), h) < hueGap(hueOf(best), h) ? x : best), set[0]);
+}
+// The mouse pad on Tempo: one colour a song, the tempo family's first (the song's own while the converter is on).
+function tempoColour() {
+  const made = S.song_colors ? songFamilies() : null, fam = (made && made.tempo) || S.groups.tempo || ['#ffb02b'];
+  return fam[0];
+}
 function wallView(hits, now) {
-  const wall = $('wall'), show = S.mode === 'pulse' && S.line === 'segments';
+  const wall = $('wall'), show = S.mode === 'pulse' && (S.line === 'segments' || (S.line === 'auto' && liveNow().strip === 'segments'));
   wall.hidden = !show; $('wallCap').hidden = !show;
   if (!show) return;
   const sig = S.segments.join();
@@ -682,7 +846,7 @@ function wallView(hits, now) {
   const alpha = Math.round(S.flash / 100 * 255).toString(16).padStart(2, '0');
   S.segments.forEach((p, i) => {
     const d = $('wseg' + i); if (!d) return;
-    const c = partColour(p); d.style.setProperty('--sc', c + alpha); d.style.setProperty('--sb', c);
+    const c = roomColour(p); d.style.setProperty('--sc', c + alpha); d.style.setProperty('--sb', c);
     const k = BAND_IDS.indexOf(p);
     const count = Number(k >= 0 ? hits[k] : p === 'beat' ? live && live.beats : p === 'tempo' ? live && live.tempo_ticks : NaN);
     if (!Number.isFinite(count)) return;
@@ -692,6 +856,83 @@ function wallView(hits, now) {
     }
     lastWall[p] = count;
   });
+}
+// Which settings the show uses right now, as light-hive-server 1.20 reads them, so the page can ring what is in use and
+// dim what isn't, with the reason (Astra: "when i try to set every light to tempo they are still doing different things,
+// so needs to be clear on here which things can be selected with other things"). '' = in use; otherwise why not.
+function uses() {
+  const P = S.mode === 'pulse', nw = liveNow(), u = {};
+  const ln = S.line === 'auto' ? nw.strip || '' : S.line, kb = S.keyboard === 'auto' ? nw.keyboard || '' : S.keyboard;
+  const pulseOnly = 'Only used in Pulse.', otherOnly = 'Not used in Pulse: only in the other ways the lights move.';
+  const moving = (x) => ['snake', 'roll', 'rainbow'].includes(x);
+  const paletteWay = ['groups', 'components', 'room'].includes(S.colors_by);
+  for (const k of ['line', 'scale', 'colors_by', 'white', 'keyboard', 'mono', 'slow', 'rainbow', 'apc64', 'color_set', 'flash', 'base', 'hold_ms', 'heat']) u[k] = P ? '' : pulseOnly;
+  for (const k of ['mode', 'beat_on', 'sensitivity', 'gap_ms', 'contrast']) u[k] = '';
+  u.strip = P ? 'Not used in Pulse: the wall line’s pattern is “The wall line”.' : '';
+  u.order = P ? otherOnly : '';
+  u.brightness = P ? 'Not used in Pulse: Flash and Base set how bright the lights are.' : '';
+  u.floor = P ? otherOnly : S.mode === 'bands' || ['meter', 'bounce', 'spectrum'].includes(S.strip) ? '' : 'Only in Bands, or with the strip as a meter, bounce or wavelength line.';
+  u.change_on = !P ? pulseOnly : paletteWay ? '' : 'Only when colours come from colour groups, each part together or one room colour.';
+  u.change_every = u.change_on || (S.change_on === 'sections' ? 'Colours move on only at new sections now.' : '');
+  u.wave_speed = !P ? pulseOnly : ['wave', 'center', 'comet', 'fill'].includes(ln) || S.line === 'auto' ? '' : 'Only for waves, comets and fill on the wall line.';
+  u.wave_tail = !P ? pulseOnly : ['wave', 'center'].includes(ln) ? '' : 'Only for waves on the wall line.';
+  u.steps = !P ? (S.mode === 'bands' || ['spectrum', 'meter'].includes(S.strip) ? '' : 'Only in Bands, or with the strip as a wavelength line or meter.')
+    : S.scale === 'level' || ['wave', 'center', 'comet'].includes(ln) ? '' : 'Only when colour scaling follows loudness, or for waves and comets.';
+  u.white_ms = u.strobe_count = u.strobe_div = !P ? pulseOnly : S.white === 'off' ? 'White flashes are off.' : '';
+  u.accent = !P ? pulseOnly : ['both', 'accents'].includes(S.white) ? '' : 'Only when white flashes include accents.';
+  u.run = !P ? pulseOnly : ['auto', 'chase', 'comet', 'snake'].includes(S.line) || ['auto', 'chase', 'comet', 'snake'].includes(S.keyboard) || S.apc64 === 'snake' ? '' : 'Only for chase, comets and snakes.';
+  u.sparkle_keys = !P ? pulseOnly : ['auto', 'sparkle'].includes(S.keyboard) ? '' : 'Only when the keyboard sparkles.';
+  u.calm_beats = !P ? pulseOnly : S.slow === 'auto' ? '' : 'Colours slowing down is off.';
+  u.mono_every = u.mono_beats = !P ? pulseOnly : S.mono === 'auto' ? '' : S.mono === 'on' ? 'One colour is always on.' : 'One-colour moments are off.';
+  u.rainbow_beats = !P ? pulseOnly : S.rainbow === 'off' ? 'Rainbows are off.' : '';
+  u.pattern_bars = !P ? pulseOnly : [S.line, S.keyboard, S.apc64].includes('auto') ? '' : 'Only when the wall line, the keyboard or the APC64 changes with the song.';
+  u.strobe_bars = !P ? pulseOnly : ['both', 'accents'].includes(S.white) ? '' : 'Only when white flashes include accents.';
+  for (const id of Object.keys(S.light_brightness)) u['bright-' + id] = P ? '' : 'Only used in Pulse (Brightness sets every light in the other ways).';
+  // Colours.
+  const covered = [S.color_set > 0 && 'room colours (' + S.color_set + ')', S.mono !== 'off' && 'one-colour moments', S.rainbow !== 'off' && 'rainbows'].filter(Boolean);
+  u.noteKey = !P ? pulseOnly : S.colors_by !== 'synesthesia' ? 'Only when colours come from Synesthesia.' : covered.length ? 'In use, but ' + covered.join(', ') + ' can cover the note colours.' : '';
+  u.songColors = !P ? pulseOnly : S.colors_by === 'groups' || S.assign.mousepad === 'tempo' ? '' : 'Only when colours come from colour groups (and the mouse pad’s metronome colour).';
+  u.groups = u.songColors || (S.song_colors ? 'The song colour converter makes these now.' : '');
+  u.palette = !P || ['components', 'room'].includes(S.colors_by) ? '' : 'Only when colours come from each part together or one room colour, or outside Pulse.';
+  u.bandColors = P ? (S.colors_by === 'parts' ? '' : 'Only when colours come from each part its colour.') : S.mode === 'bands' || S.strip === 'spectrum' ? '' : 'Only in Bands, or with the strip as a wavelength line.';
+  // The table: which light's part is used.
+  for (const id of OPTS.light) {
+    let why = '';
+    if (!P) why = S.mode !== 'bands' ? 'Only in Pulse and Bands: in ' + nameOf('mode', S.mode)[1] + ' every light takes the palette colours on the beat.'
+      : id === 'strip' && S.strip !== 'same' ? 'In Bands the Light Strip follows “The Light Strip (other modes)”.' : '';
+    else if (id === 'strip') why = 'The wall line follows its segments (below), not this.';
+    else if (id === 'keyboard' && moving(kb)) why = 'Not while the keyboard’s picture is ' + nameOf('keyboard', kb)[1] + '.';
+    else if (id === 'keyboard' && S.assign.keyboard === 'tempo' && kb !== 'solid') why = 'In use, but the keyboard ticks with the metronome only when its picture is Solid.';
+    else if (id === 'squiggle' && (nw.pace === 'calm' || nw.pace === 'loud')) why = 'Only in steady stretches; it rolls when calm and snakes when loud.';
+    u['part-' + id] = why;
+    u['side-' + id] = S.mode === 'ping-pong' ? '' : 'Only in Ping-pong.';
+  }
+  u.segments = !P ? pulseOnly : moving(ln) ? 'Not while the wall line is ' + nameOf('line', ln)[1] + ': it moves on its own.' : '';
+  return u;
+}
+let useSig = '';
+function markUse() {
+  const u = uses(), sig = JSON.stringify(u);
+  if (sig === useSig) return; useSig = sig;
+  // why: '' in use (ringed); 'In use, but …' in use with a warning; anything else not used now (dimmed).
+  const say = (box, why) => {
+    let w = box.querySelector(':scope > .why'); if (!w) { w = el('span', 'why'); box.append(w); }
+    w.textContent = !why ? '' : why.startsWith('In use') ? why : 'Not used now: ' + why;
+  };
+  const mark = (box, why, ring) => {
+    if (!box) return;
+    const off = !!why && !why.startsWith('In use');
+    box.classList.toggle('use', ring && !off); box.classList.toggle('unused', off);
+  };
+  for (const [k, why] of Object.entries(u)) {
+    const c = $('pick-' + k) || $('feel-' + k);
+    const own = $(k) || { closest: () => null };
+    let box = c ? c.closest('label') : k.startsWith('part-') || k.startsWith('side-') ? own.closest('td') : k.startsWith('bright-') ? own.closest('label') : k === 'songColors' ? $('songColors').closest('label') : null;
+    if (box) { mark(box, why, true); say(box, k.startsWith('side-') ? '' : why); continue; }   // Side is only dimmed: its column says Ping-pong
+    box = $(k); if (!box) continue;   // segments, noteKey, groups, palette, bandColors: the group itself, and why in the line above
+    mark(box, why, k === 'segments'); say(box.previousElementSibling, why);
+  }
+  tell();
 }
 function drawPower() {
   $('power').setAttribute('aria-checked', String(on));
@@ -760,14 +1001,34 @@ function drawLive() {
     if (chord.length) { nb.append(document.createTextNode('chord ')); for (const c of chord) nb.append(chip(c, nt.height)); }
     if (Number.isFinite(Number(nt.height))) nb.append(document.createTextNode(' · height ' + Math.round(unit(nt.height) * 100) + '%'));
   }
-  renderGroups();
+  // What the show is doing now: the pace, the strip's and the keyboard's patterns, its moments and the room's colours.
+  const nw = liveNow(), ns = $('nowShow'), ln = $('lightsNow'), bits = [];
+  const PACE = { calm: 'calm', steady: 'steady', loud: 'loud' };
+  if (nw.pace) bits.push((PACE[nw.pace] || nw.pace) + ' stretch');
+  if (nw.strip) bits.push('strip: ' + nameOf('line', nw.strip)[1]);
+  if (nw.keyboard) bits.push('keyboard: ' + nameOf('keyboard', nw.keyboard)[1]);
+  if (nw.one) bits.push('one colour');
+  if (nw.rainbow) bits.push('rainbow');
+  ns.replaceChildren(); ns.hidden = !(bits.length || nw.colors.length);
+  if (!ns.hidden) {
+    ns.append(document.createTextNode('Now: ' + bits.join(' · ')));
+    if (nw.colors.length && S.color_set > 0) {
+      ns.append(document.createTextNode((bits.length ? ' · ' : '') + 'room colours '));
+      for (const c of nw.colors) { const i = el('i'); i.style.setProperty('--rc', c); i.title = c; ns.append(i); }
+    }
+  }
+  const lb = [];
+  if (nw.squiggle) lb.push('Squiggle: ' + nw.squiggle);
+  if (nw.apc64) lb.push('APC64: ' + nw.apc64 + (nw.apcLook ? ' · ' + nameOf('apc64', nw.apcLook)[1] : ''));
+  ln.textContent = lb.join(' · '); ln.hidden = !lb.length;
+  renderGroups(); markUse();
   // The mouse pad's metronome: an even tick on its own timer. The dot ticks on this page's own clock at the same gap
   // (re-timed only when the gap changes), because asking four times a second can't show an even beat.
   const m = live && live.metronome && typeof live.metronome === 'object' ? live.metronome : null, metro = $('metro');
   const mgap = m ? Number(m.last_gap_ms) : NaN, mOn = !!(m && m.on && Number.isFinite(mgap) && mgap >= 150 && mgap <= 3000);
   metro.hidden = !mOn;
   if (mOn) {
-    metro.style.setProperty('--mc', partColour('tempo'));
+    metro.style.setProperty('--mc', tempoColour());
     $('metroSaid').textContent = 'metronome · ' + Math.round(60000 / mgap) + ' BPM';
     const was = Number(metro.dataset.gap) || 0;
     if (Math.abs(was - mgap) > mgap * 0.03) {
@@ -805,7 +1066,29 @@ calm.addEventListener('change', loop);
 document.addEventListener('visibilitychange', loop);
 $('refresh').addEventListener('click', look);
 $('power').addEventListener('click', () => post(!on));
-$('defaults').addEventListener('click', () => change(DEFAULTS));
+// Reset to default: light-hive-server's own starting settings, keeping her brightness (she has turned the flash down
+// twice: "too bright").
+$('defaults').addEventListener('click', () => {
+  const { brightness, flash, base, ...rest } = DEFAULTS;
+  S = clean({ ...S, ...rest }); Object.assign(pending, pick(S, Object.keys(rest))); fill(); drawLive();
+  post(null, 'Back to the starting settings (your Brightness, Flash and Base stay as they are).');
+});
+// Random mix: a random pick of every pattern, colour way, moment and part, in whole bars; brightness, flash, base, hold,
+// beats and the shortest gap stay hers. It says what it picked.
+$('random').addEventListener('click', () => {
+  const any = (list) => list[Math.floor(Math.random() * list.length)];
+  const band = OPTS.part.filter((p) => BAND_IDS.includes(p));
+  const segs = Array.from({ length: 1 + Math.floor(Math.random() * 5) }, () => any(band));
+  const set = { mode: 'pulse', line: any(OPTS.line), keyboard: any(OPTS.keyboard), colors_by: any(OPTS.colors_by), scale: any(OPTS.scale),
+    change_on: any(OPTS.change_on), white: any(OPTS.white), mono: any(OPTS.mono), slow: any(OPTS.slow), rainbow: any(OPTS.rainbow), apc64: any(OPTS.apc64),
+    color_set: any([0, 2, 3, 4, 5]), run: any([3, 4, 6, 8, 10, 12]), sparkle_keys: any([8, 12, 18, 24, 36]), change_every: any([4, 8, 16, 32]),
+    calm_beats: any([8, 16, 32]), mono_beats: any([8, 16, 32]), rainbow_beats: any([4, 8, 16]), mono_every: any([1, 2, 3, 4]), segments: segs,
+    assign: Object.fromEntries(OPTS.light.map((id) => [id, id === 'mousepad' ? 'tempo' : any(OPTS.part)])) };
+  S = clean(over(set)); Object.assign(pending, pick(S, Object.keys(set))); fill(); drawLive();
+  const words = [['line', 'wall line'], ['keyboard', 'keyboard'], ['colors_by', 'colours from'], ['mono', 'one colour'], ['rainbow', 'rainbows'], ['apc64', 'APC64']]
+    .map(([k, w]) => w + ' ' + nameOf(k, S[k])[1]).join(' · ');
+  post(true, 'Random mix: ' + words + ', room colours ' + S.color_set + '.');
+});
 build(); fill(); drawPower(); drawLive();
 (async () => {
   const r = await ask('/sync');
