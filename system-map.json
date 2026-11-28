@@ -222,6 +222,23 @@
       "in_pill": true
     },
     {
+      "id": "spotify-sync-tool",
+      "name": "spotify-sync",
+      "type": "tool",
+      "of": "rgbee",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "light-hive-v1.0-spotify-sync-tool-v1.0",
+      "url": "https://findastra.github.io/astras-pet-os/apps/rgbee-spotify-sync-20261127.html",
+      "job": "The storm and other Light Hive themes react to whatever Voicemeeter plays (its A-bus meters), so Spotify on the PC drives the lightning. It has its own page now, the spotify-sync show’s settings: start and stop, reset to default, a random mix, a cyan ring on every setting the show uses right now (the others dimmed with the reason), a box for each device saying which part of the song it follows, how bright it flashes and its Ping-pong side (kick and bass, bass line, vocals and melody, snares and claps, hi-hats and cymbals, every beat, the tempo or the song’s sections), presets (Synesthesia first, then Patterns with the song and Song structure), every other setting (Pulse, where dark lights flash on their own part’s hits; the wall line changing with the music’s pace or as segments, waves, chase, fill, halves, stack, comet, snake or roll; colour scaling; colours by synesthesia (each part in the colour of the notes it hears, rainbow order through the scale), colour group, song component, room or part; the song colour converter, which gives each song its own colours; how many colours the room shares each section; the keyboard’s picture (changing with the song, ripple, sparkle, sweep, gradient, chase, fill, halves, comet, snake, roll, solid; no bars); one-colour moments, colours that slow down when calm, and rainbows at drops; the APC64’s pads as bars or a snake; white strobes on drops and hard kicks; four colour boxes (synesthesia, colour groups, the palette, part colours) with the one in use ringed; flash, base and hold; how many beats it finds, the shortest gap) and a live view of what the server hears: the song playing and its colours, the notes it hears, its BPM, sections, drops and accents, the mouse pad’s metronome, the five parts, the 15-section line, and what the show is doing now (its pace, the strip’s and keyboard’s patterns, the room’s colours, the Squiggle and the APC64). It runs inside Light Hive’s server (light-hive-server 1.5.0 and later, findastra/rgbee#17, not merged yet), which hears Windows’ loopback of the default speakers (Voicemeeter Input on this PC), splits the sound into bands and finds the beats; nothing is recorded. Music playing on another device never reaches the PC: pick this PC in Spotify Connect. Fast strobing is on by Astra’s choice for her own room (2026-11-27).",
+      "does": "Light Hive’s themes and the spotify-sync show follow the music; its page holds every setting.",
+      "embed": "https://findastra.github.io/astras-pet-os/apps/rgbee-spotify-sync-20261127.html",
+      "frame": "wide",
+      "in_pill": true
+    },
+    {
       "id": "sync-my-lights-tool",
       "name": "sync-my-lights-tool",
       "type": "tool",
@@ -232,9 +249,26 @@
       "version": "v1.0",
       "label": "light-hive-v1.0-sync-my-lights-tool-v1.0",
       "url": "https://findastra.github.io/astras-pet-os/apps/rgbee-sync-my-lights-20261108.html",
-      "job": "Your scenes, effects and a desk preview for every light Light Hive knows, sent through light-hive-helper.",
-      "does": "Scenes for every light Light Hive reaches.",
+      "job": "Your scenes, effects, every theme light-hive-server plays (spotify-sync, the storms, D&B, rainforest, party, chill and fire, following the music) and a desk preview for every light Light Hive knows and how each is reached, sent through light-hive-server.",
+      "does": "Scenes and every Light Hive theme for every light it reaches.",
       "embed": "https://findastra.github.io/astras-pet-os/apps/rgbee-sync-my-lights-20261108.html",
+      "frame": "wide",
+      "in_pill": true
+    },
+    {
+      "id": "rgbee-color-corrector",
+      "name": "rgbee-color-corrector",
+      "type": "tool",
+      "of": "rgbee",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "light-hive-v1.0-rgbee-color-corrector-v1.0",
+      "url": "https://findastra.github.io/astras-pet-os/apps/rgbee-color-corrector-20261120.html",
+      "job": "Finds the Light Strip sections whose LEDs lost a colour and has light-hive-server send them only the colours they can still show, so each section matches its spot.",
+      "does": "Works around the Light Strip's two broken colour spots.",
+      "embed": "https://findastra.github.io/astras-pet-os/apps/rgbee-color-corrector-20261120.html",
       "frame": "wide",
       "in_pill": true
     },
@@ -249,25 +283,25 @@
       "version": "v1.0",
       "label": "light-hive-v1.0-rainforest-storm-tool-v1.0",
       "url": "https://findastra.github.io/astras-pet-os/apps/rgbee-rainforest-storm-20261108.html",
-      "job": "Rain, wind and thunder, with lightning on the screen and every light Light Hive reaches. Never more than three flashes a second.",
+      "job": "Rain, wind and thunder, with lightning on the screen and every light Light Hive reaches.",
       "does": "A rainforest storm across every light and screen.",
       "embed": "https://findastra.github.io/astras-pet-os/apps/rgbee-rainforest-storm-20261108.html",
       "frame": "wide",
       "in_pill": true
     },
     {
-      "id": "light-hive-helper",
-      "name": "light-hive-helper",
+      "id": "light-hive-server",
+      "name": "light-hive-server",
       "type": "own-program",
       "of": "rgbee",
       "state": "now",
       "layer": 6,
       "category": "Made by Astra",
       "version": "v1.0",
-      "label": "light-hive-v1.0-light-hive-helper-v1.0",
-      "url": "https://github.com/findastra/rgbee/tree/main/helper",
-      "job": "The small Windows program that sends Light Hive’s colours to the real lights, listening on this PC only: Razer through the Razer Chroma App, Govee over the Wi-Fi (LAN Control). Never more than three flashes a second, in code. Answers only pages on this PC and the farm owner’s GitHub Pages site. Not started at sign-in yet.",
-      "does": "Sends Light Hive’s colours and lightning to the real lights, from this PC only."
+      "label": "light-hive-v1.0-light-hive-server-v1.0",
+      "url": "https://github.com/findastra/rgbee/tree/main/server",
+      "job": "Light Hive’s server (light-hive-server-YYYYMMDD.exe, named light-hive-helper until 2026-11-20): the small Windows program that sends Light Hive’s colours, themes and the spotify-sync show to the real lights, listening on this PC only: Razer through Razer’s Chroma SDK while Razer Synapse runs, the Corsair K65 through iCUE’s SDK, Govee by Bluetooth, the home network or Govee’s cloud. It hears the music for its themes and the spotify-sync show, keeps the Light Strip’s colour corrections, and is the light-hive MCP, so Claude can set the lights. MSI’s lights aren’t reached yet. Its flash limit is off by Astra’s choice for her own room since 2026-11-27 (it was three a second, then six); 40 ms per light is the show’s own step. Not started at sign-in yet.",
+      "does": "Sends Light Hive’s colours, themes, lightning and the spotify-sync show to the real lights, from this PC only."
     },
     {
       "id": "ableton-usb-audio-driver",
@@ -3865,7 +3899,7 @@
       "state": "now",
       "layer": 6,
       "category": "Lights",
-      "job": "A Govee light Astra named Mirror, set up in the Govee Home app on her phone (card 061). Model not checked. Light Hive reaches it once LAN Control is on for it in the Govee Home app."
+      "job": "A Govee light Astra named Mirror (H6159), set up in the Govee Home app on her phone (card 061). Light Hive reaches it through Govee’s cloud only, so about once a second at most; it has no light control by Bluetooth."
     },
     {
       "id": "govee-squiggle",
@@ -3874,7 +3908,7 @@
       "state": "now",
       "layer": 6,
       "category": "Lights",
-      "job": "A Govee light Astra named Squiggle, set up in the Govee Home app on her phone (card 061). Model not checked. Light Hive reaches it once LAN Control is on for it in the Govee Home app."
+      "job": "A Govee light Astra named Squiggle (H61A0, a 3 m neon rope with 15 sections), set up in the Govee Home app on her phone (card 061). Light Hive reaches it on the home network (LAN Control); the spotify-sync show also reaches its 15 sections by Bluetooth (light-hive-server 1.20.0), and until Bluetooth connects the home network sets the whole light."
     },
     {
       "id": "govee-lightstrip",
@@ -3883,7 +3917,7 @@
       "state": "now",
       "layer": 6,
       "category": "Lights",
-      "job": "A Govee light strip Astra named Lightstrip, set up in the Govee Home app on her phone (card 061). Model not checked. Light Hive reaches it once LAN Control is on for it in the Govee Home app."
+      "job": "A Govee light strip Astra named Light Strip (H619E), set up in the Govee Home app on her phone (card 061). Light Hive reaches it by Bluetooth, each of its 15 sections in its own colour; rgbee-color-corrector works around the two sections that lost a colour line."
     },
     {
       "id": "corsair-k65-plus",
@@ -3892,7 +3926,7 @@
       "state": "now",
       "layer": 6,
       "category": "Keyboard",
-      "job": "Astra’s RGB keyboard on the Desktop PC (seen 2026-11-08, by cable and by its wireless receiver). Corsair iCUE sets its lights; OpenRGB can’t reach it (tried 2026-11-11), so Light Hive can’t yet (card 002 in findastra/rgbee)."
+      "job": "Astra’s RGB keyboard on the Desktop PC (seen 2026-11-08, by cable and by its wireless receiver). Light Hive sets its lights through iCUE’s SDK since 2026-11-26 (light-hive-server 1.2.0), so iCUE must be running; OpenRGB can’t reach it (tried 2026-11-11)."
     },
     {
       "id": "dell-monitor",
@@ -7774,21 +7808,21 @@
       "to": "msi-center",
       "carries": "manages",
       "state": "planned",
-      "why": "RGBee plans lighting scenes for every RGB light in the room; these are the apps that control those lights."
+      "why": "Planned: MSI’s lights (MAKIMA’s board) aren’t reached yet. MSI’s Mystic Light SDK lists no LEDs for this board, and OpenRGB finds the chip but the board ignores what it sends (card 002 in findastra/rgbee)."
     },
     {
       "from": "rgbee",
       "to": "corsair-icue",
       "carries": "manages",
-      "state": "planned",
-      "why": "RGBee plans lighting scenes for every RGB light in the room; these are the apps that control those lights."
+      "state": "now",
+      "why": "Light Hive reaches the Corsair K65 through iCUE’s SDK, so iCUE must be running (light-hive-server, 2026-11-26)."
     },
     {
       "from": "rgbee",
       "to": "razer-synapse",
       "carries": "manages",
-      "state": "planned",
-      "why": "RGBee plans lighting scenes for every RGB light in the room; these are the apps that control those lights."
+      "state": "now",
+      "why": "Razer’s lighting runs inside Synapse: Light Hive reaches the Razer lights only while it runs, and light-hive-server starts it."
     },
     {
       "from": "rgbee",
@@ -8936,49 +8970,49 @@
       "to": "razer-chroma",
       "carries": "manages",
       "state": "now",
-      "why": "Light Hive’s colours and lightning reach the Razer lights through the Chroma App’s local API (light-hive-helper, 2026-11-08)."
+      "why": "Light Hive’s colours, themes and lightning reach the Razer mic and headset through Razer’s Chroma SDK (light-hive-server)."
     },
     {
       "from": "rgbee",
-      "to": "light-hive-helper",
+      "to": "light-hive-server",
       "carries": "opens",
       "state": "now",
-      "why": "Light Hive’s two tools send colours and lightning through it; it answers only pages on this PC."
+      "why": "Light Hive’s tools send colours, themes and the spotify-sync show through it; it answers only pages on this PC."
     },
     {
-      "from": "light-hive-helper",
+      "from": "light-hive-server",
       "to": "razer-chroma",
       "carries": "manages",
       "state": "now",
-      "why": "Sets the Razer lights through the Chroma App’s local API, and gives them back to its own effect after a minute unused."
+      "why": "Sets the Razer lights through Razer’s Chroma SDK while Razer Synapse runs, and gives them back to Razer’s own effect when Light Hive lets go."
     },
     {
       "from": "rgbee",
       "to": "govee-mirror",
       "carries": "manages",
-      "state": "planned",
-      "why": "Light Hive sends it colours and lightning over the Wi-Fi once LAN Control is on in the Govee Home app."
+      "state": "now",
+      "why": "Light Hive sends it colours, themes and the spotify-sync show through Govee’s cloud, about once a second at most."
     },
     {
       "from": "rgbee",
       "to": "govee-squiggle",
       "carries": "manages",
-      "state": "planned",
-      "why": "Light Hive sends it colours and lightning over the Wi-Fi once LAN Control is on in the Govee Home app."
+      "state": "now",
+      "why": "Light Hive sends it colours, themes and the spotify-sync show on the home network (LAN Control); the show also reaches its 15 sections by Bluetooth once that connects (light-hive-server 1.20.0)."
     },
     {
       "from": "rgbee",
       "to": "govee-lightstrip",
       "carries": "manages",
-      "state": "planned",
-      "why": "Light Hive sends it colours and lightning over the Wi-Fi once LAN Control is on in the Govee Home app."
+      "state": "now",
+      "why": "Light Hive sends it colours, themes and the spotify-sync show by Bluetooth, each of its 15 sections in its own colour."
     },
     {
       "from": "rgbee",
       "to": "corsair-k65-plus",
       "carries": "manages",
-      "state": "planned",
-      "why": "The keyboard can join Light Hive’s colours only through Corsair iCUE; OpenRGB can’t reach it (tried 2026-11-11, card 002 in findastra/rgbee)."
+      "state": "now",
+      "why": "Light Hive’s colours, themes and the spotify-sync show reach the keyboard through iCUE’s SDK (light-hive-server 1.2.0, 2026-11-26)."
     },
     {
       "from": "corsair-icue",
@@ -8991,15 +9025,29 @@
       "from": "rgbee",
       "to": "razer-seiren-v3-chroma",
       "carries": "manages",
-      "state": "planned",
-      "why": "The mic’s Chroma ring is one of the room’s RGB lights."
+      "state": "now",
+      "why": "The mic’s Chroma ring takes Light Hive’s colours, themes and shows through Razer’s Chroma SDK."
     },
     {
       "from": "rgbee",
       "to": "razer-kraken",
       "carries": "manages",
-      "state": "planned",
-      "why": "The headset’s Chroma ear cups are one of the room’s RGB lights."
+      "state": "now",
+      "why": "The headset’s Chroma ear cups take Light Hive’s colours, themes and shows through Razer’s Chroma SDK."
+    },
+    {
+      "from": "rgbee",
+      "to": "akai-apc64",
+      "carries": "manages",
+      "state": "now",
+      "why": "The spotify-sync show lights its pads as bars or a snake through its DAW port (light-hive-server 1.20.0, 2026-11-27), and hands it back to Ableton whenever the show stops."
+    },
+    {
+      "from": "spotify-sync-tool",
+      "to": "voicemeeter",
+      "carries": "status",
+      "state": "now",
+      "why": "Light Hive’s themes read how loud Voicemeeter’s A1 to A5 outputs are through its Remote API (VoicemeeterRemote64.dll), and the spotify-sync show hears Windows’ loopback of the default speakers, Voicemeeter Input on this PC; records no sound."
     },
     {
       "from": "drum-dog",

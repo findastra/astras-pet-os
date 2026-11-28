@@ -111,7 +111,7 @@ button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid
     <summary>More details</summary>
     <dl>
       <dt>How it works</dt><dd>Pick a preset, then press Play. Each preset mixes real rainforest recordings: rain, drops on leaves, a tin roof, a waterfall, birds, insects, frogs and wind. Each recording plays as overlapping pieces from random places, a little faster or slower, so it never repeats; with Keeps changing on, every sound drifts by itself like real weather. Lightning flashes the picture and every light Light Hive reaches, and real thunder follows: the closer the strike, the sooner and louder. Between strikes your lights hold the preset’s colour. Full screen turns the screen itself into a light.</dd>
-      <dt>Where it comes from</dt><dd>Fourteen recordings from freesound.org that their makers gave away for anyone to use (CC0), cut short and kept with this page (about 10 MB, loaded when you press Play). If they can’t load, for example on a copy opened straight from a file, the page makes the sound itself instead. The lights go through Light Hive’s helper on this PC (findastra/rgbee), only from your PC’s copy of the page. Two screens on the same lightning level strike at the same seconds, so the desktop and the laptop flash together.</dd>
+      <dt>Where it comes from</dt><dd>Fourteen recordings from freesound.org that their makers gave away for anyone to use (CC0), cut short and kept with this page (about 10 MB, loaded when you press Play). If they can’t load, for example on a copy opened straight from a file, the page makes the sound itself instead. The lights go through Light Hive’s server, light-hive-server, on this PC (findastra/rgbee <code>server/</code>), only from your PC’s copy of the page. Two screens on the same lightning level strike at the same seconds, so the desktop and the laptop flash together.</dd>
       <dt>Recordings</dt><dd>Thanks to the makers, all CC0 on freesound.org:
         drizzle, <a href="https://freesound.org/s/615747/" target="_blank" rel="noopener">nyoz</a>;
         steady rain, <a href="https://freesound.org/s/658836/" target="_blank" rel="noopener">mariannadeoliveira</a>;
@@ -126,8 +126,8 @@ button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid
         frogs, <a href="https://freesound.org/s/502204/" target="_blank" rel="noopener">fenixevendir</a>;
         waterfall pool, <a href="https://freesound.org/s/236981/" target="_blank" rel="noopener">mhtaylor67</a>;
         wind, <a href="https://freesound.org/s/469280/" target="_blank" rel="noopener">rucisko</a>.</dd>
-      <dt>Your rules</dt><dd>2026-11-08: a rainforest with lightning across every light; never more than three flashes a second, soft glows when your computer asks for less motion; 2026-11-11: lots of presets, more variable, easy to read, details in here; 2026-11-13: free real recordings, thunder still timed to the lightning, keep all twelve presets.</dd>
-      <dt>Not built yet</dt><dd>The laptop’s own lights; the helper starting by itself at sign-in (rgbee card 002).</dd>
+      <dt>Your rules</dt><dd>2026-11-08: a rainforest with lightning across every light; soft glows when your computer asks for less motion; 2026-11-27: Light Hive’s flash limit is off by your choice for your own room (it was three a second, then six); 2026-11-11: lots of presets, more variable, easy to read, details in here; 2026-11-13: free real recordings, thunder still timed to the lightning, keep all twelve presets.</dd>
+      <dt>Not built yet</dt><dd>The laptop’s own lights; MSI’s lights (MAKIMA’s board); light-hive-server starting by itself at sign-in (rgbee card 002).</dd>
     </dl>
   </details>
 </main>
@@ -148,6 +148,7 @@ const HELPER_DATA = "../../../Astra's PetOS Data/rgbee/light-hive-helper-data.js
 let HELPER = null;
 function findHelper() {
   return new Promise((done) => {
+    if (location.pathname.startsWith('/light-hive/')) { HELPER = location.origin; done(); return; } // served by light-hive-server (this PC or Astra's phone)
     if (!ON_THIS_PC) { HELPER = null; done(); return; }
     const s = document.createElement('script'); s.src = HELPER_DATA + '?t=' + Date.now();
     s.onload = () => { s.remove(); const d = window.lightHiveHelper; HELPER = d && d.schema === 'light-hive-helper-v1' && Date.now() - new Date(d.time).getTime() < 60000 && /^http:\/\/(127\.0\.0\.1|localhost):\d+$/.test(d.control) ? d.control : null; done(); };
@@ -238,10 +239,15 @@ async function ask(path, body) {
 async function lookLights() {
   const box = $('lights'); const a = await ask('/lights');
   box.replaceChildren(pill('This screen', 'on'));
-  if (!a) { box.append(pill(ON_THIS_PC ? 'Real lights: Light Hive’s helper isn’t running' : 'Real lights: open your PC’s copy', 'wait')); tell(); return; }
+  if (!a) { box.append(pill(ON_THIS_PC ? 'Real lights: light-hive-server isn’t running' : 'Real lights: open your PC’s copy', 'wait')); tell(); return; }
   box.append(pill(a.razer && a.razer.ok ? 'Razer mic and headset' : 'Razer: open the Chroma App', a.razer && a.razer.ok ? 'on' : 'wait'));
-  const g = (a.govee || []).length;
-  box.append(pill(g ? 'Govee: ' + g + ' light' + (g === 1 ? '' : 's') : 'Govee: LAN Control is off', g ? 'on' : 'wait'));
+  const k = a.corsair && a.corsair.ok && (a.corsair.devices || []).length;
+  box.append(pill(k ? 'Corsair keyboard' : 'Corsair: open iCUE', k ? 'on' : 'wait'));
+  // Govee lights by model, however each is reached: the home network, Bluetooth or Govee's cloud.
+  const list = (x) => (Array.isArray(x) ? x : []);
+  const g = new Set([...list(a.govee).map((x) => x.sku), ...list(a.bluetooth).filter((x) => x.state === 'connected').map((x) => x.sku),
+    ...list(a.cloud).filter((x) => x.state === 'ok').map((x) => x.sku)].filter(Boolean)).size;
+  box.append(pill(g ? 'Govee: ' + g + ' light' + (g === 1 ? '' : 's') : 'Govee: out of reach', g ? 'on' : 'wait'));
   tell();
 }
 lookLights();
@@ -533,7 +539,7 @@ function words() {
   $('rainSaid').textContent = $('rain').value + '%'; $('windSaid').textContent = $('wind').value + '%'; $('lifeSaid').textContent = $('life').value + '%'; $('volSaid').textContent = $('vol').value + '%';
   $('stormSaid').textContent = n ? 'about ' + n + ' a minute' : 'off';
   $('now').replaceChildren(document.createTextNode(playing ? 'Playing ' : ''), Object.assign(document.createElement('b'), { textContent: preset ? preset.name : '' }));
-  $('said').textContent = n ? (calm.matches ? 'Lightning shows as soft glows, because your computer asks for less motion.' : 'Never more than three flashes a second.') : 'Rain only, no lightning.';
+  $('said').textContent = n ? (calm.matches ? 'Lightning shows as soft glows, because your computer asks for less motion.' : 'Lightning on: each strike flashes the screen and the lights.') : 'Rain only, no lightning.';
 }
 for (const id of MIX) $(id).addEventListener('input', () => { save(id, $(id).value); setLevels(); words(); });
 $('drift').addEventListener('change', () => { save('drift', $('drift').checked ? '1' : '0'); setLevels(); });

@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>rgbee-color-corrector · Light Hive</title>
+<!-- Light Hive's rgbee-color-corrector (Astra, 2026-11-20: "cant even identify which nodes and mitigate it? ... make the
+     tool the rgbee-color-corrector on the agent hub"). Two spots on the Light Strip (Govee H619E) each lost one colour
+     line inside the strip: under the desk lost red, the corner by the mirror lost green. A broken line can't be lit, so
+     the corrector finds the section each spot is in and has light-hive-server send that section only the colours it can
+     still show, so the whole section matches its spot. Claude Opus 5.5 (claude-opus-5-5), 2026-11-20. -->
+<style>
+:root{color-scheme:dark;--bg:#050507;--card:rgba(255,255,255,.045);--card-line:rgba(255,255,255,.10);--ink:#f2f5f8;--soft:#c3ccd5;--dim:#9aa6b2;
+  --green:#39ff88;--cyan:#00e5ff;--pink:#ff2bd6;--red:#ff4d5e}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,'Segoe UI',sans-serif}
+html.in-tool,html.in-tool body{background:transparent}
+main{padding:20px 16px;display:grid;gap:16px;max-width:1100px}
+html.in-tool main{padding:4px 2px 8px}
+html.in-tool .alone{display:none}
+h1{font-size:22px;margin:0}
+p{margin:0}
+button,select{font:inherit;color:var(--ink)}
+button{cursor:pointer}
+.quiet{font-size:14px;border-radius:999px;padding:6px 14px;border:1px solid var(--card-line);background:transparent;color:var(--soft)}
+.quiet:hover{color:var(--ink);border-color:rgba(255,255,255,.28)}
+.row{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px}
+.switch{display:flex;align-items:center;gap:8px;color:var(--soft)}
+.said{min-height:1.5em;color:var(--cyan);font-size:15px}
+.spots{display:grid;gap:8px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.spot{padding:12px 14px;border-radius:14px;background:var(--card);border:1px solid var(--card-line)}
+.spot b{display:block}
+.spot span{color:var(--dim);font-size:14px}
+.sections{display:grid;gap:8px;grid-template-columns:repeat(auto-fill,minmax(132px,1fr))}
+.sec{display:grid;gap:6px;padding:10px;border-radius:14px;background:var(--card);border:1px solid var(--card-line)}
+.sec[data-lost=red]{border-color:var(--red)}
+.sec[data-lost=green]{border-color:var(--green)}
+.sec[data-lost=blue]{border-color:#4d7bff}
+.sec b{font-size:14px}
+select{font-size:14px;background:#101016;border:1px solid var(--card-line);border-radius:10px;padding:5px 8px;width:100%}
+button:focus-visible,select:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
+details{color:var(--soft)}
+summary{cursor:pointer}
+dl{display:grid;grid-template-columns:max-content 1fr;gap:6px 14px;margin:10px 0 0}
+dt{color:var(--dim)}
+dd{margin:0}
+@media (max-width:520px){dl{grid-template-columns:1fr}dt{margin-top:6px}}
+</style>
+</head>
+<body>
+<main>
+  <header class="alone"><h1>rgbee-color-corrector</h1></header>
+
+  <section class="spots" aria-label="The two spots">
+    <div class="spot"><b>Under the desk, left of the leg</b><span>Lost red: white shows cyan, amber shows green.</span></div>
+    <div class="spot"><b>Corner by the mirror</b><span>Lost green: white shows pink, amber shows red.</span></div>
+  </section>
+
+  <div class="row">
+    <label class="switch"><input type="checkbox" id="on" checked> Correct colours</label>
+    <button class="quiet" id="guess" type="button">Use my guess (5 red, 11 green)</button>
+  </div>
+  <p class="said" id="said" role="status"></p>
+
+  <section class="sections" id="sections" aria-label="Light Strip sections, from the plug by the PC"></section>
+
+  <details class="about">
+    <summary>More details</summary>
+    <dl>
+      <dt>How it works</dt><dd>Find lights one section white. Set the colour a section lost; every colour sent there then leaves it out, so the whole section matches its spot.</dd>
+      <dt>Where it comes from</dt><dd>Light Hive’s server, light-hive-server, on this PC (findastra/rgbee <code>server/</code>). Corrections stay on this PC. The live site only previews.</dd>
+      <dt>Your rules</dt><dd>Find the nodes and work around them (2026-11-20).</dd>
+      <dt>Not built yet</dt><dd>A broken line can’t light; repairing the strip is the real fix. Only the Light Strip so far.</dd>
+    </dl>
+  </details>
+</main>
+<script>
+'use strict';
+const $ = (id) => document.getElementById(id);
+let inTool = false; try { inTool = window.self !== window.top; } catch (e) { inTool = true; }
+if (inTool) document.documentElement.classList.add('in-tool');
+function tell() { if (inTool) try { parent.postMessage({ type: 'tool-panel-height', height: Math.ceil(document.querySelector('main').getBoundingClientRect().height) + 2 }, '*'); } catch (e) {} }
+if (window.ResizeObserver) new ResizeObserver(tell).observe(document.querySelector('main'));
+document.querySelector('.about').addEventListener('toggle', tell);
+
+// Light Hive's helper, found the house way: only a page opened on this PC reads the address it writes.
+const ON_THIS_PC = location.protocol === 'file:' || /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
+const HELPER_DATA = "../../../Astra's PetOS Data/rgbee/light-hive-helper-data.js";
+let HELPER = null;
+function findHelper() {
+  return new Promise((done) => {
+    if (location.pathname.startsWith('/light-hive/')) { HELPER = location.origin; done(); return; } // served by light-hive-server (this PC or Astra's phone)
+    if (!ON_THIS_PC) { HELPER = null; done(); return; }
+    const s = document.createElement('script'); s.src = HELPER_DATA + '?t=' + Date.now();
+    s.onload = () => { s.remove(); const d = window.lightHiveHelper; HELPER = d && d.schema === 'light-hive-helper-v1' && Date.now() - new Date(d.time).getTime() < 60000 && /^http:\/\/(127\.0\.0\.1|localhost):\d+$/.test(d.control) ? d.control : null; done(); };
+    s.onerror = () => { s.remove(); HELPER = null; done(); };
+    document.head.appendChild(s);
+  });
+}
+async function ask(path, body) {
+  if (!HELPER) await findHelper();
+  if (!HELPER) return null;
+  try { const r = await fetch(HELPER + path, body ? { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) } : {}); return await r.json(); }
+  catch (e) { return null; }
+}
+const offline = () => ON_THIS_PC ? 'Server not running: preview only.' : 'Live page: preview only.';
+
+let state = { on: true, lost: {}, sections: 15 };
+function draw() {
+  $('on').checked = state.on;
+  const box = $('sections'); box.textContent = '';
+  for (let i = 1; i <= state.sections; i++) {
+    const card = document.createElement('div'); card.className = 'sec'; card.dataset.lost = state.lost[i] || '';
+    const name = document.createElement('b'); name.textContent = 'Section ' + i + (i === 1 ? ' (plug)' : '');
+    const pick = document.createElement('select'); pick.setAttribute('aria-label', 'Section ' + i + ': colour it lost');
+    for (const [v, t] of [['', 'OK'], ['red', 'Lost red'], ['green', 'Lost green'], ['blue', 'Lost blue']]) { const o = document.createElement('option'); o.value = v; o.textContent = t; pick.appendChild(o); }
+    pick.value = state.lost[i] || '';
+    pick.addEventListener('change', () => { const lost = { ...state.lost }; if (pick.value) lost[i] = pick.value; else delete lost[i]; save({ lost }); });
+    const find = document.createElement('button'); find.className = 'quiet'; find.type = 'button'; find.textContent = 'Find';
+    find.addEventListener('click', async () => { const r = await ask('/find', { section: i }); $('said').textContent = r ? r.said : offline(); });
+    card.append(name, pick, find); box.appendChild(card);
+  }
+  tell();
+}
+async function save(change) {
+  const next = { on: change.on !== undefined ? change.on : state.on, lost: change.lost || state.lost };
+  const r = await ask('/corrections', next);
+  if (!r) { $('said').textContent = offline(); draw(); return; }
+  if (!r.ok) { $('said').textContent = 'This server is older: rebuild it for corrections.'; draw(); return; }
+  state = r; const n = Object.keys(r.lost).length;
+  $('said').textContent = !r.on ? 'Corrections off.' : n ? 'Correcting ' + n + ' section' + (n > 1 ? 's' : '') + '.' : 'No sections to correct.';
+  draw();
+}
+$('on').addEventListener('change', () => save({ on: $('on').checked }));
+$('guess').addEventListener('click', () => save({ lost: { 5: 'red', 11: 'green' } }));
+(async () => {
+  draw();
+  const r = await ask('/corrections');
+  if (!r) { $('said').textContent = offline(); return; }
+  if (r.ok) { state = r; draw(); } else $('said').textContent = 'This server is older: rebuild it for corrections.';
+})();
+</script>
+</body>
+</html>
