@@ -197,6 +197,24 @@ at the top, and a random configuration selection next to that".
   them as `options.note_colors`; the page's key and note chips use those whenever the server sends them, and its own
   older table before that.
 
+## Devices and colours as tool boxes (later 2026-11-27)
+
+Astra: "colors need to have the 4 distinct sections as tools like the other sections", "call it Device, not Light for
+the first section, also make those devices look like tools like the other sections".
+
+- **Which device follows which part of the song** (was "light"): the table is now a box for each device (Light Strip,
+  Mirror, Squiggle, Keyboard, Razer mic and headset, Mouse pad, APC64), each with what it follows, its brightness and
+  its Ping-pong side; the APC64's box holds its look. A device's box has the ring while the show uses what it follows.
+- **Colours:** four boxes, two by two: Synesthesia (the note key), Colour groups (the song colour converter and each
+  part's family), Palette (each part together, or one room colour) and Part colours. Each has a Use button that makes
+  colours come from it (and puts the show in Pulse); the box in use has the ring.
+- **More compact** (Astra: "reduce some of the blank spaces on this page so things are more compact"): smaller gaps
+  and padding on the cards, boxes, controls and live view; in the device boxes each label sits beside its list.
+  The Colours card is about half as tall: Colour groups in its own column with the other three stacked beside it,
+  smaller swatches with the remove mark on the corner, a shorter note key, shorter words; hints are smaller page-wide.
+- **The live view asks eight times a second** (was four). Astra: "i feel like this thing needs to respond faster". The
+  lights' own delay (hearing, beat finding, each light's path) is light-hive-server's; her words went to its session.
+
 ## light-hive-server 1.21.0 (later 2026-11-27)
 
 1.21.0 is pushed to findastra/rgbee#17 (194c7df) and installed. The page shows each of its settings only once the

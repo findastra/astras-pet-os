@@ -29,9 +29,9 @@
 :root{color-scheme:dark;--bg:#050507;--card:rgba(255,255,255,.045);--card-line:rgba(255,255,255,.10);--ink:#f2f5f8;--soft:#c3ccd5;--dim:#9aa6b2;
   --green:#39ff88;--cyan:#00e5ff;--pink:#ff2bd6;--amber:#ffc23d;--c:#9e00ff}
 *{box-sizing:border-box}
-html,body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,'Segoe UI',sans-serif}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.4 system-ui,-apple-system,'Segoe UI',sans-serif}
 html.in-tool,html.in-tool body{background:transparent}
-main{padding:20px;display:grid;gap:18px;max-width:1100px}
+main{padding:14px;display:grid;gap:12px;max-width:1100px}
 html.in-tool main{padding:4px 2px 8px}
 html.in-tool .alone{display:none}
 h1{font-size:22px;margin:0}
@@ -39,97 +39,98 @@ h2{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim)
 p{margin:0}
 button{font:inherit;cursor:pointer;color:var(--ink)}
 [hidden]{display:none!important}
-.chip{font-size:15px;display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:7px 14px 7px 8px;
+.chip{font-size:14px;display:inline-flex;align-items:center;gap:7px;border-radius:999px;padding:5px 12px 5px 7px;
   border:1px solid var(--card-line);background:rgba(255,255,255,.03)}
 .chip:hover{border-color:rgba(255,255,255,.28)}
-.chip i{width:20px;height:20px;border-radius:50%;background:var(--s)}
+.chip i{width:16px;height:16px;border-radius:50%;background:var(--s)}
 .chip[aria-pressed=true]{border-color:var(--cyan);background:rgba(0,229,255,.16);color:var(--ink);box-shadow:0 0 0 2px var(--cyan),0 0 16px rgba(0,229,255,.45)}
 /* In use now (Astra, 2026-11-27: "needs to be clear on here which things can be selected with other things, like there
    should be some highlight areound the pill if its active"): a cyan ring; not used now: dimmed, with the reason. */
-.choice,.slider{padding:8px 10px;border-radius:12px;border:1px solid transparent}
+.choice,.slider{padding:5px 8px;border-radius:12px;border:1px solid transparent}
 .choice.use,.slider.use{border-color:rgba(0,229,255,.55);box-shadow:0 0 10px rgba(0,229,255,.18);background:rgba(0,229,255,.04)}
 .choice.unused>:not(.why),.slider.unused>:not(.why),td.unused>:not(.why),.unused:not(.choice):not(.slider):not(td){opacity:.4}
-.why{color:var(--amber);font-size:13px;grid-column:1/-1}
+.why{color:var(--amber);font-size:12px;line-height:1.25;grid-column:1/-1}
 .why:empty{display:none}
 p>.why{display:block;margin-top:2px}
 .segs.use{outline:1.5px solid rgba(0,229,255,.55);outline-offset:4px;border-radius:10px}
-.brights{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:4px 10px}
-.brights .choice{font-size:14px}
-.who td.use select{border-color:rgba(0,229,255,.7);box-shadow:0 0 8px rgba(0,229,255,.25)}
+.tools{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:8px}
+.tools.four{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-flow:row dense}   /* Colour groups (tall) on the right, the other three stacked on the left */
+#tool-groups{grid-column:2;grid-row:1/span 3}
+@media (max-width:640px){.tools.four{grid-template-columns:1fr}#tool-groups{grid-column:auto;grid-row:auto}}
+.devbody{display:grid;gap:0}
+.tool .choice.use{border-color:transparent;box-shadow:none;background:none}   /* inside a tool box the box has the ring */
+.devbody .choice{font-size:13.5px;grid-template-columns:5.6em minmax(0,1fr);padding:3px 4px;align-items:center;column-gap:8px}   /* label beside its list */
+.devbody .choice .hint{grid-column:1/-1}
+.tool{border:1px solid var(--card-line);border-radius:12px;padding:8px 10px;display:grid;gap:5px;align-content:start;background:rgba(255,255,255,.02);min-width:0}
+.tool.use{border-color:rgba(0,229,255,.6);box-shadow:0 0 12px rgba(0,229,255,.2);background:rgba(0,229,255,.04)}
+.toolhead{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px}
+.tool h3{margin:0;font-size:14px;font-weight:650;color:var(--ink)}
+.usebtns{display:flex;flex-wrap:wrap;gap:6px}
+.usebtns .chip{font-size:12.5px;padding:3px 10px}
 .quiet{font-size:14px;border-radius:999px;padding:6px 14px;border:1px solid var(--card-line);background:transparent;color:var(--soft)}
 .quiet:hover{color:var(--ink);border-color:rgba(255,255,255,.28)}
-.go{font-weight:700;border:0;border-radius:999px;padding:11px 24px;background:var(--c);color:#050507;
+.go{font-weight:700;border:0;border-radius:999px;padding:9px 20px;background:var(--c);color:#050507;
   box-shadow:0 0 18px color-mix(in srgb,var(--c) 55%,transparent)}
 .go[aria-checked=true]{background:transparent;color:var(--ink);border:2px solid var(--c)}
 .said{min-height:1.5em;color:var(--cyan);font-size:15px}
-.row{display:flex;flex-wrap:wrap;align-items:center;gap:12px 18px}
+.row{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px}
 button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
-select{font:inherit;font-size:15px;color:var(--ink);background:#101016;border:1px solid var(--card-line);border-radius:10px;padding:7px 10px;width:100%}
+select{font:inherit;font-size:15px;color:var(--ink);background:#101016;border:1px solid var(--card-line);border-radius:9px;padding:5px 9px;width:100%}
 
 /* The stage: the beat dot, the five bands, and the line the Light Strip shows. */
-.stage{display:grid;grid-template-columns:auto 1fr;gap:16px 22px;align-items:center;padding:18px;border-radius:18px;background:var(--card);border:1px solid var(--card-line)}
-.beat{width:112px;height:112px;border-radius:50%;background:var(--c);box-shadow:0 0 0 4px rgba(255,255,255,.06),0 0 36px color-mix(in srgb,var(--c) 70%,transparent);
+.stage{display:grid;grid-template-columns:auto 1fr;gap:10px 16px;align-items:center;padding:12px 14px;border-radius:18px;background:var(--card);border:1px solid var(--card-line)}
+.beat{width:96px;height:96px;border-radius:50%;background:var(--c);box-shadow:0 0 0 4px rgba(255,255,255,.06),0 0 36px color-mix(in srgb,var(--c) 70%,transparent);
   display:grid;place-items:center;color:#050507;font-weight:700;font-size:14px;font-variant-numeric:tabular-nums}
 .stage.off .beat{background:#2c333a;box-shadow:0 0 0 4px rgba(255,255,255,.06);color:var(--dim)}
-.side{display:grid;gap:12px;min-width:0}
+.side{display:grid;gap:6px;min-width:0}
 .hear{color:var(--soft);font-size:15px}
 .hear.no{color:var(--amber)}
 .bands{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
 .band{display:grid;gap:4px;text-align:center;font-size:13px;color:var(--dim)}
-.well{position:relative;height:84px;border-radius:8px;background:rgba(255,255,255,.04);overflow:hidden}
+.well{position:relative;height:64px;border-radius:8px;background:rgba(255,255,255,.04);overflow:hidden}
 .well.hit{background:color-mix(in srgb,var(--hb,#fff) 22%,transparent);box-shadow:inset 0 0 0 2px var(--hb,#fff)}
 .bar{position:absolute;left:0;right:0;bottom:0;height:calc(var(--h,0) * 100%);min-height:3px;background:var(--b);border-radius:6px;
   box-shadow:0 0 12px color-mix(in srgb,var(--b) 60%,transparent)}
 .line{grid-column:1/-1;display:grid;grid-template-columns:repeat(15,minmax(0,1fr));gap:5px}
-.line i{height:30px;border-radius:6px;background:var(--b);opacity:var(--o,.1)}
+.line i{height:24px;border-radius:6px;background:var(--b);opacity:var(--o,.1)}
 .wall{grid-column:1/-1;display:grid;gap:5px}
-.wall .seg{border-radius:8px;background:#0b0b10;border:1px solid var(--card-line);padding:12px 4px;text-align:center;font-size:12.5px;line-height:1.25;color:var(--dim);min-width:0;overflow-wrap:anywhere}
+.wall .seg{border-radius:8px;background:#0b0b10;border:1px solid var(--card-line);padding:8px 4px;text-align:center;font-size:12.5px;line-height:1.25;color:var(--dim);min-width:0;overflow-wrap:anywhere}
 .wall .seg.hit{background:var(--sc);color:var(--ink);border-color:var(--sb)}
-.wallcap{grid-column:1/-1;text-align:center;color:var(--dim);font-size:13px;margin-top:-10px}
-.ends{grid-column:1/-1;display:flex;justify-content:space-between;color:var(--dim);font-size:13px;margin-top:-10px}
+.wallcap{grid-column:1/-1;text-align:center;color:var(--dim);font-size:13px;margin-top:-6px}
+.ends{grid-column:1/-1;display:flex;justify-content:space-between;color:var(--dim);font-size:13px;margin-top:-6px}
 
 /* Settings cards. */
-.card{padding:16px 18px;border-radius:18px;background:var(--card);border:1px solid var(--card-line);display:grid;gap:12px}
-.choices{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px 18px}
-.choice{display:grid;gap:5px;color:var(--soft);font-size:15px}
-.hint{color:var(--dim);font-size:14px}
-.presets{display:flex;flex-wrap:wrap;gap:8px}
-.swatches{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-start}
-.sw{display:grid;justify-items:center;gap:3px;font-size:13px;color:var(--dim)}
-.dot{position:relative;width:38px;height:38px;border-radius:50%;background:var(--s);box-shadow:0 0 10px color-mix(in srgb,var(--s) 55%,transparent)}
+.card{padding:12px 14px;border-radius:16px;background:var(--card);border:1px solid var(--card-line);display:grid;gap:8px}
+.choices{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:4px 10px}
+.choice{display:grid;gap:2px;color:var(--soft);font-size:14px}
+.hint{color:var(--dim);font-size:12.5px;line-height:1.3}
+.presets{display:flex;flex-wrap:wrap;gap:6px}
+.swatches{display:flex;flex-wrap:wrap;gap:7px;align-items:center}
+.sw{position:relative;display:grid;justify-items:center;gap:1px;font-size:11.5px;color:var(--dim)}
+.dot{position:relative;width:26px;height:26px;border-radius:50%;background:var(--s);box-shadow:0 0 10px color-mix(in srgb,var(--s) 55%,transparent)}
 .dot input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer}
-.sw .x{border:0;background:none;color:var(--dim);font-size:13px;padding:0 4px}
+.sw .x{position:absolute;top:-5px;right:-6px;width:15px;height:15px;border-radius:50%;border:1px solid var(--card-line);background:#16161e;color:var(--dim);font-size:9px;line-height:13px;padding:0}   /* remove: a small corner badge */
 .sw .x:hover{color:var(--ink)}
-.add{width:38px;height:38px;border-radius:50%;border:1px dashed var(--card-line);background:none;color:var(--soft);font-size:20px;line-height:1}
-.sliders{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px 22px}
-.slider{display:grid;grid-template-columns:7.5em 1fr 4.2em;align-items:center;gap:10px;color:var(--soft);font-size:15px}
+.add{width:26px;height:26px;border-radius:50%;border:1px dashed var(--card-line);background:none;color:var(--soft);font-size:20px;line-height:1}
+.sliders{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:2px 10px}
+.slider{display:grid;grid-template-columns:7.5em 1fr 4.2em;align-items:center;gap:0 8px;color:var(--soft);font-size:14px}
 .slider input{width:100%;accent-color:var(--c)}
 .slider output{text-align:right;color:var(--ink);font-variant-numeric:tabular-nums}
-.slider .hint{grid-column:1/-1;margin-top:-6px}
-.lights{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px}
-/* Which light follows which part of the song: the main control. */
-.who{width:100%;border-collapse:separate;border-spacing:0 6px}
-.who th{text-align:left;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--dim);font-weight:600;padding:0 8px}
-.who th abbr{text-decoration:none}
-.who td{padding:8px;background:rgba(255,255,255,.03);border-top:1px solid var(--card-line);border-bottom:1px solid var(--card-line)}
-.who td:first-child{border-left:1px solid var(--card-line);border-radius:12px 0 0 12px}
-.who td:last-child{border-right:1px solid var(--card-line);border-radius:0 12px 12px 0;width:5.5em}
-.who b{font-weight:650;font-size:16px;display:block}
-.who .hint{display:block}
-.who td:nth-child(2){width:45%}
-.segs{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
+.slider .hint{grid-column:1/-1;margin-top:-3px}
+.segs{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px}
 .dotbox{display:grid;justify-items:center;gap:8px}
-.notekey{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:5px}
-.notekey span{display:grid;gap:3px;justify-items:center;font-size:13px;color:var(--soft)}
-.notekey i{width:100%;height:26px;border-radius:7px;background:linear-gradient(var(--nc),var(--nl))}
+.notekey{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:3px}
+.notekey span{display:grid;gap:1px;justify-items:center;font-size:11.5px;color:var(--soft)}
+.notekey i{width:100%;height:16px;border-radius:7px;background:linear-gradient(var(--nc),var(--nl))}
 .notes b{display:inline-block;min-width:1.9em;padding:1px 6px;margin:0 2px;border-radius:6px;color:#050507;background:var(--nc);text-align:center;font-weight:700}
-.fams{display:grid;gap:8px}
+.fams{display:grid;gap:3px}
+.fams .dot{width:22px;height:22px}
 .fams.made .dot{opacity:.45;filter:saturate(.6)}
 .fams.made .dot input{pointer-events:none}
 .switch input{width:18px;height:18px;vertical-align:-3px;accent-color:var(--cyan);margin-right:6px}
 #nowPlaying i{display:inline-block;width:12px;height:12px;border-radius:50%;vertical-align:-1px;margin-right:6px;background:var(--songc,#888)}
 .nowshow i{display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:-2px;margin:0 2px;background:var(--rc);border:1px solid #ffffff33}
-.fam{display:grid;grid-template-columns:11em 1fr;align-items:center;gap:10px;color:var(--soft);font-size:15px}
+.fam{display:grid;grid-template-columns:8.5em 1fr;align-items:center;gap:6px;color:var(--soft);font-size:13px}
 .metro{display:flex;align-items:center;gap:8px;color:var(--soft);font-size:13px;font-variant-numeric:tabular-nums}
 .metro i{width:14px;height:14px;border-radius:50%;background:var(--mc,#ffb02b)}
 @keyframes metro{0%{background:var(--mc,#ffb02b)}50%{background:#2c333a}}
@@ -142,14 +143,13 @@ select{font:inherit;font-size:15px;color:var(--ink);background:#101016;border:1p
 .about summary::-webkit-details-marker,.older summary::-webkit-details-marker{display:none}
 .about summary::before,.older summary::before{content:"";width:0;height:0;border-left:9px solid var(--cyan);border-top:6px solid transparent;border-bottom:6px solid transparent}
 .about[open] summary::before,.older[open] summary::before{transform:rotate(90deg)}
-.older{color:var(--soft);font-size:15px}.older .hint{margin:8px 0}
+.older{color:var(--soft);font-size:15px}.older .hint{margin:6px 0}
 .about dl{margin:10px 0 0 18px;display:grid;grid-template-columns:max-content minmax(0,1fr);gap:6px 14px}
 .about dt{color:var(--ink);font-weight:600}
 .about dd{margin:0}
 .about .row{margin:12px 0 0 18px}
 @media (max-width:560px){.stage{grid-template-columns:1fr;justify-items:center}.side,.line,.ends,.wall,.wallcap{width:100%;justify-self:stretch}.wall .seg{font-size:11px;padding:10px 2px}.about dl{grid-template-columns:1fr}.about dd{margin-bottom:6px}
-  .line{gap:3px}.slider{grid-template-columns:6.5em 1fr 3.8em}.notekey{grid-template-columns:repeat(6,minmax(0,1fr))}.segs{grid-template-columns:repeat(2,minmax(0,1fr))}.who td{padding:6px}.who .hint{display:none}
-  .who td:last-child{width:4.2em}.who td:nth-child(2){width:auto}.who b{font-size:15px}.who select{padding:7px 4px;font-size:14px}}
+  .line{gap:3px}.slider{grid-template-columns:6.5em 1fr 3.8em}.notekey{grid-template-columns:repeat(6,minmax(0,1fr))}.segs{grid-template-columns:repeat(2,minmax(0,1fr))}}
 /* Smooth, never sudden: only when the computer doesn't ask for less motion. */
 @media (prefers-reduced-motion:no-preference){.bar{transition:height .22s linear}.line i{transition:opacity .22s linear,background-color .3s}
   .beat,.go{transition:background-color .3s,box-shadow .3s}.about summary::before{transition:transform .15s}
@@ -167,7 +167,7 @@ select{font:inherit;font-size:15px;color:var(--ink);background:#101016;border:1p
       <div class="row">
         <button class="go" id="power" type="button" role="switch" aria-checked="false">Start the show</button>
         <button class="quiet" id="defaults" type="button" title="Every setting back to light-hive-server’s own starting settings; every brightness (Brightness, Flash, Base, each light’s, Between hits) stays as you set it">Reset to default</button>
-        <button class="quiet" id="random" type="button" title="A random mix of patterns, colours, moments and which light follows what; your Brightness, Flash, Base, Hold and Beats stay as they are">Random mix</button>
+        <button class="quiet" id="random" type="button" title="A random mix of patterns, colours, moments and which device follows what; your Brightness, Flash, Base, Hold and Beats stay as they are">Random mix</button>
         <button class="quiet" id="refresh" type="button" hidden>Show what it hears now</button>
       </div>
       <p class="hear" id="hear"></p>
@@ -185,18 +185,19 @@ select{font:inherit;font-size:15px;color:var(--ink);background:#101016;border:1p
   <p class="said" id="said" role="status"></p>
 
   <section class="card" aria-labelledby="lightsTitle">
-    <h2 id="lightsTitle">Which light follows which part of the song</h2>
-    <table class="who">
-      <thead><tr><th scope="col">Light</th><th scope="col">Follows</th><th scope="col"><abbr title="Its side in Ping-pong (only used in Ping-pong)">Side</abbr></th></tr></thead>
-      <tbody id="lights"></tbody>
-    </table>
-    <p class="hint">Any light set to Tempo (the metronome) ticks with the metronome, as evenly as the mouse pad (light-hive-server 1.21.0; before that, on the song’s tempo at the show’s own step). The keyboard ticks only when its picture is Solid, and the Light Strip follows its segments instead (Astra: “i should be able to set something to follow the metronome”).</p>
+    <!-- Astra, 2026-11-27: "call it Device, not Light for the first section, also make those devices look like tools
+         like the other sections". One box per device: what it follows, how bright it flashes, its Ping-pong side. -->
+    <h2 id="lightsTitle">Which device follows which part of the song</h2>
+    <p class="hint">Tempo (the metronome): the device ticks with the metronome, as evenly as the mouse pad; the keyboard only when its picture is Solid, and the Light Strip follows its segments instead. Brightness: Like Flash follows the Flash slider; the others are the device’s own.</p>
+    <div class="tools" id="devices">
+      <section class="tool" id="dev-apc64" aria-labelledby="apcTitle">
+        <div class="toolhead"><h3 id="apcTitle">APC64</h3></div>
+        <p class="hint">Akai APC64 · its pads, through its DAW port; handed back to Ableton whenever the show stops</p>
+        <div class="devbody" id="devbody-apc64"></div>
+      </section>
+    </div>
     <p class="hint">The wall line, left to right, when it is cut into segments:</p>
     <div class="segs" id="segments" role="group" aria-label="The wall line's segments, left to right"></div>
-    <div id="brightBox" hidden>
-      <p class="hint">How bright each light flashes (Astra: “keyboard needs to be brigher, need a vague brightness section for each device”). Like Flash follows the Flash slider; the others are that light’s own, its white strobe too.</p>
-      <div class="brights" id="brights" role="group" aria-label="How bright each light flashes"></div>
-    </div>
   </section>
 
   <section class="card" aria-labelledby="presetsTitle">
@@ -204,7 +205,7 @@ select{font:inherit;font-size:15px;color:var(--ink);background:#101016;border:1p
     <div class="presets" id="presets" role="group" aria-label="Presets"></div>
     <details class="older">
       <summary>Older shows, not Pulse</summary>
-      <p class="hint">These leave Pulse: every light is lit at Brightness instead of Flash (brighter), and the table, the wall line’s patterns, the moments and each light’s brightness aren’t used. Pulse presets above bring it back.</p>
+      <p class="hint">These leave Pulse: every light is lit at Brightness instead of Flash (brighter), and what each device follows, the wall line’s patterns, the moments and each device’s brightness aren’t used. Pulse presets above bring it back.</p>
       <div class="presets" id="oldPresets" role="group" aria-label="Older shows, not Pulse"></div>
     </details>
   </section>
@@ -216,23 +217,40 @@ select{font:inherit;font-size:15px;color:var(--ink);background:#101016;border:1p
 
   <section class="card" aria-labelledby="momentsTitle">
     <h2 id="momentsTitle">Patterns and moments</h2>
-    <p class="hint">How long the patterns run, how many colours the room shares, and the moments now and then: one colour, slower colours, rainbows. And the APC64’s pads as a light.</p>
+    <p class="hint">How long the patterns run, how many colours the room shares, and the moments now and then: one colour, slower colours, rainbows. The APC64’s look is in its own box at the top.</p>
     <div class="choices" id="moments"></div>
     <div class="sliders" id="momentFeel"></div>
   </section>
 
   <section class="card" aria-labelledby="colourTitle">
     <h2 id="colourTitle">Colours</h2>
-    <p class="hint">Synesthesia’s note key: each note’s colour, in rainbow order through the scale, lighter as the melody sits higher.</p>
-    <div class="notekey" id="noteKey" role="list" aria-label="The colour of each of the 12 notes"></div>
-    <label class="choice switch"><span><input type="checkbox" id="songColors"> Song colour converter</span>
-      <span class="hint">Each song gets its own colour families, made from one base colour and a harmony, so the next song looks different. Turn it off to use your own colour groups below.</span></label>
-    <p class="hint"><span id="groupsSaid">Colour groups: each part’s own family of colours, used when colours come from Colour groups.</span></p>
-    <div class="fams" id="groups"></div>
-    <p class="hint">The palette: the colours every beat steps through.</p>
-    <div class="swatches" id="palette"></div>
-    <p class="hint">Each part of the song, from the kick to the hi-hats: Each part its colour, the line and Bands use these.</p>
-    <div class="swatches" id="bandColors"></div>
+    <!-- Astra, 2026-11-27: "colors need to have the 4 distinct sections as tools like the other sections". One box per
+         way of colouring; the one in use has the ring, and its Use button picks it. -->
+    <p class="hint">Four ways to colour the lights. The one in use has the ring; its button picks it.</p>
+    <div class="tools four">
+      <section class="tool" id="tool-synesthesia" aria-labelledby="synTitle">
+        <div class="toolhead"><h3 id="synTitle">Synesthesia</h3><span class="usebtns" data-ways="synesthesia"></span></div>
+        <p class="hint">Each part in its notes’ colours, rainbow order through the scale, lighter as the melody rises.</p>
+        <div class="notekey" id="noteKey" role="list" aria-label="The colour of each of the 12 notes"></div>
+      </section>
+      <section class="tool" id="tool-groups" aria-labelledby="groupsTitle">
+        <div class="toolhead"><h3 id="groupsTitle">Colour groups</h3><span class="usebtns" data-ways="groups"></span></div>
+        <label class="choice switch"><span><input type="checkbox" id="songColors"> Song colour converter</span>
+          <span class="hint">Each song makes its own families (a base colour and a harmony). Off: your own below.</span></label>
+        <p class="hint"><span id="groupsSaid">Colour groups: each part’s own family of colours, used when colours come from Colour groups.</span></p>
+        <div class="fams" id="groups"></div>
+      </section>
+      <section class="tool" id="tool-palette" aria-labelledby="paletteTitle">
+        <div class="toolhead"><h3 id="paletteTitle">Palette</h3><span class="usebtns" data-ways="components room"></span></div>
+        <p class="hint">Colours every beat steps through: each part its own, moving together, or one for the room. The older shows use it too.</p>
+        <div class="swatches" id="palette"></div>
+      </section>
+      <section class="tool" id="tool-parts" aria-labelledby="partsTitle">
+        <div class="toolhead"><h3 id="partsTitle">Part colours</h3><span class="usebtns" data-ways="parts"></span></div>
+        <p class="hint">A fixed colour for each part, kick to hi-hats. Bands and the wavelength line use them too.</p>
+        <div class="swatches" id="bandColors"></div>
+      </section>
+    </div>
   </section>
 
   <section class="card" aria-labelledby="feelTitle">
@@ -249,9 +267,9 @@ select{font:inherit;font-size:15px;color:var(--ink);background:#101016;border:1p
   <details class="about">
     <summary>More details</summary>
     <dl>
-      <dt>How it works</dt><dd>Press Start the show and play something on Spotify on this PC. The table at the top says which light follows which part of the song: the kick and bass, the bass line, vocals and melody, snares and claps, hi-hats and cymbals, every beat, the tempo or the song’s sections. Song structure gives each device its job (the wall line the hard hits, snares and kick; Squiggle, the mic and the headset the vocals; the keyboard the hats in ripples, the mouse pad an even metronome, the Mirror the sections) and each part its own colour family. Synesthesia colours each part by the notes it hears, in rainbow order through the scale (C red, D orange, E yellow, F green, G cyan, A blue, B violet, the sharps between) and paler as the melody sits higher, after the pitch-class synesthesia studies Paper Girl’s chromesthesia quiz cites (Itoh et al. 2017; Ward, Huckstep and Tsakanikos 2006). Patterns with the song lets the wall line and the keyboard change pattern with the music’s pace: calm stretches roll slowly, steady ones flash on the hits, loud ones and drops snake, comet and chase. The room shares a few colours each section, colours hold longer when it’s calm, now and then the whole room goes one colour, and a rainbow runs through every light at a drop. The APC64’s pads show the bars. Pick a preset or change any setting: it goes to the lights straight away and is saved on the PC. In Pulse every light sits dark (or at Base) and flashes on its own part’s hits; White patterns does it in white, to learn the patterns first. The live view shows what the server hears: the song’s tempo in the dot, its sections, drops and accents, the five parts (a part’s bar lights up on its hits), the line from the lowest to the highest notes, and what the show is doing now (the pace, the strip’s and the keyboard’s patterns, the room’s colours, the Squiggle and the APC64).</dd>
+      <dt>How it works</dt><dd>Press Start the show and play something on Spotify on this PC. The device boxes at the top say which part of the song each device follows: the kick and bass, the bass line, vocals and melody, snares and claps, hi-hats and cymbals, every beat, the tempo or the song’s sections. Song structure gives each device its job (the wall line the hard hits, snares and kick; Squiggle, the mic and the headset the vocals; the keyboard the hats in ripples, the mouse pad an even metronome, the Mirror the sections) and each part its own colour family. Synesthesia colours each part by the notes it hears, in rainbow order through the scale (C red, D orange, E yellow, F green, G cyan, A blue, B violet, the sharps between) and paler as the melody sits higher, after the pitch-class synesthesia studies Paper Girl’s chromesthesia quiz cites (Itoh et al. 2017; Ward, Huckstep and Tsakanikos 2006). Patterns with the song lets the wall line and the keyboard change pattern with the music’s pace: calm stretches roll slowly, steady ones flash on the hits, loud ones and drops snake, comet and chase. The room shares a few colours each section, colours hold longer when it’s calm, now and then the whole room goes one colour, and a rainbow runs through every light at a drop. The APC64’s pads show the bars. Pick a preset or change any setting: it goes to the lights straight away and is saved on the PC. In Pulse every light sits dark (or at Base) and flashes on its own part’s hits; White patterns does it in white, to learn the patterns first. The live view shows what the server hears: the song’s tempo in the dot, its sections, drops and accents, the five parts (a part’s bar lights up on its hits), the line from the lowest to the highest notes, and what the show is doing now (the pace, the strip’s and the keyboard’s patterns, the room’s colours, the Squiggle and the APC64).</dd>
       <dt>Where it comes from</dt><dd>Light Hive’s server on this PC (findastra/rgbee <code>server/</code>, light-hive-server 1.5.0 and later). It hears Windows’ loopback of the default speakers (Voicemeeter Input on this PC, where Spotify plays), splits the sound into bands and finds the beats. Nothing is recorded or saved. The APC64’s pads are lit through its DAW port (the protocol from github.com/esazhin/apc64-control, not Akai’s); the server hands the APC64 back to Ableton whenever the show stops. Only your PC’s copy of this page reaches it; the live site only previews.</dd>
-      <dt>Your rules</dt><dd>2026-11-27: every beat changes the colour, parts of the line answer different parts of the sound, the line is the wave length, lots of settings to experiment with, solid blocks; dim lighting with bright flashes on the beats, one colour across larger sections, plain white to learn the patterns; more patterns and longer runs, sometimes only one colour; colours that slow down in some stretches and fit together; no bars on the keyboard (they’re on the APC64 now); snakes, rainbows and gradual rolls; the mouse pad just the tempo; more than one colour on the Squiggle. Fast strobing is on by your choice: you lifted Light Hive’s flash limit for your own room on 2026-11-27 (it was three a second, then six), so the lights can change every 40 ms. This page’s own preview changes about four times a second at most, and nothing on it moves when your computer asks for less motion.</dd>
+      <dt>Your rules</dt><dd>2026-11-27: every beat changes the colour, parts of the line answer different parts of the sound, the line is the wave length, lots of settings to experiment with, solid blocks; dim lighting with bright flashes on the beats, one colour across larger sections, plain white to learn the patterns; more patterns and longer runs, sometimes only one colour; colours that slow down in some stretches and fit together; no bars on the keyboard (they’re on the APC64 now); snakes, rainbows and gradual rolls; the mouse pad just the tempo; more than one colour on the Squiggle. Fast strobing is on by your choice: you lifted Light Hive’s flash limit for your own room on 2026-11-27 (it was three a second, then six), so the lights can change every 40 ms. This page’s own preview changes about eight times a second at most, and a lit bar stays on at least 170 ms, and nothing on it moves when your computer asks for less motion.</dd>
       <dt>Not built yet</dt><dd>The server doesn’t start by itself at sign-in, and the show doesn’t come back on after a restart (your settings do). Music playing on another device can’t be heard: pick this PC in Spotify Connect. MSI’s lights aren’t reached yet.</dd>
     </dl>
   </details>
@@ -547,7 +565,7 @@ function gate() {
   if (sig === gateSig) return; gateSig = sig;
   for (const [k] of FEEL) { const c = $('feel-' + k); if (c) c.closest('label').hidden = !has(k); }
   for (const [k] of CHOICES) { const c = $('pick-' + k); if (c) c.closest('label').hidden = !has(k); }
-  $('brightBox').hidden = !has('light_brightness') || !serverKeys.size;
+  for (const b of document.querySelectorAll('.brightctl')) b.hidden = !has('light_brightness') || !serverKeys.size;
   tell();
 }
 // The server's own note colours (1.21.0, options.note_colors: 12 colours, C to B), so the key can't drift from the lights.
@@ -604,7 +622,7 @@ function select(list, label, onPick) {
 }
 const CHOICES = [['mode', 'The lights'], ['line', 'The wall line (Pulse)'], ['scale', 'Colour scaling'], ['colors_by', 'Colours come from'],
   ['change_on', 'Colours move on'], ['white', 'White flashes'], ['keyboard', 'The keyboard’s picture'], ['strip', 'The Light Strip (other modes)'], ['beat_on', 'A beat is'], ['order', 'Colours go'],
-  ['mono', 'One-colour moments', 'moments'], ['slow', 'Colours slow down', 'moments'], ['rainbow', 'Rainbows', 'moments'], ['apc64', 'The APC64’s pads', 'moments']];
+  ['mono', 'One-colour moments', 'moments'], ['slow', 'Colours slow down', 'moments'], ['rainbow', 'Rainbows', 'moments'], ['apc64', 'Its look', 'devbody-apc64']];
 // A preset over the current settings: its assign and side change only the lights they name.
 const over = (set) => ({ ...S, ...set, assign: { ...S.assign, ...(set.assign || {}) }, side: { ...S.side, ...(set.side || {}) } });
 const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
@@ -650,18 +668,32 @@ function build() {
   }
   lightRows(); noteKey(); brightRows();
   $('songColors').addEventListener('change', () => change({ song_colors: $('songColors').checked }));
+  // Each colour box's Use button: colours come from it (in Pulse, where colours come from one of these).
+  for (const box of document.querySelectorAll('.usebtns')) {
+    const ways = box.dataset.ways.split(' ');
+    for (const way of ways) {
+      const b = el('button', 'chip', ways.length > 1 ? nameOf('colors_by', way)[1] : 'Use these colours'); b.type = 'button'; b.dataset.way = way;
+      b.title = 'Colours come from ' + nameOf('colors_by', way)[1] + ' (and the show goes to Pulse, where colours come from these boxes)';
+      b.addEventListener('click', () => change({ mode: 'pulse', colors_by: way }));
+      box.append(b);
+    }
+  }
 }
-function lightRows() {   // the main table: one row per light the server drives, and the part of the song it follows
-  $('lights').replaceChildren();
+function lightRows() {   // the main control: one tool box per device the server drives (the APC64's box stays last)
+  const apc = $('dev-apc64'); $('devices').replaceChildren();
   const parts = () => OPTS.part.map((p) => [p, nameOf('part', p)[1]]);
+  const field = (label, s) => { const l = el('label', 'choice'); l.append(el('span', null, label), s); return l; };
   for (const id of OPTS.light) {
     const [, name, note] = nameOf('light', id);
-    const tr = el('tr'), who = el('td'), follows = el('td'), side = el('td');
-    who.append(el('b', null, name)); if (note) who.append(el('span', 'hint', note));
+    const box = el('section', 'tool'); box.id = 'dev-' + id;
+    const head = el('div', 'toolhead'); head.append(el('h3', null, name)); box.append(head);
+    if (note) box.append(el('p', 'hint', note));
+    const body = el('div', 'devbody'); body.id = 'devbody-' + id;
     const part = select(parts(), name + ': the part of the song it follows', (v) => change({ assign: { ...S.assign, [id]: v } })); part.id = 'part-' + id;
     const ab = select([['A', 'A'], ['B', 'B']], name + ': its side in Ping-pong', (v) => change({ side: { ...S.side, [id]: v } })); ab.id = 'side-' + id;
-    follows.append(part); side.append(ab); tr.append(who, follows, side); $('lights').append(tr);
+    body.append(field('Follows', part), field('Ping-pong', ab)); box.append(body); $('devices').append(box);
   }
+  $('devices').append(apc); brightSig = '';   // the brightness steps go back into the new boxes
   // The wall line's segments, left to right: the first is always set; the rest can be left out.
   $('segments').replaceChildren();
   for (let i = 0; i < 5; i++) {
@@ -676,15 +708,18 @@ function lightRows() {   // the main table: one row per light the server drives,
 const BRIGHTS = [[0, 'Like Flash'], [10, 'Very dim'], [25, 'Dim'], [50, 'Medium'], [75, 'Bright'], [100, 'Full']];
 const lightName = (id) => (id === 'apc64' ? 'APC64' : nameOf('light', id)[1].replace(/ \(.*\)$/, ''));
 let brightSig = '';
-function brightRows() {
+function brightRows() {   // each device's brightness step, second in its box (after Follows)
   const ids = Object.keys(S.light_brightness), sig = ids.join();
   if (sig === brightSig) return; brightSig = sig;
-  $('brights').replaceChildren();
+  for (const old of document.querySelectorAll('.brightctl')) old.remove();
   for (const id of ids) {
-    const box = el('label', 'choice'); box.append(el('span', null, lightName(id)));
+    const body = $('devbody-' + id); if (!body) continue;
+    const box = el('label', 'choice brightctl'); box.append(el('span', null, 'Brightness'));
     const s = select(BRIGHTS.map(([v, w]) => [String(v), w]), lightName(id) + ': how bright it flashes', (v) => change({ light_brightness: { ...S.light_brightness, [id]: +v } }));
-    s.id = 'bright-' + id; box.append(s); $('brights').append(box);
+    s.id = 'bright-' + id; box.append(s);
+    body.insertBefore(box, body.children[1] || null);
   }
+  gateSig = ''; gate();
 }
 function swatch(colour, label, onColour, onRemove) {
   const sw = el('div', 'sw'); const dot = el('span', 'dot'); dot.style.setProperty('--s', colour);
@@ -782,6 +817,7 @@ function fill() {
   S.band_colors.forEach((c, i) => { const sw = swatch(c, BANDS[i] + ' colour', (v) => change({ band_colors: S.band_colors.map((x, j) => (j === i ? v : x)) }), null); sw.append(el('span', null, BANDS[i])); bc.append(sw); });
   $('songColors').checked = S.song_colors;
   renderGroups();
+  for (const b of document.querySelectorAll('[data-way]')) b.setAttribute('aria-pressed', String(S.mode === 'pulse' && S.colors_by === b.dataset.way));
   for (const b of document.querySelectorAll('[data-preset]')) {
     const p = PRESETS.find((x) => x.name === b.dataset.preset);
     b.setAttribute('aria-pressed', String(!!p && presetOn(p)));
@@ -789,7 +825,7 @@ function fill() {
   markUse(); tell();
 }
 
-// The live view. It is a preview, not a copy of the lights: it changes when it asks (about four times a second), and a
+// The live view. It is a preview, not a copy of the lights: it changes when it asks (about eight times a second), and a
 // bar or a stretch of the wall line stays lit at least 170 ms, so this page itself doesn't strobe even though the lights
 // may (Astra turned Light Hive's flash limit off for her own room, 2026-11-27).
 let lastBeats = null, beatIndex = 0, lastBeatAt = 0;
@@ -937,11 +973,21 @@ function markUse() {
   for (const [k, why] of Object.entries(u)) {
     const c = $('pick-' + k) || $('feel-' + k);
     const own = $(k) || { closest: () => null };
-    let box = c ? c.closest('label') : k.startsWith('part-') || k.startsWith('side-') ? own.closest('td') : k.startsWith('bright-') ? own.closest('label') : k === 'songColors' ? $('songColors').closest('label') : null;
+    let box = c ? c.closest('label') : k.startsWith('part-') || k.startsWith('side-') || k.startsWith('bright-') ? own.closest('label') : k === 'songColors' ? $('songColors').closest('label') : null;
     if (box) { mark(box, why, true); say(box, k.startsWith('side-') ? '' : why); continue; }   // Side is only dimmed: its column says Ping-pong
     box = $(k); if (!box) continue;   // segments, noteKey, groups, palette, bandColors: the group itself, and why in the line above
     mark(box, why, k === 'segments'); say(box.previousElementSibling, why);
   }
+  // The colour box in use has the ring (in Pulse the one colours come from; in the older shows the palette, or the part
+  // colours in Bands and the wavelength line).
+  const P = S.mode === 'pulse';
+  const ring = { synesthesia: P && S.colors_by === 'synesthesia', groups: P && S.colors_by === 'groups',
+    palette: P ? ['components', 'room'].includes(S.colors_by) : S.mode !== 'bands', parts: P ? S.colors_by === 'parts' : S.mode === 'bands' || S.strip === 'spectrum' };
+  for (const [k, on] of Object.entries(ring)) $('tool-' + k).classList.toggle('use', on);
+  // A device's box has the ring while the show is using what it follows (the APC64's while it shows a look).
+  const used = (why) => why === undefined || !why || why.startsWith('In use');
+  for (const id of OPTS.light) { const d = $('dev-' + id); if (d) d.classList.toggle('use', P && used(u['part-' + id])); }
+  $('dev-apc64').classList.toggle('use', P && S.apc64 !== 'off');
   tell();
 }
 function drawPower() {
@@ -1033,7 +1079,7 @@ function drawLive() {
   ln.textContent = lb.join(' · '); ln.hidden = !lb.length;
   renderGroups(); markUse();
   // The mouse pad's metronome: an even tick on its own timer. The dot ticks on this page's own clock at the same gap
-  // (re-timed only when the gap changes), because asking four times a second can't show an even beat.
+  // (re-timed only when the gap changes), because asking eight times a second can't show an even beat.
   const m = live && live.metronome && typeof live.metronome === 'object' ? live.metronome : null, metro = $('metro');
   const mgap = m ? Number(m.last_gap_ms) : NaN, mOn = !!(m && m.on && Number.isFinite(mgap) && mgap >= 150 && mgap <= 3000);
   metro.hidden = !mOn;
@@ -1055,7 +1101,7 @@ function drawLive() {
   hear.classList.toggle('no', !live.hearing);
 }
 
-// Asking about four times a second, only while this page is on screen and the computer doesn't ask for less motion.
+// Asking about eight times a second (Astra: "i feel like this thing needs to respond faster"), only while this page is on screen and the computer doesn't ask for less motion.
 const calm = window.matchMedia ? matchMedia('(prefers-reduced-motion: reduce)') : { matches: false, addEventListener() {} };
 let seen = true, busy = false, loopT = 0;
 if (window.IntersectionObserver) new IntersectionObserver((es) => { seen = es.some((e) => e.isIntersecting); }).observe($('stage'));
@@ -1070,7 +1116,7 @@ function loop() {
   $('refresh').hidden = !calm.matches;
   if (calm.matches) return;
   if (document.visibilityState === 'visible' && seen) look();
-  loopT = setTimeout(loop, 250);
+  loopT = setTimeout(loop, 125);
 }
 calm.addEventListener('change', loop);
 document.addEventListener('visibilitychange', loop);
