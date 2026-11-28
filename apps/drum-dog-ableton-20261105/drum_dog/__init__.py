@@ -25,6 +25,11 @@ except ImportError:  # Python 2 (Live 10 and older)
 
 from _Framework.ControlSurface import ControlSurface
 
+try:
+    import Live
+except ImportError:  # outside Ableton (tests)
+    Live = None
+
 PORT = 38771
 TRACK_NAME = 'Drum Dog'
 # The first Drum Rack note of each quarter; each quarter's 16 pads go bottom row first, left to right, on the notes
@@ -122,6 +127,10 @@ class Server(threading.Thread):
             return self.reply(conn, 204, None, origin)
         if method == 'GET' and path == '/':
             return self.reply(conn, 200, {'ok': True, 'message': 'Drum Dog is listening.'}, origin)
+        if method == 'GET' and path == '/status':
+            return self.reply(conn, 200, self.ask({'action': 'status'}), origin)
+        if method == 'POST' and path in ('/ready', '/hit'):
+            return self.reply(conn, 200, self.ask({'action': path[1:]}), origin)
         if method != 'POST' or path != '/kit':
             return self.reply(conn, 404, {'ok': False, 'message': 'Not here.'}, origin)
         size = int(headers.get('content-length', '0') or 0)
@@ -137,6 +146,14 @@ class Server(threading.Thread):
         if not job['done'].wait(40):
             job['result'] = {'ok': False, 'message': 'Ableton took too long to load the kit.'}
         self.reply(conn, 200, job['result'], origin)
+
+    # Small jobs (status, ready, test hit) also run on Live's main thread.
+    def ask(self, data):
+        job = {'data': data, 'done': threading.Event(), 'result': None}
+        self.jobs.put(job)
+        if not job['done'].wait(10):
+            return {'ok': False, 'message': 'Ableton did not answer.'}
+        return job['result']
 
     def reply(self, conn, code, obj, origin):
         text = {200: 'OK', 204: 'No Content', 400: 'Bad Request', 403: 'Forbidden', 404: 'Not Found', 413: 'Too Large'}[code]
@@ -165,6 +182,7 @@ class DrumDog(ControlSurface):
     def update_display(self):
         ControlSurface.update_display(self)
         try:
+            self._tidy_hit()
             self._step()
         except Exception as e:
             self.log_message('Drum Dog: %s' % e)
@@ -182,6 +200,14 @@ class DrumDog(ControlSurface):
             try:
                 job = self._jobs.get_nowait()
             except queue.Empty:
+                return
+            action = job['data'].get('action')
+            if action in ('status', 'ready', 'hit'):
+                try:
+                    job['result'] = getattr(self, '_' + action)()
+                except Exception as e:
+                    job['result'] = {'ok': False, 'message': 'Drum Dog: %s' % e}
+                job['done'].set()
                 return
             self._work = {'job': job}
             self._start(job['data'])
@@ -242,11 +268,114 @@ class DrumDog(ControlSurface):
             self._dress(pad, p)
         work['pending'] = left
         if not left:
-            song.view.selected_track = track
+            self._ready()
             return self._finish(True, '%s is on the %s pads.' % (work['kit'], work['quarter']))
         if time.time() > work['deadline']:
             return self._finish(False, "Ableton's browser hasn't found %d of the sounds yet. Try again in a moment."
                                 % len(left))
+
+    # Akai's APC64 script, if it is running (Live hands every control surface script the same list).
+    def _apc64(self):
+        try:
+            for cs in self.application().control_surfaces:
+                if cs is not None and type(cs).__name__ == 'APC64':
+                    return cs
+        except Exception:
+            pass
+        return None
+
+    # Make the real pads play Drum Dog: select its track (Akai's script then puts the pads in drum mode and lights
+    # them in the kit's colours), arm it and let it play what comes in. Astra, 2026-11-27: "i wanna be able to hear".
+    def _ready(self):
+        track, rack = self._drum_dog()
+        song = self.song()
+        song.view.selected_track = track
+        song.view.select_device(rack)
+        try:
+            if track.can_be_armed:
+                track.arm = True
+        except Exception as e:
+            self.log_message('Drum Dog: arm: %s' % e)
+        try:
+            track.current_monitoring_state = 1  # Auto: plays while armed
+        except Exception:
+            pass
+        apc = self._apc64()
+        if apc is not None:
+            try:
+                modes = apc.component_map['Pad_Modes']
+                if modes.selected_mode != 'drum':
+                    modes.selected_mode = 'drum'
+            except Exception as e:
+                self.log_message('Drum Dog: pad mode: %s' % e)
+        return self._status()
+
+    def _status(self):
+        song = self.song()
+        track = None
+        for t in song.tracks:
+            if t.name == TRACK_NAME and t.has_midi_input:
+                track = t
+        out = {'ok': True, 'track': track is not None, 'selected': song.view.selected_track.name}
+        if track is not None:
+            out.update({'armed': bool(getattr(track, 'arm', False)), 'monitoring': track.current_monitoring_state,
+                        'input': getattr(track.input_routing_type, 'display_name', ''),
+                        'output': getattr(track.output_routing_type, 'display_name', ''),
+                        'volume': track.mixer_device.volume.value, 'mute': track.mute,
+                        'meter': track.output_meter_level})
+            for d in track.devices:
+                if d.can_have_drum_pads:
+                    out['filled'] = [p.note for p in d.drum_pads if p.chains]
+        out['master'] = {'volume': song.master_track.mixer_device.volume.value,
+                         'meter': song.master_track.output_meter_level}
+        apc = self._apc64()
+        out['apc64'] = None
+        if apc is not None:
+            try:
+                out['apc64'] = apc.component_map['Pad_Modes'].selected_mode
+            except Exception as e:
+                out['apc64'] = 'running (%s)' % e
+        out['last_hit_peak'] = getattr(self, '_last_peak', None)
+        out['message'] = 'Drum Dog track %s, APC64 pads in %s mode.' % (
+            'armed' if out.get('armed') else 'not armed', out['apc64'])
+        return out
+
+    # A test hit: a short clip with up to four filled pads, played once, then removed.
+    def _hit(self):
+        track, rack = self._drum_dog()
+        notes = [p.note for p in rack.drum_pads if p.chains][:4]
+        if not notes:
+            return {'ok': False, 'message': 'No kit is loaded yet.'}
+        slot = None
+        for cs in track.clip_slots:
+            if not cs.has_clip:
+                slot = cs
+                break
+        if slot is None:
+            return {'ok': False, 'message': 'No empty clip slot on the Drum Dog track.'}
+        slot.create_clip(2.0)
+        specs = [Live.Clip.MidiNoteSpecification(pitch=n, start_time=0.5 * i, duration=0.25, velocity=110)
+                 for i, n in enumerate(notes)]
+        slot.clip.add_new_notes(tuple(specs))
+        slot.fire()
+        self._hit_slot = {'slot': slot, 'until': time.time() + 3.0, 'peak': 0.0}
+        return {'ok': True, 'message': 'Playing pads %s once.' % notes, 'notes': notes}
+
+    def _tidy_hit(self):
+        h = getattr(self, '_hit_slot', None)
+        if not h:
+            return
+        h['peak'] = max(h['peak'], self.song().master_track.output_meter_level)
+        self._last_peak = h['peak']
+        if time.time() > h['until']:
+            self._hit_slot = None
+            try:
+                h['slot'].stop()
+                self.song().stop_playing()
+                h['slot'].delete_clip()
+            except Exception as e:
+                self.log_message('Drum Dog: tidy: %s' % e)
+            self.log_message('Drum Dog: test hit peak %.3f' % h['peak'])
 
     # The pad's chain takes the sound's name and the kit's colour (Live picks its nearest colour).
     def _dress(self, pad, p):
