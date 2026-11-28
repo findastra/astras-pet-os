@@ -214,6 +214,16 @@ the first section, also make those devices look like tools like the other sectio
   smaller swatches with the remove mark on the corner, a shorter note key, shorter words; hints are smaller page-wide.
 - **The live view asks eight times a second** (was four). Astra: "i feel like this thing needs to respond faster". The
   lights' own delay (hearing, beat finding, each light's path) is light-hive-server's; her words went to its session.
+- **Easier to understand** (Astra: "this thing is still really hard to understand"):
+  - right under the live view, **What your lights are doing now**: one plain line per device (the wall line's stretches
+    and what each lights on, what each device flashes on, the mouse pad's metronome, the APC64's look), then the colours
+    and the brightness; it says so when the show is off or out of Pulse;
+  - then the presets, the devices and the colours; How the lights move, Patterns and moments and Feel fold away under
+    **More settings** (it stays open or shut in this browser).
+- **How fast it answers:** with light-hive-server 1.21.1 (a show step every 20 ms) the Now line says how long a heard hit
+  takes to be drawn (`live.now.heard_to_drawn_ms`), e.g. "drawn 23 ms after it's heard".
+- **Stop** stays `{"on": false}`. Astra: "when i stop the show the lights are still moving....". 1.21.1 rests every light on
+  one steady colour and darkens the APC64 before letting it go (it isn't installed yet).
 
 ## light-hive-server 1.21.0 (later 2026-11-27)
 

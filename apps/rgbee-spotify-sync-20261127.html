@@ -139,10 +139,16 @@ select{font:inherit;font-size:15px;color:var(--ink);background:#101016;border:1p
 
 /* More details: the same four lines as every panel on the pet program page. */
 .about{color:var(--soft);font-size:15px}
-.about summary,.older summary{cursor:pointer;width:fit-content;list-style:none;display:flex;align-items:center;gap:8px;color:var(--ink)}
-.about summary::-webkit-details-marker,.older summary::-webkit-details-marker{display:none}
-.about summary::before,.older summary::before{content:"";width:0;height:0;border-left:9px solid var(--cyan);border-top:6px solid transparent;border-bottom:6px solid transparent}
-.about[open] summary::before,.older[open] summary::before{transform:rotate(90deg)}
+.plainlist{margin:0;padding:0;list-style:none;display:grid;gap:3px;font-size:14.5px;color:var(--soft)}
+.plainlist b{color:var(--ink);font-weight:650}
+.plainlist li.off{color:var(--amber)}
+.moreset{color:var(--soft)}
+.moreset>summary{font-size:15px;padding:6px 2px}
+.moresetbody{display:grid;gap:12px;margin-top:8px}
+.about summary,.older summary,.moreset>summary{cursor:pointer;width:fit-content;list-style:none;display:flex;align-items:center;gap:8px;color:var(--ink)}
+.about summary::-webkit-details-marker,.older summary::-webkit-details-marker,.moreset>summary::-webkit-details-marker{display:none}
+.about summary::before,.older summary::before,.moreset>summary::before{content:"";width:0;height:0;border-left:9px solid var(--cyan);border-top:6px solid transparent;border-bottom:6px solid transparent}
+.about[open] summary::before,.older[open] summary::before,.moreset[open]>summary::before{transform:rotate(90deg)}
 .older{color:var(--soft);font-size:15px}.older .hint{margin:6px 0}
 .about dl{margin:10px 0 0 18px;display:grid;grid-template-columns:max-content minmax(0,1fr);gap:6px 14px}
 .about dt{color:var(--ink);font-weight:600}
@@ -184,6 +190,23 @@ select{font:inherit;font-size:15px;color:var(--ink);background:#101016;border:1p
   </section>
   <p class="said" id="said" role="status"></p>
 
+  <!-- Astra, 2026-11-27: "this thing is still really hard to understand". First, in plain words, what each device is
+       doing now; then the presets, the devices and the colours; the finer settings fold away under More settings. -->
+  <section class="card plain" aria-labelledby="plainTitle">
+    <h2 id="plainTitle">What your lights are doing now</h2>
+    <ul class="plainlist" id="plain"></ul>
+  </section>
+
+  <section class="card" aria-labelledby="presetsTitle">
+    <h2 id="presetsTitle">Presets</h2>
+    <div class="presets" id="presets" role="group" aria-label="Presets"></div>
+    <details class="older">
+      <summary>Older shows, not Pulse</summary>
+      <p class="hint">These leave Pulse: every light is lit at Brightness instead of Flash (brighter), and what each device follows, the wall line’s patterns, the moments and each device’s brightness aren’t used. Pulse presets above bring it back.</p>
+      <div class="presets" id="oldPresets" role="group" aria-label="Older shows, not Pulse"></div>
+    </details>
+  </section>
+
   <section class="card" aria-labelledby="lightsTitle">
     <!-- Astra, 2026-11-27: "call it Device, not Light for the first section, also make those devices look like tools
          like the other sections". One box per device: what it follows, how bright it flashes, its Ping-pong side. -->
@@ -198,28 +221,6 @@ select{font:inherit;font-size:15px;color:var(--ink);background:#101016;border:1p
     </div>
     <p class="hint">The wall line, left to right, when it is cut into segments:</p>
     <div class="segs" id="segments" role="group" aria-label="The wall line's segments, left to right"></div>
-  </section>
-
-  <section class="card" aria-labelledby="presetsTitle">
-    <h2 id="presetsTitle">Presets</h2>
-    <div class="presets" id="presets" role="group" aria-label="Presets"></div>
-    <details class="older">
-      <summary>Older shows, not Pulse</summary>
-      <p class="hint">These leave Pulse: every light is lit at Brightness instead of Flash (brighter), and what each device follows, the wall line’s patterns, the moments and each device’s brightness aren’t used. Pulse presets above bring it back.</p>
-      <div class="presets" id="oldPresets" role="group" aria-label="Older shows, not Pulse"></div>
-    </details>
-  </section>
-
-  <section class="card" aria-labelledby="moveTitle">
-    <h2 id="moveTitle">How the lights move</h2>
-    <div class="choices" id="choices"></div>
-  </section>
-
-  <section class="card" aria-labelledby="momentsTitle">
-    <h2 id="momentsTitle">Patterns and moments</h2>
-    <p class="hint">How long the patterns run, how many colours the room shares, and the moments now and then: one colour, slower colours, rainbows. The APC64’s look is in its own box at the top.</p>
-    <div class="choices" id="moments"></div>
-    <div class="sliders" id="momentFeel"></div>
   </section>
 
   <section class="card" aria-labelledby="colourTitle">
@@ -253,6 +254,21 @@ select{font:inherit;font-size:15px;color:var(--ink);background:#101016;border:1p
     </div>
   </section>
 
+  <details class="moreset" id="moreSettings">
+    <summary>More settings: how the lights move, patterns and moments, feel</summary>
+    <div class="moresetbody">
+  <section class="card" aria-labelledby="moveTitle">
+    <h2 id="moveTitle">How the lights move</h2>
+    <div class="choices" id="choices"></div>
+  </section>
+
+  <section class="card" aria-labelledby="momentsTitle">
+    <h2 id="momentsTitle">Patterns and moments</h2>
+    <p class="hint">How long the patterns run, how many colours the room shares, and the moments now and then: one colour, slower colours, rainbows. The APC64’s look is in its own box at the top.</p>
+    <div class="choices" id="moments"></div>
+    <div class="sliders" id="momentFeel"></div>
+  </section>
+
   <section class="card" aria-labelledby="feelTitle">
     <h2 id="feelTitle">Feel</h2>
     <div class="sliders" id="feel"></div>
@@ -263,6 +279,8 @@ select{font:inherit;font-size:15px;color:var(--ink);background:#101016;border:1p
     <p class="hint">Settings light-hive-server has that this page has no words for yet: try them.</p>
     <div class="choices" id="more"></div>
   </section>
+    </div>
+  </details>
 
   <details class="about">
     <summary>More details</summary>
@@ -284,6 +302,8 @@ function tell() { if (inTool) try { parent.postMessage({ type: 'tool-panel-heigh
 if (window.ResizeObserver) new ResizeObserver(tell).observe(document.querySelector('main'));
 document.querySelector('.about').addEventListener('toggle', tell);
 document.querySelector('.older').addEventListener('toggle', tell);
+try { if (localStorage.getItem('spotify-sync-more-settings') === 'open') $('moreSettings').open = true; } catch (e) {}
+$('moreSettings').addEventListener('toggle', () => { tell(); try { localStorage.setItem('spotify-sync-more-settings', $('moreSettings').open ? 'open' : 'shut'); } catch (e) {} });
 
 // Light Hive's server is found the house way (like program-watch): only a page opened on this PC reads the address it
 // writes in Documents\Astra's PetOS Data\rgbee, so the live site never reaches the lights and no address is published.
@@ -857,7 +877,8 @@ function liveNow() {
   const n = live && live.now && typeof live.now === 'object' ? live.now : {};
   return { strip: word(n.strip), keyboard: word(n.keyboard), pace: word(n.pace), one: n.one_color === true, rainbow: n.rainbow === true,
     colors: Array.isArray(n.colors) ? n.colors.filter(isHex).map((c) => c.toLowerCase()).slice(0, 5) : [],
-    squiggle: typeof n.squiggle === 'string' ? n.squiggle.slice(0, 120) : '', apc64: typeof n.apc64 === 'string' ? n.apc64.slice(0, 60) : '', apcLook: word(n.apc64_look) };
+    squiggle: typeof n.squiggle === 'string' ? n.squiggle.slice(0, 120) : '', apc64: typeof n.apc64 === 'string' ? n.apc64.slice(0, 60) : '', apcLook: word(n.apc64_look),
+    lag: Number.isFinite(Number(n.heard_to_drawn_ms)) && Number(n.heard_to_drawn_ms) >= 0 ? Math.round(Number(n.heard_to_drawn_ms)) : NaN };   // 1.21.1: a heard hit to drawn, ms
 }
 // The room's colours as the server snaps them (1.20.0): each light takes the section's colour nearest its own by hue, and
 // in a one-colour moment every light takes the low end's.
@@ -955,6 +976,49 @@ function uses() {
   }
   u.segments = !P ? pulseOnly : moving(ln) ? 'Not while the wall line is ' + nameOf('line', ln)[1] + ': it moves on its own.' : '';
   return u;
+}
+// What each device is doing now, in plain words (Astra: "this thing is still really hard to understand").
+const PART_WORDS = { bass: 'the kick and bass', 'low-mid': 'the bass line', mid: 'the vocals and melody', 'high-mid': 'the snares and claps',
+  treble: 'the hi-hats and cymbals', beat: 'every beat', tempo: 'the metronome', section: 'each new song section' };
+const partWords = (p) => PART_WORDS[p] || String(p).replace(/-/g, ' ');
+const listWords = (a) => (a.length < 2 ? a.join('') : a.slice(0, -1).join(', ') + ' and ' + a[a.length - 1]);
+function plainLines() {
+  const nw = liveNow(), P = S.mode === 'pulse', out = [];
+  if (!online) return [['', 'Light Hive’s server isn’t answering, so nothing here reaches the lights.', true]];
+  if (!on) return [['', 'The show is off. Press Start the show, or a preset.', true]];
+  if (!P) return [['', nameOf('mode', S.mode)[1] + ': every light changes palette colour on each beat, at Brightness ' + S.brightness + '%. The device boxes, patterns and moments aren’t used; any preset in the first row brings back Pulse.', true]];
+  const ln = S.line === 'auto' ? nw.strip || '' : S.line, auto = S.line === 'auto' ? ' It changes pattern with the song.' : '';
+  const segs = [...new Set(S.segments)].map(partWords);
+  const strip = ln === 'snake' ? 'a snake of colours slides along it on its own' : ln === 'roll' ? 'a slow roll of colours travels along it on its own'
+    : ln === 'rainbow' ? 'a rainbow runs along it' : ln === 'segments' ? (S.segments.length === 1 ? 'one stretch, lighting on ' + partWords(S.segments[0]) : S.segments.length + ' stretches, left to right ' + S.segments.map(partWords).join(' · ') + ', each lighting when its part hits')
+    : ln ? nameOf('line', ln)[1].toLowerCase() + ' on the hits of ' + listWords(segs) : 'a pattern that changes with the song';
+  out.push(['Light Strip', strip + '.' + auto]);
+  for (const id of OPTS.light) {
+    if (id === 'strip') continue;
+    const name = lightName(id), part = S.assign[id];
+    if (id === 'mousepad' && part === 'tempo') { const bpm = live ? Number(live.bpm) : 0; out.push([name, 'ticks with the metronome' + (bpm > 0 ? ', ' + Math.round(bpm) + ' BPM' : '') + '.']); continue; }
+    if (id === 'keyboard') {
+      const kb = S.keyboard === 'auto' ? nw.keyboard || '' : S.keyboard, kn = kb ? nameOf('keyboard', kb)[1].toLowerCase() : 'a picture that changes with the song';
+      out.push([name, ['snake', 'roll', 'rainbow'].includes(kb) ? kn + ', moving on its own.' : kb === 'solid' ? 'one colour, flashing on ' + partWords(part) + '.' : kn + ' on ' + partWords(part) + '.']); continue;
+    }
+    if (id === 'squiggle' && (nw.pace === 'calm' || nw.pace === 'loud')) { out.push([name, (nw.pace === 'calm' ? 'a slow roll' : 'a snake') + ' while the music is ' + nw.pace + '; on ' + partWords(part) + ' when it’s steady.']); continue; }
+    out.push([name, 'flashes on ' + partWords(part) + (id === 'mirror' ? ' (Govee’s cloud: about once a second)' : '') + '.']);
+  }
+  if (S.apc64 !== 'off') out.push(['APC64', nameOf('apc64', nw.apcLook || S.apc64)[1].toLowerCase() + '.']);
+  const way = { synesthesia: 'the colours of the notes it hears (synesthesia)', groups: 'its own colour group' + (S.song_colors ? ', made new for each song' : ''),
+    components: 'its own palette colour, all moving together', room: 'one room colour from the palette', parts: 'its part’s fixed colour' }[S.colors_by] || nameOf('colors_by', S.colors_by)[1];
+  const extra = [S.color_set > 0 && 'snapped to the section’s ' + S.color_set + ' room colours', S.mono !== 'off' && (S.mono === 'on' ? 'always one colour' : 'now and then all one colour'),
+    S.rainbow !== 'off' && 'a rainbow at ' + (S.rainbow === 'drops' ? 'drops' : 'new sections')].filter(Boolean);
+  out.push(['Colours', 'each device takes ' + way + (extra.length ? '; ' + listWords(extra) : '') + '.']);
+  out.push(['Brightness', 'flashes at ' + S.flash + '%' + (S.white !== 'off' ? ', with white strobes on ' + ({ both: 'drops and the hardest kicks', drops: 'drops', accents: 'the hardest kicks' }[S.white] || S.white) : '') + '.']);
+  return out;
+}
+let plainSig = '';
+function drawPlain() {
+  const lines = plainLines(), sig = JSON.stringify(lines);
+  if (sig === plainSig) return; plainSig = sig;
+  $('plain').replaceChildren(...lines.map(([who, what, warn]) => { const li = el('li', warn ? 'off' : null); if (who) li.append(el('b', null, who + ': ')); li.append(document.createTextNode(what)); return li; }));
+  tell();
 }
 let useSig = '';
 function markUse() {
@@ -1065,6 +1129,7 @@ function drawLive() {
   if (nw.keyboard) bits.push('keyboard: ' + nameOf('keyboard', nw.keyboard)[1]);
   if (nw.one) bits.push('one colour');
   if (nw.rainbow) bits.push('rainbow');
+  if (Number.isFinite(nw.lag)) bits.push('drawn ' + nw.lag + ' ms after it’s heard');
   ns.replaceChildren(); ns.hidden = !(bits.length || nw.colors.length);
   if (!ns.hidden) {
     ns.append(document.createTextNode('Now: ' + bits.join(' · ')));
@@ -1077,7 +1142,7 @@ function drawLive() {
   if (nw.squiggle) lb.push('Squiggle: ' + nw.squiggle);
   if (nw.apc64) lb.push('APC64: ' + nw.apc64 + (nw.apcLook ? ' · ' + nameOf('apc64', nw.apcLook)[1] : ''));
   ln.textContent = lb.join(' · '); ln.hidden = !lb.length;
-  renderGroups(); markUse();
+  renderGroups(); markUse(); drawPlain();
   // The mouse pad's metronome: an even tick on its own timer. The dot ticks on this page's own clock at the same gap
   // (re-timed only when the gap changes), because asking eight times a second can't show an even beat.
   const m = live && live.metronome && typeof live.metronome === 'object' ? live.metronome : null, metro = $('metro');
