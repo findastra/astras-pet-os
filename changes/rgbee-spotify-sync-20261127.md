@@ -197,10 +197,10 @@ at the top, and a random configuration selection next to that".
   them as `options.note_colors`; the page's key and note chips use those whenever the server sends them, and its own
   older table before that.
 
-## Ready for light-hive-server 1.21.0 (later 2026-11-27)
+## light-hive-server 1.21.0 (later 2026-11-27)
 
-1.21.0 is committed in findastra/rgbee#17's branch but not pushed or installed yet (Astra's OK pending). The page
-shows each of its settings only once the running server has it, so nothing changes on 1.20:
+1.21.0 is pushed to findastra/rgbee#17 (194c7df) and installed. The page shows each of its settings only once the
+running server has it, so an older server sees no change:
 
 - **How bright each light flashes** (Astra: "keyboard needs to be brigher, need a vague brightness section for each
   device"): under the table, a rough step for each light and the APC64: Like Flash, Very dim, Dim, Medium, Bright,
@@ -211,6 +211,18 @@ shows each of its settings only once the running server has it, so nothing chang
 - **On the bar:** Pattern for (1 to 16 bars) in Patterns and moments, and Strobe at most (once every 1 to 16 bars) in
   Feel. The server rounds the beat lengths to whole bars too.
 - **The note colours** from `options.note_colors` (above).
+- **Between hits** (`bed`, 0 to 100%): how bright the moving looks (rolls, snakes, rainbows, the APC64's looks, the
+  Squiggle's roll and snake) sit between hits, as a share of that light's flash; each hit flashes them full.
+- **Reset to default** keeps every brightness as she set it (Brightness, Flash, Base, each light's, Between hits).
+  Astra, after 1.21.0: "make dimmer, put back on old settings you had".
+- **Presets that leave Pulse** (Colour blocks, Wavelength line, D&B blocks, Ping-pong room, Bands room, Meter rise) sit
+  in their own fold, "Older shows, not Pulse", which says they light every light at Brightness instead of Flash
+  (brighter) and skip the table, patterns, moments and each light's brightness. Between 19:44 and 20:55 her show had
+  been on Every beat (at Brightness 60%), so none of 1.20 or 1.21 ran; the server's session put it back on Pulse.
+  Slow and dim now also sets Flash 6%, so it dims in Pulse too.
+- Checked against the installed 1.21.0 (reading only): More from the server is empty, each light reads Like Flash,
+  Between hits 10%, the APC64 on Changes with the song with all seven looks named, the note key from the server's own
+  colours (D yellow, #ffda0c), no console errors.
 
 ## Song colours and the keyboard (light-hive-server 1.15.0, later 2026-11-27)
 

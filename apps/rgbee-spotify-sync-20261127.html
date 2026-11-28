@@ -138,10 +138,11 @@ select{font:inherit;font-size:15px;color:var(--ink);background:#101016;border:1p
 
 /* More details: the same four lines as every panel on the pet program page. */
 .about{color:var(--soft);font-size:15px}
-.about summary{cursor:pointer;width:fit-content;list-style:none;display:flex;align-items:center;gap:8px;color:var(--ink)}
-.about summary::-webkit-details-marker{display:none}
-.about summary::before{content:"";width:0;height:0;border-left:9px solid var(--cyan);border-top:6px solid transparent;border-bottom:6px solid transparent}
-.about[open] summary::before{transform:rotate(90deg)}
+.about summary,.older summary{cursor:pointer;width:fit-content;list-style:none;display:flex;align-items:center;gap:8px;color:var(--ink)}
+.about summary::-webkit-details-marker,.older summary::-webkit-details-marker{display:none}
+.about summary::before,.older summary::before{content:"";width:0;height:0;border-left:9px solid var(--cyan);border-top:6px solid transparent;border-bottom:6px solid transparent}
+.about[open] summary::before,.older[open] summary::before{transform:rotate(90deg)}
+.older{color:var(--soft);font-size:15px}.older .hint{margin:8px 0}
 .about dl{margin:10px 0 0 18px;display:grid;grid-template-columns:max-content minmax(0,1fr);gap:6px 14px}
 .about dt{color:var(--ink);font-weight:600}
 .about dd{margin:0}
@@ -165,7 +166,7 @@ select{font:inherit;font-size:15px;color:var(--ink);background:#101016;border:1p
     <div class="side">
       <div class="row">
         <button class="go" id="power" type="button" role="switch" aria-checked="false">Start the show</button>
-        <button class="quiet" id="defaults" type="button" title="Every setting back to light-hive-server’s own starting settings; your Brightness, Flash and Base stay as they are">Reset to default</button>
+        <button class="quiet" id="defaults" type="button" title="Every setting back to light-hive-server’s own starting settings; every brightness (Brightness, Flash, Base, each light’s, Between hits) stays as you set it">Reset to default</button>
         <button class="quiet" id="random" type="button" title="A random mix of patterns, colours, moments and which light follows what; your Brightness, Flash, Base, Hold and Beats stay as they are">Random mix</button>
         <button class="quiet" id="refresh" type="button" hidden>Show what it hears now</button>
       </div>
@@ -201,6 +202,11 @@ select{font:inherit;font-size:15px;color:var(--ink);background:#101016;border:1p
   <section class="card" aria-labelledby="presetsTitle">
     <h2 id="presetsTitle">Presets</h2>
     <div class="presets" id="presets" role="group" aria-label="Presets"></div>
+    <details class="older">
+      <summary>Older shows, not Pulse</summary>
+      <p class="hint">These leave Pulse: every light is lit at Brightness instead of Flash (brighter), and the table, the wall line’s patterns, the moments and each light’s brightness aren’t used. Pulse presets above bring it back.</p>
+      <div class="presets" id="oldPresets" role="group" aria-label="Older shows, not Pulse"></div>
+    </details>
   </section>
 
   <section class="card" aria-labelledby="moveTitle">
@@ -259,6 +265,7 @@ if (inTool) document.documentElement.classList.add('in-tool');
 function tell() { if (inTool) try { parent.postMessage({ type: 'tool-panel-height', height: Math.ceil(document.querySelector('main').getBoundingClientRect().height) + 2 }, '*'); } catch (e) {} }
 if (window.ResizeObserver) new ResizeObserver(tell).observe(document.querySelector('main'));
 document.querySelector('.about').addEventListener('toggle', tell);
+document.querySelector('.older').addEventListener('toggle', tell);
 
 // Light Hive's server is found the house way (like program-watch): only a page opened on this PC reads the address it
 // writes in Documents\Astra's PetOS Data\rgbee, so the live site never reaches the lights and no address is published.
@@ -388,6 +395,8 @@ const FEEL = [['brightness', 'Brightness', 5, 100, 1, '%', ''],
   ['accent', 'Accent pickiness', 1, 10, 1, '', 'How hard a kick must hit to strobe the room: 1 the most kicks, 10 only the very hardest.'],
   ['strobe_bars', 'Strobe at most', 1, 16, 1, ' bars', 'The hardest kicks strobe at most once every so many bars; drops always strobe.'],
   ['pattern_bars', 'Pattern for', 1, 16, 1, ' bars', 'How long an auto pattern lasts before the next (twice as long when calm).', 'momentFeel'],
+  // 1.21.0: "dark between hits, flashing the colors".
+  ['bed', 'Between hits', 0, 100, 1, '%', 'How bright the moving looks (roll, snake, rainbows, the APC64’s looks, the Squiggle’s roll and snake) sit between hits, as a share of that light’s flash; each hit flashes them full.', 'momentFeel'],
   ['run', 'Run', 1, 15, 1, ' sections', 'How many sections one hit lights in Chase, and how long a comet or snake is.', 'momentFeel'],
   ['sparkle_keys', 'Sparkle keys', 1, 48, 1, ' keys', 'How many random keys one hit lights in Sparkle.', 'momentFeel'],
   ['color_set', 'Room colours', 0, 5, 1, '', 'How many colours the whole room shares in each song section, from the notes as it starts; each light takes the nearest. 0 turns it off.', 'momentFeel'],
@@ -410,7 +419,7 @@ const DEFAULTS = { mode: 'pulse', line: 'auto', scale: 'blocks', colors_by: 'gro
   palette: ['#9e00ff', '#ff2bd6', '#00e5ff', '#2b5bff'], band_colors: ['#ff0040', '#ff7a00', '#39ff14', '#00e5ff', '#9e00ff'],
   brightness: 60, flash: 100, base: 0, hold_ms: 200, change_every: 16, heat: 0, wave_speed: 30, wave_tail: 4, white_ms: 60,
   strobe_count: 3, strobe_div: 4, accent: 6, run: 8, sparkle_keys: 18, color_set: 3, calm_beats: 16, mono_every: 3, mono_beats: 16, rainbow_beats: 8,
-  strobe_bars: 2, pattern_bars: 4, light_brightness: { strip: 0, mirror: 0, squiggle: 0, keyboard: 35, razer: 0, mousepad: 0, apc64: 50 },
+  strobe_bars: 2, pattern_bars: 4, bed: 25, light_brightness: { strip: 0, mirror: 0, squiggle: 0, keyboard: 35, razer: 0, mousepad: 0, apc64: 50 },
   sensitivity: 11, gap_ms: 60, floor: 10, steps: 4, contrast: 5,
   assign: { strip: 'bass', mirror: 'section', squiggle: 'mid', keyboard: 'treble', razer: 'mid', mousepad: 'tempo' },
   side: { strip: 'A', keyboard: 'A', mirror: 'B', squiggle: 'B', razer: 'B', mousepad: 'A' } };
@@ -449,7 +458,7 @@ const PRESETS = [
   { name: 'Ping-pong room', set: { mode: 'ping-pong', strip: 'bounce', beat_on: 'bass' } },
   { name: 'Bands room', set: { mode: 'bands', strip: 'spectrum' } },
   { name: 'Meter rise', set: { mode: 'beat', strip: 'meter', beat_on: 'all' } },
-  { name: 'Slow and dim', set: { brightness: 25, gap_ms: 1000, sensitivity: 3 } }];
+  { name: 'Slow and dim', set: { brightness: 25, flash: 6, gap_ms: 1000, sensitivity: 3 } }];   // flash for Pulse, brightness for the others
 
 const isHex = (c) => typeof c === 'string' && /^#[0-9a-f]{6}$/i.test(c);
 const ids = (list) => list.map((x) => x[0]);
@@ -617,7 +626,7 @@ function build() {
       S = clean(over(p.set)); Object.assign(pending, pick(S, Object.keys(p.set))); fill(); drawLive();
       post(true, p.name + ': on. Play something on Spotify on this PC.');
     });
-    $('presets').append(b);
+    $(p.set.mode && p.set.mode !== 'pulse' ? 'oldPresets' : 'presets').append(b);   // the ones that leave Pulse sit in their own fold
   }
   for (const [key, label, card] of CHOICES) {
     const box = el('label', 'choice'); box.append(el('span', null, label));
@@ -773,7 +782,7 @@ function fill() {
   S.band_colors.forEach((c, i) => { const sw = swatch(c, BANDS[i] + ' colour', (v) => change({ band_colors: S.band_colors.map((x, j) => (j === i ? v : x)) }), null); sw.append(el('span', null, BANDS[i])); bc.append(sw); });
   $('songColors').checked = S.song_colors;
   renderGroups();
-  for (const b of $('presets').children) {
+  for (const b of document.querySelectorAll('[data-preset]')) {
     const p = PRESETS.find((x) => x.name === b.dataset.preset);
     b.setAttribute('aria-pressed', String(!!p && presetOn(p)));
   }
@@ -887,6 +896,7 @@ function uses() {
   u.rainbow_beats = !P ? pulseOnly : S.rainbow === 'off' ? 'Rainbows are off.' : '';
   u.pattern_bars = !P ? pulseOnly : [S.line, S.keyboard, S.apc64].includes('auto') ? '' : 'Only when the wall line, the keyboard or the APC64 changes with the song.';
   u.strobe_bars = !P ? pulseOnly : ['both', 'accents'].includes(S.white) ? '' : 'Only when white flashes include accents.';
+  u.bed = !P ? pulseOnly : ['auto', 'snake', 'roll'].includes(S.line) || ['auto', 'snake', 'roll'].includes(S.keyboard) || S.rainbow !== 'off' || S.apc64 !== 'off' ? '' : 'Only for the moving looks: rolls, snakes, rainbows and the APC64.';
   for (const id of Object.keys(S.light_brightness)) u['bright-' + id] = P ? '' : 'Only used in Pulse (Brightness sets every light in the other ways).';
   // Colours.
   const covered = [S.color_set > 0 && 'room colours (' + S.color_set + ')', S.mono !== 'off' && 'one-colour moments', S.rainbow !== 'off' && 'rainbows'].filter(Boolean);
@@ -1069,9 +1079,10 @@ $('power').addEventListener('click', () => post(!on));
 // Reset to default: light-hive-server's own starting settings, keeping her brightness (she has turned the flash down
 // twice: "too bright").
 $('defaults').addEventListener('click', () => {
-  const { brightness, flash, base, ...rest } = DEFAULTS;
+  // Every brightness stays hers (Astra after 1.21.0: "make dimmer"): Brightness, Flash, Base, each light's and Between hits.
+  const { brightness, flash, base, light_brightness, bed, ...rest } = DEFAULTS;
   S = clean({ ...S, ...rest }); Object.assign(pending, pick(S, Object.keys(rest))); fill(); drawLive();
-  post(null, 'Back to the starting settings (your Brightness, Flash and Base stay as they are).');
+  post(null, 'Back to the starting settings (every brightness stays as you set it).');
 });
 // Random mix: a random pick of every pattern, colour way, moment and part, in whole bars; brightness, flash, base, hold,
 // beats and the shortest gap stay hers. It says what it picked.
