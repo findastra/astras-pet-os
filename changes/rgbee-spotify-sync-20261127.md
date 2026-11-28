@@ -221,7 +221,7 @@ the first section, also make those devices look like tools like the other sectio
   - then the presets, the devices and the colours; How the lights move, Patterns and moments and Feel fold away under
     **More settings** (it stays open or shut in this browser).
 - **Black spots**, a new first preset (Astra, 22:08: "i need more black spots and less overall light"): Base 0 and
-  Between hits 0 (black between hits), Flash 25%, Hold 100 ms, 10 sparkle keys, no rainbows, white strobes on drops only
+  Between hits 0 (black between hits), Flash 40% (25% was "NOW NOT BRIGHT ENOUGH HAHA"), Hold 100 ms, 10 sparkle keys, no rainbows, white strobes on drops only
   (2). Applied to her show at her ask; her settings before (Flash 51, Base 8, Between hits 66, Hold 200, 32 sparkle keys,
   rainbows at drops, white on drops and kicks) are kept on the PC to put back.
 - **How fast it answers:** with light-hive-server 1.21.1 (a show step every 20 ms) the Now line says how long a heard hit
