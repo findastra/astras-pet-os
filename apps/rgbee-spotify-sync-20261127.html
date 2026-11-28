@@ -463,6 +463,10 @@ const DEFAULTS = { mode: 'pulse', line: 'auto', scale: 'blocks', colors_by: 'gro
   side: { strip: 'A', keyboard: 'A', mirror: 'B', squiggle: 'B', razer: 'B', mousepad: 'A' } };
 // A preset's assign or side names only the lights it changes; the others keep theirs.
 const PRESETS = [
+  // Astra, 2026-11-27 22:08: "i need more black spots and less overall light": black between hits (Base 0, Between hits
+  // 0), half the flash, shorter flashes, fewer sparkle keys, no rainbows, white strobes only on drops. Patterns, colours
+  // and which device follows what stay as they are.
+  { name: 'Black spots', set: { mode: 'pulse', flash: 25, base: 0, bed: 0, heat: 0, hold_ms: 100, sparkle_keys: 10, white: 'drops', strobe_count: 2, rainbow: 'off' } },
   // Astra: "still feels too random ... can you do a setting where it matches to synthestesia", "still too bright"
   // (light-hive-server 1.17.0): each part in the colour of its notes, flash 12.
   // Then "i wanna see the synethesia colors work": room colours, slowing, one-colour and rainbow moments all cover the
